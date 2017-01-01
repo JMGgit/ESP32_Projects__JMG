@@ -8,15 +8,26 @@
 #include "driver/uart.h"
 #include <string.h>
 
+#define UC_CTRL_LED_GPIO		GPIO_NUM_5
 
-#define WIFI_SSID 		"ARRIS-55C2"
-#define WIFI_PASSWORD 	"1Bonjour1"
+#define WIFI_SSID 				"Leo-Wohnung"
+#define WIFI_PASSWORD 			"ObereBurghalde33"
 
-#define UART_PORT		UART_NUM_1
-#define UART_TX_GPIO	GPIO_NUM_1
-#define UART_RX_GPIO	GPIO_NUM_1
-#define UART_RTS_GPIO	GPIO_NUM_1
-#define UART_CTS_GPIO	GPIO_NUM_1
+#define UART1_TX_GPIO			GPIO_NUM_17
+#define UART1_RX_GPIO			GPIO_NUM_16
+#define UART1_RTS_GPIO			UART_PIN_NO_CHANGE
+#define UART1_CTS_GPIO			UART_PIN_NO_CHANGE
+
+/* Rx buffer not necessary but has to be greater UART_FIFO_LEN */
+#define UART1_RX_BUFFER_LENGTH	(UART_FIFO_LEN + 1)
+
+/* Tx buffer not needed for now */
+#define UART1_TX_BUFFER_LENGTH	0
+
+/* According to "Glediator protocol" */
+#define UART_LED_FIRST_BYTE		1
+
+#define LED_TEST_VALUE			100
 
 
 esp_err_t event_handler(void *ctx, system_event_t *event)
@@ -24,9 +35,11 @@ esp_err_t event_handler(void *ctx, system_event_t *event)
 	return ESP_OK;
 }
 
-#define NUMBER_OF_LEDS	1008
+#define NUMBER_OF_LEDS			1008
+#define LED_TABLE_LENGTH		((3 * NUMBER_OF_LEDS) + 1)
 
-uint8_t ledTable[NUMBER_OF_LEDS + 1];
+
+uint8_t ledTable[LED_TABLE_LENGTH];
 
 
 void app_main(void)
@@ -46,26 +59,27 @@ void app_main(void)
 	esp_wifi_set_storage(WIFI_STORAGE_RAM);
 	esp_wifi_set_mode(WIFI_MODE_STA);
 
-	strcpy(sta_config.sta.ssid, WIFI_SSID);
-	strcpy(sta_config.sta.password, WIFI_PASSWORD);
+	memcpy(&(sta_config.sta.ssid), WIFI_SSID, sizeof(WIFI_SSID));
+	memcpy(&(sta_config.sta.password), WIFI_PASSWORD, sizeof(WIFI_PASSWORD));
+
 	sta_config.sta.bssid_set = false;
 
 	esp_wifi_set_config(WIFI_IF_STA, &sta_config);
 	esp_wifi_start();
 	esp_wifi_connect();
 
-	gpio_set_direction(GPIO_NUM_5, GPIO_MODE_OUTPUT);
+	gpio_set_direction(UC_CTRL_LED_GPIO, GPIO_MODE_OUTPUT);
 
 
 	/************ LED TABLE **************/
 
-	ledTable[0] = 1;
+	ledTable[0] = UART_LED_FIRST_BYTE;
 
-	for (uint16_t it = 1; it < (NUMBER_OF_LEDS + 1); it++)
+	for (uint16_t ledIt = 1; ledIt < LED_TABLE_LENGTH; ledIt++)
 	{
-		if ((it - 1) % 3 == 0)
+		if ((ledIt - 1) % 3 == 2)
 		{
-			ledTable[it] = 100;
+			ledTable[ledIt] = LED_TEST_VALUE;
 		}
 	}
 
@@ -81,20 +95,26 @@ void app_main(void)
 	uartConfig.rx_flow_ctrl_thresh = 122;
 	uartConfig.stop_bits = UART_STOP_BITS_1;
 
-	uart_param_config(UART_PORT, &uartConfig);
-	uart_set_pin(UART_PORT, UART_TX_GPIO, UART_RX_GPIO, UART_RTS_GPIO, UART_CTS_GPIO);
+	uart_param_config(UART_NUM_1, &uartConfig);
 
+	uart_set_pin(UART_NUM_1, UART1_TX_GPIO, UART1_RX_GPIO, UART1_RTS_GPIO, UART1_CTS_GPIO);
+
+	/* no queue and interrupt for now */
+	uart_driver_install(UART_NUM_1, UART1_RX_BUFFER_LENGTH, UART1_TX_BUFFER_LENGTH, 0, NULL, 0);
 
 
 	/********** MAIN LOOP *************/
 
 	uint8_t level = 0;
 
-	while (true)
+	while (1)
 	{
-		gpio_set_level(GPIO_NUM_5, level);
 		level = !level;
-		vTaskDelay(300 / portTICK_PERIOD_MS);
+		gpio_set_level(UC_CTRL_LED_GPIO, level);
+		uart_write_bytes(UART_NUM_1, (char*)&ledTable[0], LED_TABLE_LENGTH);
+
+		/* add delay to avoid conflict with SPI output of ATMega (only one buffer is used for now) */
+		vTaskDelay(5 / portTICK_PERIOD_MS);
 	}
 }
 
