@@ -6,28 +6,9 @@
 #include "nvs_flash.h"
 #include "driver/gpio.h"
 #include "driver/uart.h"
+#include "ArtNet.h"
+#include "Main_Cfg.h"
 #include <string.h>
-
-#define UC_CTRL_LED_GPIO		GPIO_NUM_5
-
-#define WIFI_SSID 				"Leo-Wohnung"
-#define WIFI_PASSWORD 			"ObereBurghalde33"
-
-#define UART1_TX_GPIO			GPIO_NUM_17
-#define UART1_RX_GPIO			GPIO_NUM_16
-#define UART1_RTS_GPIO			UART_PIN_NO_CHANGE
-#define UART1_CTS_GPIO			UART_PIN_NO_CHANGE
-
-/* Rx buffer not necessary but has to be greater UART_FIFO_LEN */
-#define UART1_RX_BUFFER_LENGTH	(UART_FIFO_LEN + 1)
-
-/* Tx buffer not needed for now */
-#define UART1_TX_BUFFER_LENGTH	0
-
-/* According to "Glediator protocol" */
-#define UART_LED_FIRST_BYTE		1
-
-#define LED_TEST_VALUE			100
 
 
 esp_err_t event_handler(void *ctx, system_event_t *event)
@@ -35,23 +16,12 @@ esp_err_t event_handler(void *ctx, system_event_t *event)
 	return ESP_OK;
 }
 
-#define NUMBER_OF_LEDS			1008
-#define LED_TABLE_LENGTH		((3 * NUMBER_OF_LEDS) + 1)
-
 
 uint8_t ledTable[LED_TABLE_LENGTH];
 
 
-void app_main(void)
+void Wifi__init (void)
 {
-	nvs_flash_init();
-	tcpip_adapter_init();
-
-	esp_event_loop_init(event_handler, NULL);
-
-
-	/********* WIFI CONFIG ************/
-
 	wifi_config_t sta_config;
 	wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
 
@@ -67,25 +37,11 @@ void app_main(void)
 	esp_wifi_set_config(WIFI_IF_STA, &sta_config);
 	esp_wifi_start();
 	esp_wifi_connect();
-
-	gpio_set_direction(UC_CTRL_LED_GPIO, GPIO_MODE_OUTPUT);
-
-
-	/************ LED TABLE **************/
-
-	ledTable[0] = UART_LED_FIRST_BYTE;
-
-	for (uint16_t ledIt = 1; ledIt < LED_TABLE_LENGTH; ledIt++)
-	{
-		if ((ledIt - 1) % 3 == 2)
-		{
-			ledTable[ledIt] = LED_TEST_VALUE;
-		}
-	}
+}
 
 
-	/********** UART 1 CONFIG ***************/
-
+void UART1__init (void)
+{
 	uart_config_t uartConfig;
 
 	uartConfig.baud_rate = 1250000;
@@ -101,11 +57,40 @@ void app_main(void)
 
 	/* no queue and interrupt for now */
 	uart_driver_install(UART_NUM_1, UART1_RX_BUFFER_LENGTH, UART1_TX_BUFFER_LENGTH, 0, NULL, 0);
+}
 
 
-	/********** MAIN LOOP *************/
+void Main__Init (void)
+{
+	nvs_flash_init();
+	tcpip_adapter_init();
+	esp_event_loop_init(event_handler, NULL);
+	gpio_set_direction(UC_CTRL_LED_GPIO, GPIO_MODE_OUTPUT);
 
+
+	/************ LED TABLE **************/
+
+	ledTable[0] = UART_LED_FIRST_BYTE;
+
+	for (uint16_t ledIt = 1; ledIt < LED_TABLE_LENGTH; ledIt++)
+	{
+		if ((ledIt - 1) % 3 == 2)
+		{
+			ledTable[ledIt] = LED_TEST_VALUE;
+		}
+	}
+
+	Wifi__init();
+	UART1__init();
+	ArtNet__init();
+}
+
+
+void app_main (void)
+{
 	uint8_t level = 0;
+
+	Main__Init();
 
 	while (1)
 	{
