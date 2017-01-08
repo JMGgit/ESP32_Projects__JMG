@@ -11,13 +11,30 @@
 #include <string.h>
 
 
-esp_err_t event_handler(void *ctx, system_event_t *event)
+uint8_t wifiConnected;
+uint8_t artNetInitialized;
+
+
+static esp_err_t event_handler(void *ctx, system_event_t *event)
 {
+	switch (event->event_id)
+	{
+		case SYSTEM_EVENT_STA_GOT_IP:
+		{
+			printf("Event handler: SYSTEM_EVENT_STA_GOT_IP -> wifiConnected = true\n");
+			wifiConnected = true;
+			break;
+		}
+
+		default:
+		{
+			/* do nothing */
+			break;
+		}
+	}
+
 	return ESP_OK;
 }
-
-
-uint8_t ledTable[LED_TABLE_LENGTH];
 
 
 void Wifi__init (void)
@@ -37,6 +54,8 @@ void Wifi__init (void)
 	esp_wifi_set_config(WIFI_IF_STA, &sta_config);
 	esp_wifi_start();
 	esp_wifi_connect();
+
+	printf("Wifi__init done\n");
 }
 
 
@@ -57,6 +76,8 @@ void UART1__init (void)
 
 	/* no queue and interrupt for now */
 	uart_driver_install(UART_NUM_1, UART1_RX_BUFFER_LENGTH, UART1_TX_BUFFER_LENGTH, 0, NULL, 0);
+
+	printf("UART1__init done\n");
 }
 
 
@@ -67,39 +88,33 @@ void Main__Init (void)
 	esp_event_loop_init(event_handler, NULL);
 	gpio_set_direction(UC_CTRL_LED_GPIO, GPIO_MODE_OUTPUT);
 
-
-	/************ LED TABLE **************/
-
-	ledTable[0] = UART_LED_FIRST_BYTE;
-
-	for (uint16_t ledIt = 1; ledIt < LED_TABLE_LENGTH; ledIt++)
-	{
-		if ((ledIt - 1) % 3 == 2)
-		{
-			ledTable[ledIt] = LED_TEST_VALUE;
-		}
-	}
-
 	Wifi__init();
 	UART1__init();
-	ArtNet__init();
+
+	printf("Main__Init done\n\n");
 }
 
 
 void app_main (void)
 {
-	uint8_t level = 0;
-
 	Main__Init();
 
 	while (1)
 	{
-		level = !level;
-		gpio_set_level(UC_CTRL_LED_GPIO, level);
-		uart_write_bytes(UART_NUM_1, (char*)&ledTable[0], LED_TABLE_LENGTH);
-
-		/* add delay to avoid conflict with SPI output of ATMega (only one buffer is used for now) */
-		vTaskDelay(5 / portTICK_PERIOD_MS);
+		if (wifiConnected)
+		{
+			if (!artNetInitialized)
+			{
+				if (ArtNet__init() == ESP_OK)
+				{
+					artNetInitialized = true;
+				}
+			}
+		}
+		else
+		{
+			artNetInitialized = false;
+		}
 	}
 }
 

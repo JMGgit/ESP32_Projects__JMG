@@ -33,7 +33,6 @@
 									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\freertos\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\json\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\log\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\lwip\api&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\mbedtls\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\newlib\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\nghttp\include&quot;"/>
@@ -45,8 +44,9 @@
 									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\wpa_supplicant\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\xtensa-debug-module\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\tcpip_adapter\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}\main\ArtNet&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}\main\Main&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\lwip\include\lwip&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\lwip\include\lwip\port&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\lwip\include\lwip\posix&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.710902898" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
@@ -121,6 +121,14 @@
 				<buildCommand>bash</buildCommand>
 				<buildArguments>${IDF_PATH}/tools/windows/eclipse_make.sh</buildArguments>
 				<buildTarget>flash</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="all flash" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>bash</buildCommand>
+				<buildArguments>${IDF_PATH}/tools/windows/eclipse_make.sh -j4</buildArguments>
+				<buildTarget>all flash</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>true</runAllBuilders>

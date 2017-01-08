@@ -29,8 +29,10 @@
 #define UART_LED_FIRST_BYTE		1
 
 /********* LEDS *********/
-#define NUMBER_OF_LEDS			1008
-#define LED_TABLE_LENGTH		((3 * NUMBER_OF_LEDS) + 1)
+#define LED_TABLE_SIZE_X		42
+#define LED_TABLE_SIZE_Y		24
+#define NUMBER_OF_LEDS			(LED_TABLE_SIZE_X * LED_TABLE_SIZE_Y)
+#define LED_TABLE_ARRAY_LENGTH	((3 * NUMBER_OF_LEDS) + 1)
 #define LED_TEST_VALUE			100
 
 
