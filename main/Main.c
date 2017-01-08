@@ -13,7 +13,7 @@
 
 uint8_t wifiConnected;
 uint8_t artNetInitialized;
-
+void Wifi__init (void);
 
 static esp_err_t event_handler(void *ctx, system_event_t *event)
 {
@@ -23,6 +23,14 @@ static esp_err_t event_handler(void *ctx, system_event_t *event)
 		{
 			printf("Event handler: SYSTEM_EVENT_STA_GOT_IP -> wifiConnected = true\n");
 			wifiConnected = true;
+			break;
+		}
+
+		case SYSTEM_EVENT_STA_DISCONNECTED:
+		{
+			printf("Event handler: SYSTEM_EVENT_STA_DISCONNECTED -> wifiConnected = false\n");
+			wifiConnected = false;
+			Wifi__init();
 			break;
 		}
 
@@ -42,6 +50,7 @@ void Wifi__init (void)
 	wifi_config_t sta_config;
 	wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
 
+	tcpip_adapter_init();
 	esp_wifi_init(&cfg);
 	esp_wifi_set_storage(WIFI_STORAGE_RAM);
 	esp_wifi_set_mode(WIFI_MODE_STA);
@@ -81,23 +90,23 @@ void UART1__init (void)
 }
 
 
-void Main__Init (void)
+void Main__init (void)
 {
 	nvs_flash_init();
-	tcpip_adapter_init();
 	esp_event_loop_init(event_handler, NULL);
 	gpio_set_direction(UC_CTRL_LED_GPIO, GPIO_MODE_OUTPUT);
+	gpio_set_direction(UC_TEST1_GPIO, GPIO_MODE_OUTPUT);
 
 	Wifi__init();
 	UART1__init();
 
-	printf("Main__Init done\n\n");
+	printf("Main__init done\n\n");
 }
 
 
 void app_main (void)
 {
-	Main__Init();
+	Main__init();
 
 	while (1)
 	{
@@ -110,10 +119,10 @@ void app_main (void)
 					artNetInitialized = true;
 				}
 			}
-		}
-		else
-		{
-			artNetInitialized = false;
+			else
+			{
+				ArtNet__mainFunction();
+			}
 		}
 	}
 }

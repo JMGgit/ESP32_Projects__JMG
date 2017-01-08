@@ -11,6 +11,7 @@
 
 /********** CTL LED *********/
 #define UC_CTRL_LED_GPIO		GPIO_NUM_5
+#define UC_TEST1_GPIO			GPIO_NUM_4
 
 /********* WIFI *********/
 #define WIFI_SSID 				"Leo-Wohnung"
@@ -29,11 +30,11 @@
 #define UART_LED_FIRST_BYTE		1
 
 /********* LEDS *********/
-#define LED_TABLE_SIZE_X		42
-#define LED_TABLE_SIZE_Y		24
+#define LED_TABLE_SIZE_X		10
+#define LED_TABLE_SIZE_Y		6
 #define NUMBER_OF_LEDS			(LED_TABLE_SIZE_X * LED_TABLE_SIZE_Y)
-#define LED_TABLE_ARRAY_LENGTH	((3 * NUMBER_OF_LEDS) + 1)
-#define LED_TEST_VALUE			100
+#define NUMBER_OF_LEDS_CHANNELS	(3* NUMBER_OF_LEDS)
+#define LED_TABLE_ARRAY_LENGTH	NUMBER_OF_LEDS_CHANNELS
 
 
 #endif /* MAIN_CFG_H_ */
