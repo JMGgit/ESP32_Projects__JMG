@@ -35,20 +35,17 @@ uint8_t univDataRecv[ARTNET_UNIVERSE_NB];
 
 artNetState_t artNetState = ARTNET_STATE_INIT;
 
+uint8_t *ledData;
+uint8_t ledDataStart;
+uint16_t ledDataLength;
+
 
 void ArtNet__swapRcvSendTables (void)
 {
-	uint8_t univIt;
 	uint8_t *tempPtr = &ledTablePtr_Send[0];
 
 	ledTablePtr_Send = &ledTablePtr_Recv[0];
 	ledTablePtr_Recv = tempPtr;
-
-	/* re init universe table */
-	for (univIt = 0; univIt < ARTNET_UNIVERSE_NB; univIt++)
-	{
-		univDataRecv[univIt] = false;
-	}
 }
 
 
@@ -149,12 +146,16 @@ esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t **ledDataPtr, uint16_
 
 void ArtNet__storeLedData (const uint8_t *data, const uint16_t length, uint8_t universe)
 {
-	uint8_t univIt;
-	uint8_t allUnivDataRcv = true;
-
 	memcpy(&ledTablePtr_Recv[1 + (universe * ARTNET_CHANNELS_PER_UNIVERSE)], data, length);
 	univDataRecv[universe] = true;
+}
 
+
+uint8_t ArtNet__allDataAvailable (void)
+{
+	uint8_t univIt;
+	uint8_t allUnivDataRcv = true;
+	
 #if ARTNET_DEBUG_FRAME_INFO
 	printf("Data for universes available:");
 #endif
@@ -171,14 +172,7 @@ void ArtNet__storeLedData (const uint8_t *data, const uint16_t length, uint8_t u
 	printf("\n");
 #endif
 
-	if (allUnivDataRcv)
-	{
-		artNetState = ARTNET_STATE_SEND_UART;
-	}
-	else
-	{
-		artNetState = ARTNET_STATE_RECV_IDLE;
-	}
+	return allUnivDataRcv;
 }
 
 
@@ -200,7 +194,7 @@ void ArtNet__sendLedDataToUart1 (void)
 		printf(" %d", ledTablePtr_Send[dataIt]);
 	}
 
-	printf("\n");
+	printf("\n\n");
 #endif
 }
 
@@ -208,9 +202,6 @@ void ArtNet__sendLedDataToUart1 (void)
 void ArtNet__recv (void *arg, struct udp_pcb *pcb, struct pbuf *udpBuffer, const ip_addr_t *addr, uint16_t port)
 {
 	const uint16_t length = udpBuffer->len;
-	uint8_t *ledData;
-	uint8_t ledDataStart;
-	uint16_t ledDataLength;
 
 	gpio_set_level(UC_TEST1_GPIO, 1);
 
@@ -218,15 +209,11 @@ void ArtNet__recv (void *arg, struct udp_pcb *pcb, struct pbuf *udpBuffer, const
 	{
 		if ((artNetState == ARTNET_STATE_IDLE) || (artNetState == ARTNET_STATE_RECV_IDLE))
 		{
-
-			artNetState = ARTNET_STATE_RECV_BUSY;
-
+			artNetState = ARTNET_STATE_RECV_UDP;
 			memcpy(udpData, udpBuffer->payload, length);
 
 #if ARTNET_DEBUG_FRAME_INFO
 			printf("New UDP data - buffer length: %d\n", length);
-
-
 			printf("Buffer data:");
 
 			for (uint16_t it = 0; it < length; it++)
@@ -237,18 +224,7 @@ void ArtNet__recv (void *arg, struct udp_pcb *pcb, struct pbuf *udpBuffer, const
 			printf("\n");
 #endif
 
-			if (ArtNet__decodeDmxFrame(udpData, &ledData, &ledDataLength, &ledDataStart) == ESP_OK)
-			{
-				ArtNet__storeLedData(ledData, ledDataLength, ledDataStart);
-			}
-			else
-			{
-				artNetState = ARTNET_STATE_RECV_IDLE;
-			}
-
-#if ARTNET_DEBUG_FRAME_INFO
-			printf("\n");
-#endif
+			artNetState = ARTNET_STATE_RECV_DECODE;
 		}
 
 		pbuf_free(udpBuffer);
@@ -305,12 +281,52 @@ esp_err_t ArtNet__init (void)
 
 void ArtNet__mainFunction (void)
 {
-	if (artNetState == ARTNET_STATE_SEND_UART)
-	{
-		ArtNet__swapRcvSendTables();
-		ArtNet__sendLedDataToUart1();
+	uint8_t univIt;
 
-		artNetState = ARTNET_STATE_IDLE;
+	switch (artNetState)
+	{
+		case ARTNET_STATE_RECV_DECODE:
+		{
+			if (ArtNet__decodeDmxFrame(udpData, &ledData, &ledDataLength, &ledDataStart) == ESP_OK)
+			{
+				ArtNet__storeLedData(ledData, ledDataLength, ledDataStart);
+				
+				if (ArtNet__allDataAvailable())
+				{
+					/* re-init universe table */
+					for (univIt = 0; univIt < ARTNET_UNIVERSE_NB; univIt++)
+					{
+						univDataRecv[univIt] = false;
+					}
+
+					artNetState = ARTNET_STATE_SEND_UART;
+				}
+				else
+				{
+					artNetState = ARTNET_STATE_RECV_IDLE;
+				}
+			}
+			else
+			{
+				artNetState = ARTNET_STATE_RECV_IDLE;
+			}
+
+			break;
+		}
+
+		case ARTNET_STATE_SEND_UART:
+		{
+			ArtNet__swapRcvSendTables();
+			ArtNet__sendLedDataToUart1();
+			artNetState = ARTNET_STATE_IDLE;
+			break;
+		}
+
+		default:
+		{
+			break;
+		}
+
 	}
 }
 

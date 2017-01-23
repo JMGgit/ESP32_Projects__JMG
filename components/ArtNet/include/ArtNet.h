@@ -38,9 +38,8 @@ typedef enum
 {
 	ARTNET_STATE_INIT = 0,
 	ARTNET_STATE_IDLE,			/* nothing to do */
-	ARTNET_STATE_RECV_BUSY,
-	//ARTNET_STATE_RECV_UDP, 		/* currently UDP data being copied */
-	//ARTNET_STATE_RECV_DECODE,	/* decoding data */
+	ARTNET_STATE_RECV_UDP, 		/* currently UDP data being copied */
+	ARTNET_STATE_RECV_DECODE,	/* decoding data */
 	ARTNET_STATE_RECV_IDLE,		/* no data processing but LED data not complete, waiting for data */
 	ARTNET_STATE_SEND_UART,
 } artNetState_t;
