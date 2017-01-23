@@ -30,14 +30,15 @@ uint8_t ledTable_2[LED_TABLE_ARRAY_LENGTH];
 uint8_t *ledTablePtr_Recv;
 uint8_t *ledTablePtr_Send;
 
-/* flag to indicate that data for each universe has been received */
-uint8_t univDataRecv[ARTNET_UNIVERSE_NB];
+/* flag to indicate that data for each universe has been received for the current frame*/
+uint16_t univDataRecv[ARTNET_FRAMECOUNTER_MAX + 1];
 
 artNetState_t artNetState = ARTNET_STATE_INIT;
 
 uint8_t *ledData;
 uint8_t ledDataStart;
 uint16_t ledDataLength;
+uint8_t currentFrame = 0;
 
 
 void ArtNet__swapRcvSendTables (void)
@@ -49,14 +50,14 @@ void ArtNet__swapRcvSendTables (void)
 }
 
 
-esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t **ledDataPtr, uint16_t *ledDataLength, uint8_t *ledStart)
+esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t *frameNb, uint8_t **ledDataPtr, uint16_t *ledDataLength, uint8_t *ledStart)
 {
 	esp_err_t retVal = ESP_FAIL;
 
 	const uint16_t opCode = (buffer[9] << 8) + buffer[8];
 	const uint16_t protVersion = (buffer[10] << 8) + buffer[11];
-#if ARTNET_DEBUG_FRAME_INFO
 	const uint8_t seqNum = buffer[12];
+#if ARTNET_DEBUG_FRAME_INFO
 	const uint8_t physInput = buffer[13];
 #endif
 	const uint8_t subnet = buffer[14] / 16;
@@ -99,8 +100,9 @@ esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t **ledDataPtr, uint16_
 									||	((universe < ARTNET_LAST_UNIVERSE) && (length <= ARTNET_CHANNELS_PER_UNIVERSE))
 							)
 							{
+								*frameNb = seqNum;
 								*ledStart = universe;
-								*ledDataLength = (buffer[16] << 8) + buffer[17];
+								*ledDataLength = length;
 								*ledDataPtr = &buffer[18];
 							}
 							else
@@ -144,35 +146,19 @@ esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t **ledDataPtr, uint16_
 }
 
 
-void ArtNet__storeLedData (const uint8_t *data, const uint16_t length, uint8_t universe)
+void ArtNet__storeLedData (const uint8_t frameNb, const uint8_t *data, const uint16_t length, uint8_t universe)
 {
 	memcpy(&ledTablePtr_Recv[1 + (universe * ARTNET_CHANNELS_PER_UNIVERSE)], data, length);
-	univDataRecv[universe] = true;
+	univDataRecv[frameNb] |= (1 << universe);
 }
 
 
-uint8_t ArtNet__allDataAvailable (void)
+uint8_t ArtNet__allDataAvailable (uint8_t frameNb)
 {
-	uint8_t univIt;
-	uint8_t allUnivDataRcv = true;
-	
 #if ARTNET_DEBUG_FRAME_INFO
-	printf("Data for universes available:");
+	printf("Data for universes available: %d\n", univDataRecv[univIt]);
 #endif
-
-	for (univIt = 0; univIt < ARTNET_UNIVERSE_NB; univIt++)
-	{
-		allUnivDataRcv &= univDataRecv[univIt];
-#if ARTNET_DEBUG_FRAME_INFO
-		printf(" %d", univDataRecv[univIt]);
-#endif
-	}
-
-#if ARTNET_DEBUG_FRAME_INFO
-	printf("\n");
-#endif
-
-	return allUnivDataRcv;
+	return (univDataRecv[frameNb] == ((1 << ARTNET_UNIVERSE_NB) - 1));
 }
 
 
@@ -281,28 +267,34 @@ esp_err_t ArtNet__init (void)
 
 void ArtNet__mainFunction (void)
 {
-	uint8_t univIt;
-
+	uint8_t newFrame = 0;
+	
 	switch (artNetState)
 	{
 		case ARTNET_STATE_RECV_DECODE:
 		{
-			if (ArtNet__decodeDmxFrame(udpData, &ledData, &ledDataLength, &ledDataStart) == ESP_OK)
+			if (ArtNet__decodeDmxFrame(udpData, &newFrame, &ledData, &ledDataLength, &ledDataStart) == ESP_OK)
 			{
-				ArtNet__storeLedData(ledData, ledDataLength, ledDataStart);
-				
-				if (ArtNet__allDataAvailable())
+				if (newFrame >= currentFrame)
 				{
-					/* re-init universe table */
-					for (univIt = 0; univIt < ARTNET_UNIVERSE_NB; univIt++)
+					newFrame = currentFrame;
+					ArtNet__storeLedData(currentFrame, ledData, ledDataLength, ledDataStart);
+					
+					if (ArtNet__allDataAvailable(currentFrame))
 					{
-						univDataRecv[univIt] = false;
+						/* re-init universe table */
+						univDataRecv[currentFrame] = 0;
+						artNetState = ARTNET_STATE_SEND_UART;
 					}
-
-					artNetState = ARTNET_STATE_SEND_UART;
+					else
+					{
+						artNetState = ARTNET_STATE_RECV_IDLE;
+					}
 				}
 				else
 				{
+					/* wrong frame number (old frame) -> re init universe table and reset state */
+					univDataRecv[currentFrame] = 0;
 					artNetState = ARTNET_STATE_RECV_IDLE;
 				}
 			}
