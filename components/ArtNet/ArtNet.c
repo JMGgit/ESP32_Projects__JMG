@@ -22,7 +22,6 @@ Net: 16 consecutive sub-nets
 
 
 uint8_t udpData[ARTNET_MAX_DATA_LENGTH];
-uint8_t artNetDataReady;
 
 /* define 2 led tables for receive and send */
 uint8_t ledTable_1[LED_TABLE_ARRAY_LENGTH];
@@ -33,6 +32,8 @@ uint8_t *ledTablePtr_Send;
 
 /* flag to indicate that data for each universe has been received */
 uint8_t univDataRecv[ARTNET_UNIVERSE_NB];
+
+artNetState_t artNetState = ARTNET_STATE_INIT;
 
 
 void ArtNet__swapRcvSendTables (void)
@@ -172,7 +173,11 @@ void ArtNet__storeLedData (const uint8_t *data, const uint16_t length, uint8_t u
 
 	if (allUnivDataRcv)
 	{
-		artNetDataReady = true;
+		artNetState = ARTNET_STATE_SEND_UART;
+	}
+	else
+	{
+		artNetState = ARTNET_STATE_RECV_IDLE;
 	}
 }
 
@@ -185,6 +190,8 @@ void ArtNet__sendLedDataToUart1 (void)
 
 	uart_write_bytes(UART_NUM_1, (char*)&uartFirstByte, 1);
 	uart_write_bytes(UART_NUM_1, (char*)&ledTablePtr_Send[0], LED_TABLE_ARRAY_LENGTH);
+
+	//vTaskDelay(5 / portTICK_PERIOD_MS);
 
 	gpio_set_level(UC_CTRL_LED_GPIO, 0);
 
@@ -212,30 +219,41 @@ void ArtNet__recv (void *arg, struct udp_pcb *pcb, struct pbuf *udpBuffer, const
 
 	if (udpBuffer != NULL)
 	{
-		memcpy(udpData, udpBuffer->payload, length);
+		if ((artNetState == ARTNET_STATE_IDLE) || (artNetState == ARTNET_STATE_RECV_IDLE))
+		{
+
+			artNetState = ARTNET_STATE_RECV_BUSY;
+
+			memcpy(udpData, udpBuffer->payload, length);
 
 #if ARTNET_DEBUG_FRAME_INFO
-		printf("New UDP data - buffer length: %d\n", length);
+			printf("New UDP data - buffer length: %d\n", length);
 
 
-		printf("Buffer data:");
+			printf("Buffer data:");
 
-		for (uint16_t it = 0; it < length; it++)
-		{
-			printf(" {%u,%u}", it, udpData[it]);
-		}
+			for (uint16_t it = 0; it < length; it++)
+			{
+				printf(" {%u,%u}", it, udpData[it]);
+			}
 
-		printf("\n");
+			printf("\n");
 #endif
 
-		if (ArtNet__decodeDmxFrame(udpData, &ledData, &ledDataLength, &ledDataStart) == ESP_OK)
-		{
-			ArtNet__storeLedData(ledData, ledDataLength, ledDataStart);
-		}
+			if (ArtNet__decodeDmxFrame(udpData, &ledData, &ledDataLength, &ledDataStart) == ESP_OK)
+			{
+				ArtNet__storeLedData(ledData, ledDataLength, ledDataStart);
+			}
+			else
+			{
+				artNetState = ARTNET_STATE_RECV_IDLE;
+			}
 
 #if ARTNET_DEBUG_FRAME_INFO
-		printf("\n");
+			printf("\n");
 #endif
+		}
+
 		pbuf_free(udpBuffer);
 	}
 
@@ -249,8 +267,6 @@ esp_err_t ArtNet__init (void)
 
 	esp_err_t retVal = ESP_FAIL;
 	struct udp_pcb* pcb;
-
-	artNetDataReady = false;
 
 	/* init pointer to table */
 	ledTablePtr_Recv = &ledTable_1[0];
@@ -270,6 +286,7 @@ esp_err_t ArtNet__init (void)
 		{
 			udp_recv(pcb, ArtNet__recv, NULL);
 			printf("ArtNet__init OK\n");
+			artNetState = ARTNET_STATE_IDLE;
 			retVal = ESP_OK;
 		}
 		else
@@ -288,14 +305,12 @@ esp_err_t ArtNet__init (void)
 
 void ArtNet__mainFunction (void)
 {
-	if (artNetDataReady)
+	if (artNetState == ARTNET_STATE_SEND_UART)
 	{
-#if ARTNET_DEBUG_FRAME_INFO
-		printf("ArtNet data ready!!\n");
-#endif
-		artNetDataReady = false;
 		ArtNet__swapRcvSendTables();
 		ArtNet__sendLedDataToUart1();
+
+		artNetState = ARTNET_STATE_IDLE;
 	}
 }
 

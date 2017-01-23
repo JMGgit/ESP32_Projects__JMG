@@ -30,6 +30,23 @@
 #define ARTNET_SUBNET					0
 #define ARTNET_UNIVERSE_NB				((NUMBER_OF_LEDS_CHANNELS / ARTNET_CHANNELS_PER_UNIVERSE) + 1)
 #define ARTNET_LAST_UNIVERSE			(ARTNET_UNIVERSE_NB - 1)
+#define ARTNET_FRAMECOUNTER_MAX			255
+
+
+/********** types *********/
+typedef enum
+{
+	ARTNET_STATE_INIT = 0,
+	ARTNET_STATE_IDLE,			/* nothing to do */
+	ARTNET_STATE_RECV_BUSY,
+	//ARTNET_STATE_RECV_UDP, 		/* currently UDP data being copied */
+	//ARTNET_STATE_RECV_DECODE,	/* decoding data */
+	ARTNET_STATE_RECV_IDLE,		/* no data processing but LED data not complete, waiting for data */
+	ARTNET_STATE_SEND_UART,
+} artNetState_t;
+
+
+/********** functions **********/
 
 esp_err_t ArtNet__init (void);
 void ArtNet__mainFunction (void);

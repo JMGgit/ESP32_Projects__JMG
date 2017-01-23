@@ -3,6 +3,7 @@
 #include "esp_system.h"
 #include "esp_event.h"
 #include "esp_event_loop.h"
+#include "esp_task_wdt.h"
 #include "nvs_flash.h"
 #include "driver/gpio.h"
 #include "driver/uart.h"
@@ -124,6 +125,8 @@ void app_main (void)
 				ArtNet__mainFunction();
 			}
 		}
+
+		esp_task_wdt_feed();
 	}
 }
 
