@@ -152,7 +152,7 @@ void ArtNet__storeLedData (const uint8_t *data, const uint16_t length, uint8_t u
 	uint8_t univIt;
 	uint8_t allUnivDataRcv = true;
 
-	memcpy(&ledTablePtr_Recv[(universe * ARTNET_CHANNELS_PER_UNIVERSE)], data, length);
+	memcpy(&ledTablePtr_Recv[1 + (universe * ARTNET_CHANNELS_PER_UNIVERSE)], data, length);
 	univDataRecv[universe] = true;
 
 #if ARTNET_DEBUG_FRAME_INFO
@@ -184,11 +184,8 @@ void ArtNet__storeLedData (const uint8_t *data, const uint16_t length, uint8_t u
 
 void ArtNet__sendLedDataToUart1 (void)
 {
-	uint8_t uartFirstByte = 1;
-
 	gpio_set_level(UC_CTRL_LED_GPIO, 1);
 
-	uart_write_bytes(UART_NUM_1, (char*)&uartFirstByte, 1);
 	uart_write_bytes(UART_NUM_1, (char*)&ledTablePtr_Send[0], LED_TABLE_ARRAY_LENGTH);
 
 	//vTaskDelay(5 / portTICK_PERIOD_MS);
@@ -271,6 +268,9 @@ esp_err_t ArtNet__init (void)
 	/* init pointer to table */
 	ledTablePtr_Recv = &ledTable_1[0];
 	ledTablePtr_Send = &ledTable_2[0];
+
+	ledTablePtr_Recv[0] = LED_TABLE_FIRST_ELEMENT_VAL;
+	ledTablePtr_Send[0] = LED_TABLE_FIRST_ELEMENT_VAL;
 
 	/* re init universe table */
 	for (univIt = 0; univIt < ARTNET_UNIVERSE_NB; univIt++)
