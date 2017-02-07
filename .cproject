@@ -47,6 +47,7 @@
 									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\lwip\include\lwip&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\lwip\include\lwip\port&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${IDF_PATH_WIN}\components\lwip\include\lwip\posix&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}\build\include&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.710902898" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>

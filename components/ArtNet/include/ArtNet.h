@@ -16,13 +16,18 @@
 #define ARTNET_PORT		0x1936
 
 /* according to protocol: 512 */
-#define ARTNET_CHANNELS_PER_UNIVERSE	24 /* test value for now */
+#define ARTNET_CHANNELS_PER_UNIVERSE	512
 
 /* ArtDmx package: max 512 channels + 18 bytes */
-#define ARTNET_MAX_DATA_LENGTH			(ARTNET_CHANNELS_PER_UNIVERSE + 18)
+#define ARTNET_RX_MAX_DATA_LENGTH		(ARTNET_CHANNELS_PER_UNIVERSE + 18)
 
-/* Op code for data output */
-#define ARTNET_OPCODE_OPOUTPUT			0x5000
+/* ArtPollReply: 178 bytes */
+#define ARTNET_TX_DATA_LENGTH			239
+
+/* Op codes supported */
+#define ARTNET_OPCODE_POLL				0x2000
+#define ARTNET_OPCODE_POLLREPLY			0x2100
+#define ARTNET_OPCODE_DMX				0x5000
 
 #define ARTNET_PROTOCOL_VERSION			14
 
@@ -40,8 +45,9 @@ typedef enum
 	ARTNET_STATE_IDLE,			/* nothing to do */
 	ARTNET_STATE_RECV_UDP, 		/* currently UDP data being copied */
 	ARTNET_STATE_RECV_DECODE,	/* decoding data */
-	ARTNET_STATE_RECV_IDLE,		/* no data processing but LED data not complete, waiting for data */
-	ARTNET_STATE_SEND_UART,
+	ARTNET_STATE_DMX_IDLE,		/* no data processing but LED data not complete, waiting for data */
+	ARTNET_STATE_DMX_UART,
+	ARTNET_STATE_POLL_REPLY
 } artNetState_t;
 
 
