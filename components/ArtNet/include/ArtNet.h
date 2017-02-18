@@ -18,6 +18,8 @@
 /* according to protocol: 512 */
 #define ARTNET_CHANNELS_PER_UNIVERSE	512
 
+#define ARTNET_RX_UDP_FIFO_BUFFER_SIZE	200
+
 /* ArtDmx package: max 512 channels + 18 bytes */
 #define ARTNET_RX_MAX_DATA_LENGTH		(ARTNET_CHANNELS_PER_UNIVERSE + 18)
 
@@ -41,9 +43,9 @@
 /********** types *********/
 typedef enum
 {
-	ARTNET_STATE_INIT = 0,
+	ARTNET_STATE_NO_WIFI = 0,
+	ARTNET_STATE_INIT,
 	ARTNET_STATE_IDLE,			/* nothing to do */
-	ARTNET_STATE_RECV_UDP, 		/* currently UDP data being copied */
 	ARTNET_STATE_RECV_DECODE,	/* decoding data */
 	ARTNET_STATE_DMX_IDLE,		/* no data processing but LED data not complete, waiting for data */
 	ARTNET_STATE_DMX_UART,
@@ -54,9 +56,12 @@ typedef enum
 /********** functions **********/
 
 esp_err_t ArtNet__init (void);
-void ArtNet__mainFunction (void);
+void ArtNet__mainFunction (void *param);
+void ArtNet__testFrame (void);
+esp_err_t ArtNet__getNextLedFrame (uint8_t **ledData, uint16_t *dataLength);
 
 #define ARTNET_DEBUG_FRAME_INFO false
+#define ARTNET_DEBUG_ERROR_INFO true
 
 
 #endif /* ARTNET_H_ */

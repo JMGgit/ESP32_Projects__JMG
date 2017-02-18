@@ -1,5 +1,4 @@
 #include "freertos/FreeRTOS.h"
-#include "esp_wifi.h"
 #include "esp_system.h"
 #include "esp_event.h"
 #include "esp_event_loop.h"
@@ -8,64 +7,17 @@
 #include "driver/gpio.h"
 #include "driver/uart.h"
 #include "ArtNet.h"
+#include "LedController.h"
+#include "Wifi.h"
 #include "Main_Cfg.h"
 #include <string.h>
 
 
-uint8_t wifiConnected;
-uint8_t artNetInitialized;
-void Wifi__init (void);
-
 static esp_err_t event_handler(void *ctx, system_event_t *event)
 {
-	switch (event->event_id)
-	{
-		case SYSTEM_EVENT_STA_GOT_IP:
-		{
-			printf("Event handler: SYSTEM_EVENT_STA_GOT_IP -> wifiConnected = true\n");
-			wifiConnected = true;
-			break;
-		}
-
-		case SYSTEM_EVENT_STA_DISCONNECTED:
-		{
-			printf("Event handler: SYSTEM_EVENT_STA_DISCONNECTED -> wifiConnected = false\n");
-			wifiConnected = false;
-			Wifi__init();
-			break;
-		}
-
-		default:
-		{
-			/* do nothing */
-			break;
-		}
-	}
+	Wifi__systemEvent(event);
 
 	return ESP_OK;
-}
-
-
-void Wifi__init (void)
-{
-	wifi_config_t sta_config;
-	wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-
-	tcpip_adapter_init();
-	esp_wifi_init(&cfg);
-	esp_wifi_set_storage(WIFI_STORAGE_RAM);
-	esp_wifi_set_mode(WIFI_MODE_STA);
-
-	memcpy(&(sta_config.sta.ssid), WIFI_SSID, sizeof(WIFI_SSID));
-	memcpy(&(sta_config.sta.password), WIFI_PASSWORD, sizeof(WIFI_PASSWORD));
-
-	sta_config.sta.bssid_set = false;
-
-	esp_wifi_set_config(WIFI_IF_STA, &sta_config);
-	esp_wifi_start();
-	esp_wifi_connect();
-
-	printf("Wifi__init done\n");
 }
 
 
@@ -98,34 +50,30 @@ void Main__init (void)
 	gpio_set_direction(UC_CTRL_LED_GPIO, GPIO_MODE_OUTPUT);
 	gpio_set_direction(UC_TEST1_GPIO, GPIO_MODE_OUTPUT);
 
-	Wifi__init();
-	UART1__init();
+	/* test */
+	gpio_set_direction(UART1_TX_GPIO, GPIO_MODE_OUTPUT);
 
-	printf("Main__init done\n\n");
+	Wifi__init();
+	//UART1__init();
+
+	printf("Main__init done\n");
 }
 
+
+void Main__createTasks (void)
+{
+	xTaskCreate(LedController__mainFunction, "LedController__mainFunction", 4096, NULL, 5, NULL);
+	xTaskCreate(ArtNet__mainFunction, "ArtNet__mainFunction", 4096, NULL, 5, NULL);
+	printf("Tasks created\n");
+}
 
 void app_main (void)
 {
 	Main__init();
+	Main__createTasks();
 
 	while (1)
 	{
-		if (wifiConnected)
-		{
-			if (!artNetInitialized)
-			{
-				if (ArtNet__init() == ESP_OK)
-				{
-					artNetInitialized = true;
-				}
-			}
-			else
-			{
-				ArtNet__mainFunction();
-			}
-		}
-
 		esp_task_wdt_feed();
 	}
 }
