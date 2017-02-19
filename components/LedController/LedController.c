@@ -16,76 +16,60 @@
 #include "esp_event_loop.h"
 #include "esp_task_wdt.h"
 #include "nvs_flash.h"
-#include "driver/gpio.h"
+#include "uC.h"
 #include "driver/uart.h"
 #include "Main_Cfg.h"
 #include "ArtNet.h"
 #include "driver/timer.h"
 #include <string.h>
 
-typedef struct
+uint8_t ledData[LED_TABLE_ARRAY_LENGTH];
+uint8_t newDataTrigger;
+
+
+void LedController__storeLedData(uint8_t *data, uint16_t start, uint16_t length)
 {
-	uint8_t frameNb;
-	//uint8_t ledData[LED_TABLE_ARRAY_LENGTH - 1];
-} ledData_t;
-
-#define LED_BUFFER_SIZE 40
-
-ledData_t ledDataTable[LED_BUFFER_SIZE];
-uint8_t ledDataCounter;
-uint8_t newFrameTrigger;
-uint8_t lastFrame;
-uint8_t ledBufferFull;
-
-void LedController__storeLedData(uint8_t ledFrame, uint8_t *ledData, uint16_t ledDataLength, uint16_t ledDataStart)
-{
-	if (ledFrame != lastFrame)
+	if (!newDataTrigger)
 	{
-		ledDataTable[ledDataCounter].frameNb = ledFrame;
-		//memcpy(&ledData[ledDataStart], ledData, ledDataLength);
+		memcpy(&ledData[1 + start], data, length);
 
-		if (ledDataCounter < (LED_BUFFER_SIZE - 1))
+		if ((1 + start + length) >  LED_TABLE_ARRAY_LENGTH)
 		{
-			ledDataCounter++;
+			printf("LedController: wrong data length!!\n");
 		}
-		else
-		{
-			ledDataCounter = 0;
-			ledBufferFull = true;
-		}
+	}
+}
 
-		newFrameTrigger = true;
+
+esp_err_t LedController__outputLedData (void)
+{
+	esp_err_t retVal = ESP_FAIL;
+
+	if (!newDataTrigger)
+	{
+		newDataTrigger = true;
+		retVal = ESP_OK;
 	}
 
-	lastFrame = ledFrame;
+	return retVal;
 }
+
+
+void LedController__init (void)
+{
+	ledData[0] = 1;
+}
+
 
 void LedController__mainFunction (void *param)
 {
 	while (1)
 	{
-		if (newFrameTrigger == true)
+		if (newDataTrigger)
 		{
-			newFrameTrigger = false;
-
-			if ((ledDataCounter % 40) == 0)
-			{
-				//printf("40 frames\n");
-			}
-		}
-
-		if (ledBufferFull)
-		{
-//			printf("Led data stored for frames:");
-//
-//			for (uint8_t i = 0; i < LED_BUFFER_SIZE; i++)
-//			{
-//				printf(" %d", ledDataTable[i].frameNb);
-//			}
-//
-//			printf("\n");
-			ledBufferFull = false;
-			memset(&ledDataTable, 0, sizeof(ledDataTable));
+			//gpio__toggle(UART1_TX_GPIO);
+			uart_write_bytes(UART_NUM_1, (char*)&ledData[0], LED_TABLE_ARRAY_LENGTH);
+			newDataTrigger = false;
 		}
 
 		vTaskDelay(1 / portTICK_PERIOD_MS);

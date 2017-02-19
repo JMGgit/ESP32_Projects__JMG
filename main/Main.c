@@ -51,10 +51,10 @@ void Main__init (void)
 	gpio_set_direction(UC_TEST1_GPIO, GPIO_MODE_OUTPUT);
 
 	/* test */
-	gpio_set_direction(UART1_TX_GPIO, GPIO_MODE_OUTPUT);
+	//gpio_set_direction(UART1_TX_GPIO, GPIO_MODE_OUTPUT);
 
 	Wifi__init();
-	//UART1__init();
+	UART1__init();
 
 	printf("Main__init done\n");
 }

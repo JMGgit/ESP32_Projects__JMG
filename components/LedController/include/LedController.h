@@ -14,6 +14,8 @@
 
 
 void LedController__mainFunction (void *param);
-void LedController__storeLedData(uint8_t ledFrame, uint8_t *ledData, uint16_t ledDataLength, uint16_t ledDataStart);
+
+void LedController__storeLedData(uint8_t *data, uint16_t start, uint16_t length);
+esp_err_t LedController__outputLedData (void);
 
 #endif /* LEDCONTROLLER_H_ */

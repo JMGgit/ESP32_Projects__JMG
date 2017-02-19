@@ -9,7 +9,7 @@
 #include "ArtNet.h"
 #include "lwip/udp.h"
 #include "lwip/debug.h"
-#include "driver/gpio.h"
+#include "uC.h"
 #include "driver/uart.h"
 #include "Wifi.h"
 #include "LedController.h"
@@ -40,17 +40,20 @@ uint16_t univDataRecv[ARTNET_FRAMECOUNTER_MAX + 1];
 artNetState_t artNetState = ARTNET_STATE_NO_WIFI;
 artNetState_t artNetState_prev = 0xFF;
 
-uint8_t *ledData;
+uint8_t *currentDmxData;
 uint8_t currentUniverse;
-uint16_t ledDataLength;
+uint16_t currentDmxDataLength;
 uint8_t currentFrame = 0;
 
 uint8_t udpFrameIterator;
 uint32_t frameCounterRecv;
 uint32_t missedFrameCounterRecv;
-uint32_t oldFrameCounter;
+uint32_t oldFrameCounterMain;
+uint32_t oldFrameCounterRecv = 0;
 
-float errorRate;
+uint8_t ledData[NUMBER_OF_LEDS_CHANNELS];
+
+float errorRateRecv;
 
 esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t *frameNb, uint8_t **ledDataPtr, uint16_t *ledDataLength, uint8_t *ledStart)
 {
@@ -408,6 +411,7 @@ esp_err_t ArtNet__sendPollReply (struct udp_pcb *pcb, uint8_t *data, uint8_t dat
 	udp_sendto(pcb, udpBuffer, IP_ADDR_BROADCAST, ARTNET_PORT);
 	pbuf_free(udpBuffer);
 
+#if ARTNET_DEBUG_FRAME_INFO
 	printf("ArtNet poll reply: %d bytes sent\n", dataLength);
 
 	for (int i = 0; i < dataLength; i++)
@@ -416,6 +420,7 @@ esp_err_t ArtNet__sendPollReply (struct udp_pcb *pcb, uint8_t *data, uint8_t dat
 	}
 
 	printf("\n");
+#endif
 
 	retVal  = ESP_OK;
 
@@ -501,6 +506,11 @@ void ArtNet__recvUdpFrame (void *arg, struct udp_pcb *pcb, struct pbuf *udpBuffe
 			}
 			else
 			{
+				if (udpDataRxFifo[udpFrameCounter][12] < frameNb)
+				{
+					oldFrameCounterRecv++;
+				}
+
 				if (sameFrameCounter != 0)
 				{
 					missedFrameCounterRecv++;
@@ -586,10 +596,12 @@ void ArtNet__mainFunction (void *param)
 	uint8_t artPollReply_portOffset = 0;
 	static uint8_t stateTransition = true;
 	static uint8_t lastFrameDecoded = 0;
-	static uint8_t gpioLevel = 0;
 	static uint8_t frameDelay = 0;
 	static uint8_t maxFrameDelay = 0;
 	static uint32_t missedFrameCounterRecv_prev = 0;
+	static uint32_t missedFrameCounterMain = 0;
+	static float errorRateMain = 0;
+	static uint32_t frameCounterMain = 0;
 
 	while (1)
 	{
@@ -673,41 +685,35 @@ void ArtNet__mainFunction (void *param)
 						{
 							if (opCode == ARTNET_OPCODE_DMX)
 							{
-								if (ArtNet__decodeDmxFrame(udpDataRx, &newFrame, &ledData, &ledDataLength, &currentUniverse) == ESP_OK)
+								if (ArtNet__decodeDmxFrame(udpDataRx, &newFrame, &currentDmxData, &currentDmxDataLength, &currentUniverse) == ESP_OK)
 								{
 									if ((newFrame >= currentFrame) || (newFrame == 1))
 									{
-										if (newFrame > currentFrame)
+										if (newFrame != currentFrame)
 										{
 											if (ArtNet__allDataAvailable(currentFrame))
 											{
-												if (!gpioLevel)
-												{
-													gpioLevel = 1;
-												}
-												else
-												{
-													gpioLevel = 0;
-												}
-
-												gpio_set_level(UART1_TX_GPIO, gpioLevel);
+												LedController__outputLedData();
 											}
 											else
 											{
-												//printf("ArtNet__mainFunction: not all data available for frame %d - udpFrameIterator: %d, udpFrameCounter %d\n", currentFrame, udpFrameIterator, udpFrameCounter);
+												missedFrameCounterMain++;
 											}
 
 											univDataRecv[currentFrame] = 0;
+											frameCounterMain++;
 										}
 
 										currentFrame = newFrame;
 										ArtNet__setDataAvailable(currentFrame, currentUniverse);
+										LedController__storeLedData(currentDmxData,  currentUniverse * ARTNET_CHANNELS_PER_UNIVERSE, currentDmxDataLength);
 									}
 									else
 									{
 										/* wrong frame number (old frame) -> re init universe table and reset state */
 										univDataRecv[currentFrame] = 0;
-										oldFrameCounter++;
+										missedFrameCounterMain++;
+										oldFrameCounterMain++;
 									}
 								}
 							}
@@ -771,6 +777,8 @@ void ArtNet__mainFunction (void *param)
 					artPollReply_portOffset = artPollReply_portOffset + 4;
 				}
 
+				printf("ArtPollReply: %d message(s) sent\n\n", artPollReply_portOffset / 4);
+
 				artPollReply_portOffset = 0;
 				artNetState = ARTNET_STATE_IDLE;
 
@@ -785,12 +793,14 @@ void ArtNet__mainFunction (void *param)
 
 		artNetState_prev = artNetState;
 
-		errorRate = (float)(missedFrameCounterRecv * 100) / (float)frameCounterRecv;
+		errorRateRecv = (float)(missedFrameCounterRecv * 100) / (float)frameCounterRecv;
+		errorRateMain = (float)(missedFrameCounterMain * 100) / (float)frameCounterMain;
 
 		if (missedFrameCounterRecv != missedFrameCounterRecv_prev)
 		{
 #if ARTNET_DEBUG_ERROR_INFO
-			printf("Missed frames counter: %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterRecv, frameCounterRecv, errorRate, oldFrameCounter);
+			printf("Missed frames counter (Interrupt): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterRecv, frameCounterRecv, errorRateRecv, oldFrameCounterRecv);
+			printf("Missed frames counter (MainFunction): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterMain, frameCounterMain, errorRateMain, oldFrameCounterMain);
 			printf("Frame delay: %d (max: %d)\n\n", frameDelay, maxFrameDelay);
 #endif
 		}
