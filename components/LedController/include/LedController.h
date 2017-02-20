@@ -13,6 +13,7 @@
 #include "esp_err.h"
 
 
+void LedController__init (void);
 void LedController__mainFunction (void *param);
 
 void LedController__storeLedData(uint8_t *data, uint16_t start, uint16_t length);
