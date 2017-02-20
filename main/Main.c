@@ -38,8 +38,6 @@ void UART1__init (void)
 
 	/* no queue and interrupt for now */
 	uart_driver_install(UART_NUM_1, UART1_RX_BUFFER_LENGTH, UART1_TX_BUFFER_LENGTH, 0, NULL, 0);
-
-	printf("UART1__init done\n");
 }
 
 
@@ -47,16 +45,13 @@ void Main__init (void)
 {
 	nvs_flash_init();
 	esp_event_loop_init(event_handler, NULL);
+	
 	gpio_set_direction(UC_CTRL_LED_GPIO, GPIO_MODE_OUTPUT);
 	gpio_set_direction(UC_TEST1_GPIO, GPIO_MODE_OUTPUT);
-
-	/* test */
-	//gpio_set_direction(UART1_TX_GPIO, GPIO_MODE_OUTPUT);
-
+	
 	Wifi__init();
 	UART1__init();
-
-	printf("Main__init done\n");
+	LedController__init();
 }
 
 
@@ -64,7 +59,6 @@ void Main__createTasks (void)
 {
 	xTaskCreate(LedController__mainFunction, "LedController__mainFunction", 4096, NULL, 5, NULL);
 	xTaskCreate(ArtNet__mainFunction, "ArtNet__mainFunction", 4096, NULL, 5, NULL);
-	printf("Tasks created\n");
 }
 
 void app_main (void)
