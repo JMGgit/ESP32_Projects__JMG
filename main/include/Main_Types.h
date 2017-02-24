@@ -13,9 +13,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <avr/pgmspace.h>
-#include <avr/eeprom.h>
-#include "Debug_Def.h"
+#include "Stubs.h"
 
 
 #define FALSE	0x00
@@ -37,6 +35,8 @@ typedef struct
 	uint8_t green;
 	uint8_t blue;
 } RGB_Color_t;
+
+#define LEDS_NB (64)
 
 
 #endif /* MAIN_TYPES_H_ */

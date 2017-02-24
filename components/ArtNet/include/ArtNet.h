@@ -57,8 +57,8 @@ typedef enum
 
 esp_err_t ArtNet__init (void);
 void ArtNet__mainFunction (void *param);
-void ArtNet__testFrame (void);
-esp_err_t ArtNet__getNextLedFrame (uint8_t **ledData, uint16_t *dataLength);
+void ArtNet__debug (void *param);
+
 
 #define ARTNET_DEBUG_FRAME_INFO false
 #define ARTNET_DEBUG_ERROR_INFO true

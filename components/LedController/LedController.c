@@ -16,28 +16,34 @@
 #include "esp_event_loop.h"
 #include "esp_task_wdt.h"
 #include "nvs_flash.h"
-#include "uC.h"
 #include "driver/uart.h"
 #include "Main_Cfg.h"
 #include "ArtNet.h"
 #include "driver/timer.h"
 #include <string.h>
 
-uint8_t ledData[LED_TABLE_ARRAY_LENGTH];
+#include "Drivers.h"
+
+
+uint8_t ledData[NUMBER_OF_LEDS_CHANNELS];
 uint8_t newDataTrigger;
 
 
-void LedController__storeLedData(uint8_t *data, uint16_t start, uint16_t length)
+esp_err_t LedController__storeLedData(uint8_t *data, uint16_t start, uint16_t length)
 {
+	esp_err_t retVal;
+
 	if (!newDataTrigger)
 	{
-		memcpy(&ledData[1 + start], data, length);
-
-		if ((1 + start + length) >  LED_TABLE_ARRAY_LENGTH)
-		{
-			printf("LedController: wrong data length!!\n");
-		}
+		memcpy(&ledData[start], data, length);
+		retVal = ESP_OK;
 	}
+	else
+	{
+		retVal = ESP_FAIL;
+	}
+
+	return retVal;
 }
 
 
@@ -57,19 +63,30 @@ esp_err_t LedController__outputLedData (void)
 
 void LedController__init (void)
 {
-	ledData[0] = 1;
+
 }
 
 
 void LedController__mainFunction (void *param)
 {
+	uint16_t idxLed;
+
 	while (1)
 	{
 		if (newDataTrigger)
 		{
-			//gpio__toggle(UART1_TX_GPIO);
-			uart_write_bytes(UART_NUM_1, (char*)&ledData[0], LED_TABLE_ARRAY_LENGTH);
+			gpio_set_level(TEST_LED_LEDCTRL, 1);
+
+			for (idxLed = 0; idxLed < NUMBER_OF_LEDS; idxLed++)
+			{
+				APA102__setRGBForLED(LEDMatrix__getRGBColorFromComponents(ledData[(3 * idxLed) + 2], ledData[(3 * idxLed) + 1], ledData[3 * idxLed]), idxLed);
+			}
+
+			APA102__x10();
+
 			newDataTrigger = false;
+
+			gpio_set_level(TEST_LED_LEDCTRL, 0);
 		}
 
 		vTaskDelay(1 / portTICK_PERIOD_MS);

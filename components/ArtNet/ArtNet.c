@@ -9,11 +9,12 @@
 #include "ArtNet.h"
 #include "lwip/udp.h"
 #include "lwip/debug.h"
-#include "uC.h"
 #include "driver/uart.h"
 #include "Wifi.h"
 #include "LedController.h"
 #include <string.h>
+
+#include "../Drivers/include/uC.h"
 
 /******* ArtNet definitions *********
 Node: DMX512 - ArtNet converter
@@ -32,7 +33,7 @@ uint8_t udpFrameCounter = 0;
 uint8_t udpDataTx[ARTNET_TX_DATA_LENGTH];
 
 /* define 2 led tables for receive and send */
-uint8_t artNetLedTable[LED_TABLE_ARRAY_LENGTH];
+uint8_t artNetLedTable[NUMBER_OF_LEDS_CHANNELS];
 
 /* flag to indicate that data for each universe has been received for the current frame*/
 uint16_t univDataRecv[ARTNET_FRAMECOUNTER_MAX + 1];
@@ -52,6 +53,14 @@ uint32_t oldFrameCounterMain;
 uint32_t oldFrameCounterRecv = 0;
 
 uint8_t ledData[NUMBER_OF_LEDS_CHANNELS];
+
+static uint8_t lastFrameDecoded = 0;
+static uint8_t frameDelay = 0;
+static uint8_t maxFrameDelay = 0;
+static uint32_t missedFrameCounterRecv_prev = 0;
+static uint32_t missedFrameCounterMain = 0;
+static float errorRateMain = 0;
+static uint32_t frameCounterMain = 0;
 
 float errorRateRecv;
 
@@ -442,39 +451,13 @@ uint8_t ArtNet__allDataAvailable (uint8_t frameNb)
 }
 
 
-void ArtNet__sendLedDataToUart1 (void)
-{
-	gpio_set_level(UC_CTRL_LED_GPIO, 1);
-
-	gpio_set_level(UART1_TX_GPIO, 1);
-	vTaskDelay(2 / portTICK_PERIOD_MS);
-	gpio_set_level(UART1_TX_GPIO, 0);
-
-
-	//uart_write_bytes(UART_NUM_1, (char*)&ledTablePtr_Send[0], LED_TABLE_ARRAY_LENGTH);
-
-	//vTaskDelay(5 / portTICK_PERIOD_MS);
-
-	gpio_set_level(UC_CTRL_LED_GPIO, 0);
-
-#if ARTNET_DEBUG_FRAME_INFO
-	for (uint16_t dataIt = 0; dataIt < LED_TABLE_ARRAY_LENGTH; dataIt++)
-	{
-		printf(" %d", ledTablePtr_Send[dataIt]);
-	}
-
-	printf("\n\n");
-#endif
-}
-
-
 void ArtNet__recvUdpFrame (void *arg, struct udp_pcb *pcb, struct pbuf *udpBuffer, const ip_addr_t *addr, uint16_t port)
 {
 	static uint8_t frameNb;
 	static uint8_t sameFrameCounter = 0;
 	const uint16_t length = udpBuffer->len;
 
-	gpio_set_level(UC_TEST1_GPIO, 1);
+	gpio_set_level(TEST_LED_ARTNET, 1);
 
 	if (udpBuffer != NULL)
 	{
@@ -545,7 +528,7 @@ void ArtNet__recvUdpFrame (void *arg, struct udp_pcb *pcb, struct pbuf *udpBuffe
 		pbuf_free(udpBuffer);
 	}
 
-	gpio_set_level(UC_TEST1_GPIO, 0);
+	gpio_set_level(TEST_LED_ARTNET, 0);
 }
 
 
@@ -595,13 +578,6 @@ void ArtNet__mainFunction (void *param)
 	uint8_t TxDataLength = 0;
 	uint8_t artPollReply_portOffset = 0;
 	static uint8_t stateTransition = true;
-	static uint8_t lastFrameDecoded = 0;
-	static uint8_t frameDelay = 0;
-	static uint8_t maxFrameDelay = 0;
-	static uint32_t missedFrameCounterRecv_prev = 0;
-	static uint32_t missedFrameCounterMain = 0;
-	static float errorRateMain = 0;
-	static uint32_t frameCounterMain = 0;
 
 	while (1)
 	{
@@ -693,7 +669,10 @@ void ArtNet__mainFunction (void *param)
 										{
 											if (ArtNet__allDataAvailable(currentFrame))
 											{
-												LedController__outputLedData();
+												while (ESP_OK != LedController__outputLedData())
+												{
+													/* wait until data are sent */
+												}
 											}
 											else
 											{
@@ -706,7 +685,11 @@ void ArtNet__mainFunction (void *param)
 
 										currentFrame = newFrame;
 										ArtNet__setDataAvailable(currentFrame, currentUniverse);
-										LedController__storeLedData(currentDmxData,  currentUniverse * ARTNET_CHANNELS_PER_UNIVERSE, currentDmxDataLength);
+
+										while (ESP_OK != LedController__storeLedData(currentDmxData,  currentUniverse * ARTNET_CHANNELS_PER_UNIVERSE, currentDmxDataLength))
+										{
+											/* wait until data are sent */
+										}
 									}
 									else
 									{
@@ -798,7 +781,7 @@ void ArtNet__mainFunction (void *param)
 
 		if (missedFrameCounterRecv != missedFrameCounterRecv_prev)
 		{
-#if ARTNET_DEBUG_ERROR_INFO
+#if 0
 			printf("Missed frames counter (Interrupt): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterRecv, frameCounterRecv, errorRateRecv, oldFrameCounterRecv);
 			printf("Missed frames counter (MainFunction): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterMain, frameCounterMain, errorRateMain, oldFrameCounterMain);
 			printf("Frame delay: %d (max: %d)\n\n", frameDelay, maxFrameDelay);
@@ -806,5 +789,19 @@ void ArtNet__mainFunction (void *param)
 		}
 
 		missedFrameCounterRecv_prev = missedFrameCounterRecv;
+	}
+}
+
+
+void ArtNet__debug (void *param)
+{
+	while (1)
+	{
+#if ARTNET_DEBUG_ERROR_INFO
+		printf("Missed frames counter (Interrupt): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterRecv, frameCounterRecv, errorRateRecv, oldFrameCounterRecv);
+		printf("Missed frames counter (MainFunction): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterMain, frameCounterMain, errorRateMain, oldFrameCounterMain);
+		printf("Frame delay: %d (max: %d)\n\n", frameDelay, maxFrameDelay);
+#endif
+		vTaskDelay(10000 / portTICK_PERIOD_MS);
 	}
 }

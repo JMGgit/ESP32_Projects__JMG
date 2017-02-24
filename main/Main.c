@@ -10,6 +10,7 @@
 #include "LedController.h"
 #include "Wifi.h"
 #include "Main_Cfg.h"
+#include "Drivers.h"
 #include <string.h>
 
 
@@ -21,44 +22,37 @@ static esp_err_t event_handler(void *ctx, system_event_t *event)
 }
 
 
-void UART1__init (void)
-{
-	uart_config_t uartConfig;
-
-	uartConfig.baud_rate = 1250000;
-	uartConfig.data_bits = UART_DATA_8_BITS;
-	uartConfig.flow_ctrl = UART_HW_FLOWCTRL_DISABLE;
-	uartConfig.parity = UART_PARITY_DISABLE;
-	uartConfig.rx_flow_ctrl_thresh = 122;
-	uartConfig.stop_bits = UART_STOP_BITS_1;
-
-	uart_param_config(UART_NUM_1, &uartConfig);
-
-	uart_set_pin(UART_NUM_1, UART1_TX_GPIO, UART1_RX_GPIO, UART1_RTS_GPIO, UART1_CTS_GPIO);
-
-	/* no queue and interrupt for now */
-	uart_driver_install(UART_NUM_1, UART1_RX_BUFFER_LENGTH, UART1_TX_BUFFER_LENGTH, 0, NULL, 0);
-}
-
-
 void Main__init (void)
 {
 	nvs_flash_init();
 	esp_event_loop_init(event_handler, NULL);
 	
 	gpio_set_direction(UC_CTRL_LED_GPIO, GPIO_MODE_OUTPUT);
-	gpio_set_direction(UC_TEST1_GPIO, GPIO_MODE_OUTPUT);
+	gpio_set_direction(TEST_LED_ARTNET, GPIO_MODE_OUTPUT);
+	gpio_set_direction(TEST_LED_LEDCTRL, GPIO_MODE_OUTPUT);
 	
+	Drivers__init();
 	Wifi__init();
-	UART1__init();
 	LedController__init();
 }
 
 
 void Main__createTasks (void)
 {
-	xTaskCreate(LedController__mainFunction, "LedController__mainFunction", 4096, NULL, 5, NULL);
-	xTaskCreate(ArtNet__mainFunction, "ArtNet__mainFunction", 4096, NULL, 5, NULL);
+	if (pdPASS == xTaskCreate(ArtNet__debug, "ArtNet__debug", 4096, NULL, 1 , NULL))
+	{
+		printf("Task LedController__mainFunction created\n");
+	}
+
+	if ( pdPASS == xTaskCreate(LedController__mainFunction, "LedController__mainFunction", 4096, NULL, 1, NULL))
+	{
+		printf("Task ArtNet__mainFunction created\n");
+	}
+
+	if (pdPASS == xTaskCreate(ArtNet__mainFunction, "ArtNet__mainFunction", 4096, NULL, 1, NULL))
+	{
+		printf("Task ArtNet__debug created\n");
+	}
 }
 
 void app_main (void)
