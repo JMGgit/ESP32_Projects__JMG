@@ -1,4 +1,5 @@
 #include "freertos/FreeRTOS.h"
+#include "freertos/timers.h"
 #include "esp_system.h"
 #include "esp_event.h"
 #include "esp_event_loop.h"
@@ -36,23 +37,57 @@ void Main__init (void)
 	LedController__init();
 }
 
+void app_main_x10 (TimerHandle_t xTimer)
+{
+	static uint16_t artnetDebugCounter = 0;
+
+	//gpio_set_level(TEST_LED_LEDCTRL, 1);
+	//ArtNet__mainFunction(NULL);
+	//LedController__mainFunction(NULL);
+
+	if (artnetDebugCounter < 1000)
+	{
+		artnetDebugCounter++;
+	}
+	else
+	{
+		//ArtNet__debug(NULL);
+		artnetDebugCounter = 0;
+	}
+	//gpio_set_level(TEST_LED_LEDCTRL, 0);
+}
+
 
 void Main__createTasks (void)
 {
+	TimerHandle_t timer_10ms;
+
+	/* create a 10ms timer that will auto-reload */
+	timer_10ms = xTimerCreate("timer_10ms", 10 / portTICK_PERIOD_MS, pdTRUE, (void*)0, app_main_x10);
+
+	if ((timer_10ms != NULL) && (pdPASS == xTimerStart(timer_10ms, 10 )))
+	{
+		printf("Timer 10msTimer started\n");
+	}
+
+
+	/* Tasks for ArtNet controller */
+
 	if (pdPASS == xTaskCreate(ArtNet__debug, "ArtNet__debug", 4096, NULL, 1 , NULL))
 	{
-		printf("Task LedController__mainFunction created\n");
+		printf("Task ArtNet__debug created\n");
 	}
 
 	if ( pdPASS == xTaskCreate(LedController__mainFunction, "LedController__mainFunction", 4096, NULL, 1, NULL))
 	{
-		printf("Task ArtNet__mainFunction created\n");
+		printf("Task LedController__mainFunctionArtNet__mainFunction created\n");
 	}
 
 	if (pdPASS == xTaskCreate(ArtNet__mainFunction, "ArtNet__mainFunction", 4096, NULL, 1, NULL))
 	{
-		printf("Task ArtNet__debug created\n");
+		printf("Task ArtNet__mainFunction created\n");
 	}
+
 }
 
 void app_main (void)

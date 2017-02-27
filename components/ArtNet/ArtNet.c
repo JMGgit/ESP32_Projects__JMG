@@ -439,8 +439,6 @@ esp_err_t ArtNet__sendPollReply (struct udp_pcb *pcb, uint8_t *data, uint8_t dat
 
 void ArtNet__setDataAvailable (const uint8_t frameNb, uint8_t universe)
 {
-	//LedController__storeLedData(frameNb, data, universe * ARTNET_CHANNELS_PER_UNIVERSE, length);
-	//memcpy(&ledTablePtr_Recv[1 + (universe * ARTNET_CHANNELS_PER_UNIVERSE)], data, length);
 	univDataRecv[frameNb] |= (1 << universe);
 }
 
@@ -537,8 +535,6 @@ esp_err_t ArtNet__init (void)
 	uint8_t univIt;
 
 	esp_err_t retVal = ESP_FAIL;
-
-	printf("ArtNet__init \n");
 
 	/* re init universe table */
 	for (univIt = 0; univIt < ARTNET_UNIVERSE_NB; univIt++)
