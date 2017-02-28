@@ -10,7 +10,7 @@
 
 #include <string.h>
 #include "Main_Types.h"
-#include "Main_Cfg.h"
+#include "Main_Config.h"
 #include "uC.h"
 
 

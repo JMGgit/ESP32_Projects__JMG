@@ -5,7 +5,7 @@
  *      Author: Jean-Martin George
  */
 
-#include "Main_Cfg.h"
+#include "Main_Config.h"
 #include "ArtNet.h"
 #include "lwip/udp.h"
 #include "lwip/debug.h"
@@ -14,7 +14,7 @@
 #include "LedController.h"
 #include <string.h>
 
-#include "../Drivers/include/uC.h"
+#include "uC.h"
 
 /******* ArtNet definitions *********
 Node: DMX512 - ArtNet converter
@@ -38,6 +38,8 @@ uint8_t artNetLedTable[NUMBER_OF_LEDS_CHANNELS];
 /* flag to indicate that data for each universe has been received for the current frame*/
 uint16_t univDataRecv[ARTNET_FRAMECOUNTER_MAX + 1];
 
+uint8_t ledData[NUMBER_OF_LEDS_CHANNELS];
+
 artNetState_t artNetState = ARTNET_STATE_NO_WIFI;
 artNetState_t artNetState_prev = 0xFF;
 
@@ -51,8 +53,7 @@ uint32_t frameCounterRecv;
 uint32_t missedFrameCounterRecv;
 uint32_t oldFrameCounterMain;
 uint32_t oldFrameCounterRecv = 0;
-
-uint8_t ledData[NUMBER_OF_LEDS_CHANNELS];
+float errorRateRecv;
 
 static uint8_t lastFrameDecoded = 0;
 static uint8_t frameDelay = 0;
@@ -62,7 +63,6 @@ static uint32_t missedFrameCounterMain = 0;
 static float errorRateMain = 0;
 static uint32_t frameCounterMain = 0;
 
-float errorRateRecv;
 
 esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t *frameNb, uint8_t **ledDataPtr, uint16_t *ledDataLength, uint8_t *ledStart)
 {
@@ -487,7 +487,7 @@ void ArtNet__recvUdpFrame (void *arg, struct udp_pcb *pcb, struct pbuf *udpBuffe
 			}
 			else
 			{
-				if (udpDataRxFifo[udpFrameCounter][12] < frameNb)
+				if ((udpDataRxFifo[udpFrameCounter][12] != 1) && (udpDataRxFifo[udpFrameCounter][12] < frameNb))
 				{
 					oldFrameCounterRecv++;
 				}

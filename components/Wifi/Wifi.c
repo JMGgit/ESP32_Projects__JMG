@@ -9,7 +9,7 @@
 #include "Wifi.h"
 #include "esp_wifi.h"
 #include <string.h>
-#include "Main_Cfg.h"
+#include "Main_Config.h"
 
 
 uint8_t wifiConnected;

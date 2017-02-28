@@ -1,14 +1,15 @@
 /*
- * Main_Cfg.h
+ * Main_Config.h
  *
  *  Created on: 02.01.2017
  *      Author: Jean-Martin George
  */
 
-#ifndef MAIN_CFG_H_
-#define MAIN_CFG_H_
+#ifndef MAIN_CONFIGH_
+#define MAIN_CONFIGH_
 
 #include "Wifi_SSID_Cfg.h"
+#include "Stubs.h"
 
 
 /********** CTL LED *********/
@@ -24,4 +25,4 @@
 #define NUMBER_OF_LEDS_CHANNELS			(3* NUMBER_OF_LEDS)
 
 
-#endif /* MAIN_CFG_H_ */
+#endif /* MAIN_CONFIGH_ */

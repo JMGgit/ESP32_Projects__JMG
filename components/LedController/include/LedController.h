@@ -12,7 +12,8 @@
 #include <stddef.h>
 #include "esp_err.h"
 #include "Main_Types.h"
-#include "Main_Cfg.h"
+#include "Main_Config.h"
+#include "LedMatrix.h"
 
 
 void LedController__init (void);
@@ -21,9 +22,5 @@ void LedController__mainFunction (void *param);
 esp_err_t LedController__storeLedData(uint8_t *data, uint16_t start, uint16_t length);
 esp_err_t LedController__outputLedData (void);
 
-static inline  RGB_Color_t LEDMatrix__getRGBColorFromComponents (uint8_t red, uint8_t green, uint8_t blue)
-{
-	return ((RGB_Color_t){red, green, blue});
-}
 
 #endif /* LEDCONTROLLER_H_ */

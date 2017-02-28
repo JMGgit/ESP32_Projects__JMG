@@ -9,7 +9,6 @@
 #define DRIVERS_H_
 
 #include "APA102.h"
-#include "Ports.h"
 #include "uC.h"
 
 void Drivers__init(void);

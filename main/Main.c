@@ -10,9 +10,10 @@
 #include "ArtNet.h"
 #include "LedController.h"
 #include "Wifi.h"
-#include "Main_Cfg.h"
+#include "Main_Config.h"
 #include "Drivers.h"
 #include <string.h>
+#include "Modes.h"
 
 
 static esp_err_t event_handler(void *ctx, system_event_t *event)
@@ -39,22 +40,9 @@ void Main__init (void)
 
 void app_main_x10 (TimerHandle_t xTimer)
 {
-	static uint16_t artnetDebugCounter = 0;
-
-	//gpio_set_level(TEST_LED_LEDCTRL, 1);
-	//ArtNet__mainFunction(NULL);
-	//LedController__mainFunction(NULL);
-
-	if (artnetDebugCounter < 1000)
-	{
-		artnetDebugCounter++;
-	}
-	else
-	{
-		//ArtNet__debug(NULL);
-		artnetDebugCounter = 0;
-	}
-	//gpio_set_level(TEST_LED_LEDCTRL, 0);
+	//Modes__setMode(MODE__SNAKE, FALSE);
+	//Modes__x10();
+	//APA102__x10();
 }
 
 

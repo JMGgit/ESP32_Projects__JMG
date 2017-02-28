@@ -17,7 +17,7 @@
 #include "esp_task_wdt.h"
 #include "nvs_flash.h"
 #include "driver/uart.h"
-#include "Main_Cfg.h"
+#include "Main_Config.h"
 #include "ArtNet.h"
 #include "driver/timer.h"
 #include <string.h>
