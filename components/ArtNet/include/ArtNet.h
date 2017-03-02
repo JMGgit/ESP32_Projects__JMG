@@ -39,6 +39,8 @@
 #define ARTNET_LAST_UNIVERSE			(ARTNET_UNIVERSE_NB - 1)
 #define ARTNET_FRAMECOUNTER_MAX			255
 
+/* time after which the ArtNet component will be considered as inactive if no udp frame is received */
+#define ARTNET_MAX_IDLE_TIME_MS			(2000 / portTICK_PERIOD_MS)
 
 /********** types *********/
 typedef enum
@@ -47,8 +49,6 @@ typedef enum
 	ARTNET_STATE_INIT,
 	ARTNET_STATE_IDLE,			/* nothing to do */
 	ARTNET_STATE_RECV_DECODE,	/* decoding data */
-	ARTNET_STATE_DMX_IDLE,		/* no data processing but LED data not complete, waiting for data */
-	ARTNET_STATE_DMX_UART,
 	ARTNET_STATE_POLL_REPLY
 } artNetState_t;
 
@@ -58,6 +58,13 @@ typedef enum
 esp_err_t ArtNet__init (void);
 void ArtNet__mainFunction (void *param);
 void ArtNet__debug (void *param);
+
+extern artNetState_t artNetState;
+
+static inline uint8_t ArtNet__isActive (void)
+{
+	return ((artNetState == ARTNET_STATE_RECV_DECODE) || (artNetState == ARTNET_STATE_POLL_REPLY));
+}
 
 
 #define ARTNET_DEBUG_FRAME_INFO false

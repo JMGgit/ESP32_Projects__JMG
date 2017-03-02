@@ -19,9 +19,9 @@
 
 
 /********* LEDS *********/
-#define LED_TABLE_SIZE_X				42
-#define LED_TABLE_SIZE_Y				24
-#define NUMBER_OF_LEDS					(LED_TABLE_SIZE_X * LED_TABLE_SIZE_Y)
+#define LED_TABLE_SIZE_LIN				24
+#define LED_TABLE_SIZE_COL				42
+#define NUMBER_OF_LEDS					(LED_TABLE_SIZE_LIN * LED_TABLE_SIZE_COL)
 #define NUMBER_OF_LEDS_CHANNELS			(3* NUMBER_OF_LEDS)
 
 

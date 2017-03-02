@@ -60,8 +60,8 @@ static inline uint8_t pgm_read_byte (const uint8_t * x)
 #define uC__getTaskIncrement()				(1)
 #define uC__triggerSwReset()
 
-#define LED_MATRIX_SIZE_LIN					LED_TABLE_SIZE_X
-#define LED_MATRIX_SIZE_COL					LED_TABLE_SIZE_X
+#define LED_MATRIX_SIZE_LIN					LED_TABLE_SIZE_LIN
+#define LED_MATRIX_SIZE_COL					LED_TABLE_SIZE_COL
 
 #define PROJECT__LED_TABLE					1
 #define PROJECT								PROJECT__LED_TABLE

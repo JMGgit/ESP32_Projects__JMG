@@ -41,7 +41,7 @@ uint16_t univDataRecv[ARTNET_FRAMECOUNTER_MAX + 1];
 uint8_t ledData[NUMBER_OF_LEDS_CHANNELS];
 
 artNetState_t artNetState = ARTNET_STATE_NO_WIFI;
-artNetState_t artNetState_prev = 0xFF;
+uint8_t newUdpDataRecv;
 
 uint8_t *currentDmxData;
 uint8_t currentUniverse;
@@ -472,7 +472,11 @@ void ArtNet__recvUdpFrame (void *arg, struct udp_pcb *pcb, struct pbuf *udpBuffe
 
 			udpDataReady[udpFrameCounter] = 0;
 			memcpy(&udpDataRxFifo[udpFrameCounter][0], udpBuffer->payload, length);
-			artNetState = ARTNET_STATE_RECV_DECODE;
+
+			if (artNetState != ARTNET_STATE_RECV_DECODE)
+			{
+				newUdpDataRecv = true;
+			}
 
 			if (udpDataRxFifo[udpFrameCounter][12] == frameNb)
 			{
@@ -573,18 +577,24 @@ void ArtNet__mainFunction (void *param)
 	uint8_t newFrame = 0;
 	uint8_t TxDataLength = 0;
 	uint8_t artPollReply_portOffset = 0;
-	static uint8_t stateTransition = true;
+	uint8_t stateTransition = true;
+	static uint8_t noUdpFrameTransition = false;
+	static TickType_t tickNoUdpFrameCurrent;
+	static TickType_t tickNoUdpFrameTransition;
 
 	while (1)
 	{
-		if (artNetState_prev != artNetState)
+		if (newUdpDataRecv)
 		{
+			artNetState = ARTNET_STATE_RECV_DECODE;
 			stateTransition = true;
+			newUdpDataRecv = false;
 		}
 		else
 		{
 			stateTransition = false;
 		}
+
 
 		if (!Wifi__isConnected())
 		{
@@ -618,6 +628,7 @@ void ArtNet__mainFunction (void *param)
 				if (stateTransition)
 				{
 					udpFrameIterator = udpFrameCounter;
+					printf("ArtNet DMX mode\n\n");
 				}
 				else if (udpFrameIterator == udpFrameCounter)
 				{
@@ -728,6 +739,25 @@ void ArtNet__mainFunction (void *param)
 					}
 
 					lastFrameDecoded = udpFrameIterator;
+					noUdpFrameTransition = false;
+				}
+				else
+				{
+					if (noUdpFrameTransition == false)
+					{
+						tickNoUdpFrameTransition = xTaskGetTickCount();
+						noUdpFrameTransition = true;
+					}
+					else
+					{
+						tickNoUdpFrameCurrent  = xTaskGetTickCount();
+
+						if ((tickNoUdpFrameCurrent - tickNoUdpFrameTransition) > ARTNET_MAX_IDLE_TIME_MS)
+						{
+							printf("ArtNet set to inactive after ARTNET_MAX_IDLE_TIME_MS\n\n");
+							artNetState = ARTNET_STATE_IDLE;
+						}
+					}
 				}
 
 				if ((udpFrameCounter - udpFrameIterator) >= 0)
@@ -770,7 +800,6 @@ void ArtNet__mainFunction (void *param)
 			}
 		}
 
-		artNetState_prev = artNetState;
 
 		errorRateRecv = (float)(missedFrameCounterRecv * 100) / (float)frameCounterRecv;
 		errorRateMain = (float)(missedFrameCounterMain * 100) / (float)frameCounterMain;
@@ -794,9 +823,12 @@ void ArtNet__debug (void *param)
 	while (1)
 	{
 #if ARTNET_DEBUG_ERROR_INFO
-		printf("Missed frames counter (Interrupt): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterRecv, frameCounterRecv, errorRateRecv, oldFrameCounterRecv);
-		printf("Missed frames counter (MainFunction): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterMain, frameCounterMain, errorRateMain, oldFrameCounterMain);
-		printf("Frame delay: %d (max: %d)\n\n", frameDelay, maxFrameDelay);
+		if (ArtNet__isActive())
+		{
+			printf("Missed frames counter (Interrupt): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterRecv, frameCounterRecv, errorRateRecv, oldFrameCounterRecv);
+			printf("Missed frames counter (MainFunction): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterMain, frameCounterMain, errorRateMain, oldFrameCounterMain);
+			printf("Frame delay: %d (max: %d)\n\n", frameDelay, maxFrameDelay);
+		}
 #endif
 		vTaskDelay(10000 / portTICK_PERIOD_MS);
 	}
