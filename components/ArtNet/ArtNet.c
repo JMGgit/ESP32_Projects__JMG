@@ -825,9 +825,10 @@ void ArtNet__debug (void *param)
 #if ARTNET_DEBUG_ERROR_INFO
 		if (ArtNet__isActive())
 		{
+			printf("\n");
 			printf("Missed frames counter (Interrupt): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterRecv, frameCounterRecv, errorRateRecv, oldFrameCounterRecv);
 			printf("Missed frames counter (MainFunction): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterMain, frameCounterMain, errorRateMain, oldFrameCounterMain);
-			printf("Frame delay: %d (max: %d)\n\n", frameDelay, maxFrameDelay);
+			printf("Frame delay: %d (max: %d)\n", frameDelay, maxFrameDelay);
 		}
 #endif
 		vTaskDelay(10000 / portTICK_PERIOD_MS);

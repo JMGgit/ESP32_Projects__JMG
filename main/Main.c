@@ -14,6 +14,7 @@
 #include "Drivers.h"
 #include <string.h>
 #include "Modes.h"
+#include "Clock.h"
 
 
 static esp_err_t event_handler(void *ctx, system_event_t *event)
@@ -35,6 +36,7 @@ void Main__init (void)
 	
 	Drivers__init();
 	Wifi__init();
+	Clock__init();
 	LedController__init();
 }
 
@@ -77,7 +79,7 @@ void Main__createTasks (void)
 		printf("Task ArtNet__mainFunction created\n");
 	}
 
-	if (pdPASS == xTaskCreate(ArtNet__debug, "ArtNet__debug", 1024, NULL, 1 , NULL))
+	if (pdPASS == xTaskCreate(ArtNet__debug, "ArtNet__debug", 1024, NULL, 10 , NULL))
 	{
 		printf("Task ArtNet__debug created\n");
 	}
@@ -86,16 +88,16 @@ void Main__createTasks (void)
 	{
 		printf("Task LedController__mainFunction created\n");
 	}
+
+	if ( pdPASS == xTaskCreate(Clock__mainFunction, "Clock__mainFunction", 1024, NULL, 1, NULL))
+	{
+		printf("Task Clock__mainFunction created\n");
+	}
 }
 
 void app_main (void)
 {
 	Main__init();
 	Main__createTasks();
-
-	while (1)
-	{
-		esp_task_wdt_feed();
-	}
 }
 

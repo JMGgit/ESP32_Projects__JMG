@@ -10,6 +10,7 @@
 #include "esp_wifi.h"
 #include <string.h>
 #include "Main_Config.h"
+#include "Clock.h"
 
 
 uint8_t wifiConnected;

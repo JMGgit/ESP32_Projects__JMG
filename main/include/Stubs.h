@@ -66,11 +66,14 @@ static inline uint8_t pgm_read_byte (const uint8_t * x)
 #define PROJECT__LED_TABLE					1
 #define PROJECT								PROJECT__LED_TABLE
 
+#define LEDTABLE_REVISION_2					1
+#define LEDTABLE_REVISION					LEDTABLE_REVISION_2
+
 #define CLOCK_TYPE_ESP32					1
 #define CLOCK_TYPE							CLOCK_TYPE_ESP32
 
-#define CLOCK_SYNC_INTERNET					1
-#define CLOCK_SYNC							CLOCK_SYNC_INTERNET
+#define CLOCK_SYNC_NTP						1
+#define CLOCK_SYNC							CLOCK_SYNC_NTP
 
 #define LED_ORDER__LEFT_2_RIGHT				1
 #define LED_ORDER__STRAIGHT_FORWARD			2
