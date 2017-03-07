@@ -12,6 +12,7 @@
 #include "Main_Types.h"
 #include "Main_Config.h"
 #include "Drivers.h"
+#include "IRMP_Appl.h"
 
 
 #define BITPOS_BUTTON_OFF		8

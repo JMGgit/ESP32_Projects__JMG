@@ -24,7 +24,7 @@
 
 #define BUTTONS_WIRED					BUTTONS_WIRED_OFF
 #define BUTTONS_USART					BUTTONS_USART_OFF
-#define BUTTONS_IRMP					BUTTONS_IRMP_OFF
+#define BUTTONS_IRMP					BUTTONS_IRMP_ON
 #define BUTTONS_TWI						BUTTONS_TWI_OFF
 
 #define LED_TYPE_APA102						1
@@ -104,4 +104,16 @@ static inline uint8_t pgm_read_byte (const uint8_t * x)
 
 #define toggle(port, pin)
 
+
+/* IRMP */
+#define IRMP_REMOTE_ADDRESS					0xF708
+#define IRMP_BUTTON_OFF						0x001B
+#define IRMP_BUTTON_MODE					0x0004
+#define IRMP_BUTTON_FUNC1					0x001F
+#define IRMP_BUTTON_FUNC2					0x001E
+#define IRMP_BUTTON_FUNC3					0x001A
+#define IRMP_BUTTON_UP						0x0005
+#define IRMP_BUTTON_DOWN					0x0000
+#define IRMP_BUTTON_LEFT					0x0008
+#define IRMP_BUTTON_RIGHT					0x0001
 #endif /* STUBS_H_ */

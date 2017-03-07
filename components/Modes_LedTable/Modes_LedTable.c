@@ -145,7 +145,8 @@ static void Modes__updateMatrix (void)
 	{
 		case MODE__STARTUP:
 		{
-			Startup__x10();
+			//Startup__x10();
+			Modes__setNextMode();
 			break;
 		}
 
