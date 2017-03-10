@@ -63,7 +63,7 @@ esp_err_t LedController__outputLedData (void)
 
 void LedController__init (void)
 {
-
+    gpio_set_direction(TEST_LED_LEDCTRL_GPIO, GPIO_MODE_OUTPUT);
 }
 
 
@@ -75,7 +75,7 @@ void LedController__mainFunction (void *param)
 	{
 		if (newDataTrigger)
 		{
-			gpio_set_level(TEST_LED_LEDCTRL, 1);
+			gpio_set_level(TEST_LED_LEDCTRL_GPIO, 1);
 
 			for (idxLed = 0; idxLed < NUMBER_OF_LEDS; idxLed++)
 			{
@@ -86,7 +86,7 @@ void LedController__mainFunction (void *param)
 
 			newDataTrigger = false;
 
-			gpio_set_level(TEST_LED_LEDCTRL, 0);
+			gpio_set_level(TEST_LED_LEDCTRL_GPIO, 0);
 		}
 
 		vTaskDelay(1 / portTICK_PERIOD_MS);

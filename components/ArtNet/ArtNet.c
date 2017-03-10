@@ -455,7 +455,7 @@ void ArtNet__recvUdpFrame (void *arg, struct udp_pcb *pcb, struct pbuf *udpBuffe
 	static uint8_t sameFrameCounter = 0;
 	const uint16_t length = udpBuffer->len;
 
-	gpio_set_level(TEST_LED_ARTNET, 1);
+	gpio_set_level(TEST_LED_ARTNET_GPIO, 1);
 
 	if (udpBuffer != NULL)
 	{
@@ -530,7 +530,7 @@ void ArtNet__recvUdpFrame (void *arg, struct udp_pcb *pcb, struct pbuf *udpBuffe
 		pbuf_free(udpBuffer);
 	}
 
-	gpio_set_level(TEST_LED_ARTNET, 0);
+	gpio_set_level(TEST_LED_ARTNET_GPIO, 0);
 }
 
 
@@ -565,6 +565,8 @@ esp_err_t ArtNet__init (void)
 	{
 		printf("ArtNet__init failed: udp_new\n");
 	}
+
+    gpio_set_direction(TEST_LED_ARTNET_GPIO, GPIO_MODE_OUTPUT);
 
 	return retVal;
 }

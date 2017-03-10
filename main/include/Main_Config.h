@@ -13,9 +13,10 @@
 
 
 /********** CTL LED *********/
-#define UC_CTRL_LED_GPIO				GPIO_NUM_5
-#define TEST_LED_ARTNET					GPIO_NUM_4
-#define TEST_LED_LEDCTRL				GPIO_NUM_25
+#define TEST_LED_BOARD_GPIO			    GPIO_NUM_5
+#define TEST_LED_ARTNET_GPIO			GPIO_NUM_4
+#define TEST_LED_LEDCTRL_GPIO			GPIO_NUM_25
+#define TEST_LED_IRMP_GPIO              TEST_LED_BOARD_GPIO
 
 
 /********* LEDS *********/

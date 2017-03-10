@@ -9,6 +9,8 @@
 #define UC_H_
 
 #include "driver/gpio.h"
+#include "driver/timer.h"
+
 
 static inline void gpio__toggle (gpio_num_t gpio_num)
 {
