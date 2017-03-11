@@ -10,6 +10,7 @@
 
 #include "driver/gpio.h"
 #include "driver/timer.h"
+#include "esp_system.h"
 
 
 static inline void gpio__toggle (gpio_num_t gpio_num)
@@ -27,5 +28,8 @@ static inline void gpio__toggle (gpio_num_t gpio_num)
 
 	gpio_set_level(gpio_num, gpioLevel);
 }
+
+
+void uC__triggerSwReset (void);
 
 #endif /* UC_H_ */

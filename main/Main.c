@@ -37,8 +37,8 @@ void Main__init (void)
 	Buttons__init();
 	Clock__init();
 	LedController__init();
+	Modes__init();
 }
-
 
 
 void LedTable__mainFunction (void *param)

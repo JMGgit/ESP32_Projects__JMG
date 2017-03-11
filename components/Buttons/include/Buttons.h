@@ -47,7 +47,7 @@
 
 
 #define BUTTON_DEBOUNCE_TIME	2
-#define IRMP_DEBOUNCE_TIME      10
+#define IRMP_DEBOUNCE_TIME      15
 
 #define BUTTON_INVALID 			0x00
 

@@ -11,21 +11,21 @@
 #include "stdint.h"
 
 /* buttons */
-#define BUTTONS_WIRED_OFF				1
-#define BUTTONS_WIRED_PIN				2
-#define BUTTONS_WIRED_HC165				3
-#define BUTTONS_USART_OFF				1
-#define BUTTONS_USART_ON				2
-#define BUTTONS_IRMP_OFF				1
-#define BUTTONS_IRMP_USED				2
-#define BUTTONS_IRMP_SEND_TO_TWI		3
-#define BUTTONS_TWI_OFF					1
-#define BUTTONS_TWI_ON					2
+#define BUTTONS_WIRED_OFF					1
+#define BUTTONS_WIRED_PIN					2
+#define BUTTONS_WIRED_HC165					3
+#define BUTTONS_USART_OFF					1
+#define BUTTONS_USART_ON					2
+#define BUTTONS_IRMP_OFF					1
+#define BUTTONS_IRMP_USED					2
+#define BUTTONS_IRMP_SEND_TO_TWI			3
+#define BUTTONS_TWI_OFF						1
+#define BUTTONS_TWI_ON						2
 
-#define BUTTONS_WIRED					BUTTONS_WIRED_OFF
-#define BUTTONS_USART					BUTTONS_USART_OFF
-#define BUTTONS_IRMP					BUTTONS_IRMP_ON
-#define BUTTONS_TWI						BUTTONS_TWI_OFF
+#define BUTTONS_WIRED						BUTTONS_WIRED_OFF
+#define BUTTONS_USART						BUTTONS_USART_OFF
+#define BUTTONS_IRMP						BUTTONS_IRMP_ON
+#define BUTTONS_TWI							BUTTONS_TWI_OFF
 
 #define LED_TYPE_APA102						1
 #define LED_TYPE_WS2801						2
@@ -35,7 +35,7 @@
 #define RGB_LED_ORDER__RED_GREEN_BLUE		1
 #define RGB_LED_ORDER__BLUE_GREEN_RED		2
 #define RGB_LED_ORDER__CONFIGURABLE			3
-#define RGB_LED_ORDER						RGB_LED_ORDER__BLUE_GREEN_RED
+#define RGB_LED_ORDER						RGB_LED_ORDER__CONFIGURABLE
 
 #define PROGMEM
 #define EEMEM
@@ -58,7 +58,6 @@ static inline uint8_t pgm_read_byte (const uint8_t * x)
 
 
 #define uC__getTaskIncrement()				(1)
-#define uC__triggerSwReset()
 
 #define LED_MATRIX_SIZE_LIN					LED_TABLE_SIZE_LIN
 #define LED_MATRIX_SIZE_COL					LED_TABLE_SIZE_COL

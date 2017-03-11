@@ -14,7 +14,7 @@
 #include "uC.h"
 
 
-//#if (LED_TYPE == LED_TYPE_APA102)
+#if (LED_TYPE == LED_TYPE_APA102)
 
 void APA102__init (void);
 void APA102__x10 (void);
@@ -24,9 +24,9 @@ void APA102__resetAllLEDs (void);
 void APA102__enableUpdate (uint8_t enable);
 void APA102__disableUpdate (uint8_t enable);
 void APA102__setGlobalBrightness (uint8_t brightness);
-//#if (RGB_LED_ORDER == RGB_LED_ORDER__CONFIGURABLE)
-//void APA102__toggleRGBLedOrder (void);
-//#endif
+#if (RGB_LED_ORDER == RGB_LED_ORDER__CONFIGURABLE)
+void APA102__toggleRGBLedOrder (void);
+#endif
 
 #define APA102_GLOBAL_BRIGHNESS__MAX	31
 #define APA102_GLOBAL_BRIGHNESS__MIN	1
@@ -39,6 +39,6 @@ void APA102__setGlobalBrightness (uint8_t brightness);
 #define STOP_FRAME_LENGTH	((LEDS_NB / 16) + 1)
 #endif
 
-//#endif
+#endif
 
 #endif /* APA102_H_ */
