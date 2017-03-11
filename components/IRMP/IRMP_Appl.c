@@ -7,55 +7,51 @@
 
 
 #include "IRMP_Appl.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 
 #if (BUTTONS_IRMP != BUTTONS_IRMP_OFF)
 
 static void IRMP__testLed (uint8_t on)
 {
-#ifdef IRMP_LED_PORT
-	if (on)
-	{
-		setHigh(IRMP_LED_PORT, IRMP_LED_PIN);
-	}
-	else
-	{
-		setLow(IRMP_LED_PORT, IRMP_LED_PIN);
-	}
-#endif
+	gpio_set_level(TEST_LED_IRMP_GPIO, on);
+}
+
+
+void IRAM_ATTR IRMP__interrupt(void *para)
+{
+    gpio__toggle(TEST_LED_LEDCTRL_GPIO);
+    irmp_ISR();
+    TIMERG0.int_clr_timers.t1 = 1;
+    TIMERG0.hw_timer[TIMER_1].config.alarm_en = 1;
 }
 
 
 void IRMP__init (void)
 {
-#if 0
+    /* timer init */
+    timer_config_t config;
+    config.alarm_en = 1;
+    config.auto_reload = 1;
+    config.counter_dir = TIMER_COUNT_UP;
+    config.divider = 1;
+    config.intr_type = TIMER_INTR_LEVEL;
+    config.counter_en = TIMER_PAUSE;
+    timer_init(TIMER_GROUP_0, TIMER_1, &config);
+    timer_set_counter_value(TIMER_GROUP_0, TIMER_1, 0x00000000ULL);
+    timer_enable_intr(TIMER_GROUP_0, TIMER_1);
+    timer_isr_register(TIMER_GROUP_0, TIMER_1, IRMP__interrupt, NULL, ESP_INTR_FLAG_IRAM, NULL);
+    timer_set_alarm_value(TIMER_GROUP_0, TIMER_1, (TIMER_BASE_CLK / (2 * F_INTERRUPTS))); /* divider = 1 --> not considered */
+    timer_start(TIMER_GROUP_0, TIMER_1);
+
 	/* lib */
 	irmp_init();
 
-	/* counter */
-	TCCR0A = (1 << WGM01); 					/* CTC counter */
-	TCCR0B = (1 << CS01); 					/* prescaler: 8 */
-	OCR0A = (F_CPU / F_INTERRUPTS) / 8 - 1;	/* interrupt every 15 000 cycles */
-#if defined (TIMSK0)
-	TIMSK0 |= (1 << OCIE0A);				/* enable interrupt */
-#else
-	TIMSK |= (1 << OCIE0A);					/* enable interrupt */
-#endif
-
 	/* callback to illuminate test LED */
-	irmp_set_callback_ptr(&IRMP__testLed);
-#ifdef IRMP_LED_PORT
-	setOutput(IRMP_LED_DDR, IRMP_LED_PIN);
-#endif
-#endif
+    irmp_set_callback_ptr(&IRMP__testLed);
 }
 
-#if 0
-ISR(TIMER0_COMPA_vect)
-{
-	irmp_ISR();
-}
-#endif
 
 uint8_t IRMP__readData (uint16_t address, uint8_t *data, uint8_t dataLength, uint8_t *repeat)
 {
@@ -93,6 +89,30 @@ uint8_t IRMP__readData (uint16_t address, uint8_t *data, uint8_t dataLength, uin
 	}
 
 	return retVal;
+}
+
+
+void IRMP__mainFunction (void *param)
+{
+    IRMP_DATA irmp_data;
+
+    while (1)
+    {
+        int rc = irmp_get_data (&irmp_data);
+
+        if (rc)
+        {
+            printf("\nIRMP %10s(%2d): addr=0x%04x cmd=0x%04x, f=%d ",
+                    irmp_protocol_names[ irmp_data.protocol],
+                    irmp_data.protocol,
+                    irmp_data.address,
+                    irmp_data.command,
+                    irmp_data.flags
+            );
+        }
+
+        vTaskDelay(10 / portTICK_PERIOD_MS);
+    }
 }
 
 
