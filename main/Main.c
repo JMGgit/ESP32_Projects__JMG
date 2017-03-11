@@ -29,12 +29,12 @@ void Main__init (void)
 	nvs_flash_init();
 	esp_event_loop_init(Main__eventHandler, NULL);
 
-    gpio_set_direction(TEST_LED_BOARD_GPIO, GPIO_MODE_OUTPUT);
+	gpio_set_direction(TEST_LED_BOARD_GPIO, GPIO_MODE_OUTPUT);
 
-	Drivers__init();
-	Buttons__init();
-    IRMP__init();
 	Wifi__init();
+	Drivers__init();
+	IRMP__init();
+	Buttons__init();
 	Clock__init();
 	LedController__init();
 }
@@ -92,10 +92,12 @@ void Main__createTasks (void)
 		printf("Task Clock__mainFunction created\n");
 	}
 
-    if (pdPASS ==  xTaskCreate(IRMP__mainFunction, "IRMP__mainFunction", 2048, NULL, 10, NULL))
-    {
-        printf("Task IRMP__mainFunction created\n");
-    }
+#if 0 /* only for debug */
+	if (pdPASS ==  xTaskCreate(IRMP__mainFunction, "IRMP__mainFunction", 2048, NULL, 10, NULL))
+	{
+		printf("Task IRMP__mainFunction created\n");
+	}
+#endif
 }
 
 
@@ -104,8 +106,3 @@ void app_main (void)
 	Main__init();
 	Main__createTasks();
 }
-
-
-
-
-

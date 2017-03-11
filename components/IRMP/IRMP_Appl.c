@@ -9,6 +9,7 @@
 #include "IRMP_Appl.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "driver/timer.h"
 
 
 #if (BUTTONS_IRMP != BUTTONS_IRMP_OFF)
@@ -21,7 +22,6 @@ static void IRMP__testLed (uint8_t on)
 
 void IRAM_ATTR IRMP__interrupt(void *para)
 {
-	gpio__toggle(TEST_LED_LEDCTRL_GPIO);
 	irmp_ISR();
 	TIMERG0.int_clr_timers.t1 = 1;
 	TIMERG0.hw_timer[TIMER_1].config.alarm_en = 1;
@@ -44,6 +44,7 @@ void IRMP__init (void)
 	timer_isr_register(TIMER_GROUP_0, TIMER_1, IRMP__interrupt, NULL, ESP_INTR_FLAG_IRAM, NULL);
 	timer_set_alarm_value(TIMER_GROUP_0, TIMER_1, (TIMER_BASE_CLK / (2 * F_INTERRUPTS))); /* divider = 1 --> not considered */
 	timer_start(TIMER_GROUP_0, TIMER_1);
+
 
 	/* lib */
 	irmp_init();
@@ -98,7 +99,7 @@ void IRMP__mainFunction (void *param)
 
 	while (1)
 	{
-#if 1 /* only for debug */
+#if 0 /* only for debug */
 		if (irmp_get_data(&irmp_data) != 0)
 		{
 			printf("\nIRMP %10s(%2d): addr=0x%04x cmd=0x%04x, f=%d ",
