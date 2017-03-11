@@ -9,6 +9,16 @@
 #include "Buttons.h"
 
 
+Button_t buttonOff;
+Button_t buttonMode;
+Button_t buttonFunc1;
+Button_t buttonFunc2;
+Button_t buttonFunc3;
+Button_t buttonLeft;
+Button_t buttonRight;
+Button_t buttonUp;
+Button_t buttonDown;
+
 #if (BUTTONS_IRMP == BUTTONS_IRMP_SEND_TO_TWI)
 uint16_t buttonTWI;
 uint8_t twiTxBuffer[2];
