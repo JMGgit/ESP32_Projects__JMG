@@ -65,6 +65,11 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="cdt.managedbuild.toolchain.gnu.cross.base.1928356358.318430913" name="irmp.c" rcbsApplicability="disable" resourcePath="components/IRMP/irmp.c" toolsToInvoke="cdt.managedbuild.tool.gnu.c.compiler.cygwin.base.1483648234.889937510">
+						<tool id="cdt.managedbuild.tool.gnu.c.compiler.cygwin.base.1483648234.889937510" name="Cygwin C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.cygwin.base.1483648234">
+							<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin.1696348191" superClass="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin"/>
+						</tool>
+					</fileInfo>
 					<sourceEntries>
 						<entry excluding="Drivers" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>

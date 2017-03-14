@@ -2,6 +2,7 @@
 #include "freertos/task.h"
 #include "esp_event_loop.h"
 #include "nvs_flash.h"
+#include "nvs.h"
 #include "driver/gpio.h"
 #include "driver/uart.h"
 #include "ArtNet.h"
@@ -40,6 +41,9 @@ void Main__init (void)
 	Modes__init();
 }
 
+nvs_handle testHandle;
+uint8_t testCounter;
+
 
 void LedTable__mainFunction (void *param)
 {
@@ -60,6 +64,24 @@ void LedTable__mainFunction (void *param)
 			APA102__x10();
 			gpio_set_level(TEST_LED_LEDCTRL_GPIO, 0);
 		}
+#if 1
+		if (Buttons__isPressedOnce(&buttonRight))
+		{
+			testCounter++;
+
+			if (ESP_OK != nvs_set_u8(testHandle, "storage", testCounter))
+			{
+				printf("Error writing testCounter!\n");
+			}
+
+			if (ESP_OK != nvs_commit(testHandle))
+			{
+				printf("Error committing testCounter!\n");
+			}
+
+			printf("testCounter: %d\n", testCounter);
+		}
+#endif
 	}
 }
 
@@ -67,7 +89,7 @@ void LedTable__mainFunction (void *param)
 void Main__createTasks (void)
 {
 	/* Tasks for ArtNet controller */
-	if (pdPASS == xTaskCreate(LedTable__mainFunction, "LedTable__mainFunction", 1024, NULL, 1, NULL))
+	if (pdPASS == xTaskCreate(LedTable__mainFunction, "LedTable__mainFunction", 4096, NULL, 1, NULL))
 	{
 		printf("Task LedTable__mainFunction created\n");
 	}
@@ -104,5 +126,17 @@ void Main__createTasks (void)
 void app_main (void)
 {
 	Main__init();
+#if 1
+	if (ESP_OK != nvs_open("storage", NVS_READWRITE, &testHandle))
+	{
+		printf("Error opening NVS!\n");
+	}
+
+	if (ESP_OK != nvs_get_u8(testHandle, "storage", &testCounter))
+	{
+		testCounter = 0xFF;
+		printf("Error reading testCounter!\n");
+	}
+#endif
 	Main__createTasks();
 }

@@ -2756,7 +2756,7 @@ irmp_store_bit2 (uint_fast8_t value)
  *---------------------------------------------------------------------------------------------------------------------------------------------------
  */
 uint_fast8_t
-irmp_ISR (void)
+IRAM_ATTR irmp_ISR (void)
 {
     static uint_fast8_t     irmp_start_bit_detected;                                // flag: start bit detected
     static uint_fast8_t     wait_for_space;                                         // flag: wait for data bit space

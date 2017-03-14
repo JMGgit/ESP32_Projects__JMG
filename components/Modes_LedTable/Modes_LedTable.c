@@ -12,7 +12,7 @@
 
 static Mode_t currentMode;
 static uint16_t timerModeChange;
-uint8_t mode_EEPROM EEMEM;
+uint8_t mode_EEPROM EEMEM = MODE__BLENDING_SLOW; /* init value */
 static uint8_t startupOn;
 static uint8_t startupOn_EEPROM EEMEM;
 
