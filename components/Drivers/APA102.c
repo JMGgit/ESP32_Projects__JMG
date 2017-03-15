@@ -23,7 +23,8 @@ uint8_t spiTxBuffer[SPI_TX_BUFFER_LENGTH];
 
 #if (RGB_LED_ORDER == RGB_LED_ORDER__CONFIGURABLE)
 static uint8_t RGBLedOrder;
-static uint8_t RGBLedOrder_EEPROM EEMEM;
+static nvs_handle nvsHandle_RGBLedOrder;
+static uint8_t RGBLedOrder_NVS;
 #endif
 static uint8_t updateEnabled = TRUE;
 static uint8_t globalBrightness;
@@ -54,7 +55,7 @@ void APA102__toggleRGBLedOrder (void)
 		RGBLedOrder = RGB_LED_ORDER__RED_GREEN_BLUE;
 	}
 
-	eeprom_update_byte(&RGBLedOrder_EEPROM, RGBLedOrder);
+	uC__nvsUpdateByte("RGBLedOrder", nvsHandle_RGBLedOrder, &RGBLedOrder_NVS, RGBLedOrder);
 }
 #endif
 
@@ -207,14 +208,16 @@ void APA102__init (void)
 	}
 
 #if (RGB_LED_ORDER == RGB_LED_ORDER__CONFIGURABLE)
-	RGBLedOrder = eeprom_read_byte(&RGBLedOrder_EEPROM);
+	uC__nvsInitStorage("RGBLedOrder", &nvsHandle_RGBLedOrder);
+
+	RGBLedOrder = uC__nvsReadByte("RGBLedOrder", nvsHandle_RGBLedOrder, &RGBLedOrder_NVS);
 
 	if (		(RGBLedOrder != RGB_LED_ORDER__BLUE_GREEN_RED)
 			&& 	(RGBLedOrder != RGB_LED_ORDER__RED_GREEN_BLUE)
 	)
 	{
 		RGBLedOrder = RGB_LED_ORDER__RED_GREEN_BLUE;
-		eeprom_update_byte(&RGBLedOrder_EEPROM, RGBLedOrder);
+		uC__nvsUpdateByte("RGBLedOrder", nvsHandle_RGBLedOrder, &RGBLedOrder_NVS, RGBLedOrder);
 	}
 
 #endif

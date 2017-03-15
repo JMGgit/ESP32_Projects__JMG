@@ -11,25 +11,18 @@
 #include "driver/gpio.h"
 #include "driver/timer.h"
 #include "esp_system.h"
+#include "esp_err.h"
+#include "nvs_flash.h"
+#include "nvs.h"
+#include "Main_Config.h"
 
 
-static inline void gpio__toggle (gpio_num_t gpio_num)
-{
-	static uint8_t gpioLevel = 0;
-
-	if (!gpioLevel)
-	{
-		gpioLevel = 1;
-	}
-	else
-	{
-		gpioLevel = 0;
-	}
-
-	gpio_set_level(gpio_num, gpioLevel);
-}
-
-
+void gpio__toggle (gpio_num_t gpio_num);
 void uC__triggerSwReset (void);
+
+void uC__nvsInitStorage (const char *key, nvs_handle *nvsHandle);
+uint8_t uC__nvsReadByte (const char *key, nvs_handle nvsHandle, uint8_t *byte);
+void uC__nvsUpdateByte (const char *key, nvs_handle nvsHandle, uint8_t *byte_NVS, uint8_t byte);
+void uC__init (void);
 
 #endif /* UC_H_ */

@@ -1,8 +1,6 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_event_loop.h"
-#include "nvs_flash.h"
-#include "nvs.h"
 #include "driver/gpio.h"
 #include "driver/uart.h"
 #include "ArtNet.h"
@@ -27,11 +25,9 @@ static esp_err_t Main__eventHandler(void *ctx, system_event_t *event)
 
 void Main__init (void)
 {
-	nvs_flash_init();
 	esp_event_loop_init(Main__eventHandler, NULL);
 
-	gpio_set_direction(TEST_LED_BOARD_GPIO, GPIO_MODE_OUTPUT);
-
+	uC__init();
 	Wifi__init();
 	Drivers__init();
 	IRMP__init();
@@ -40,9 +36,6 @@ void Main__init (void)
 	LedController__init();
 	Modes__init();
 }
-
-nvs_handle testHandle;
-uint8_t testCounter;
 
 
 void LedTable__mainFunction (void *param)
@@ -64,24 +57,6 @@ void LedTable__mainFunction (void *param)
 			APA102__x10();
 			gpio_set_level(TEST_LED_LEDCTRL_GPIO, 0);
 		}
-#if 1
-		if (Buttons__isPressedOnce(&buttonRight))
-		{
-			testCounter++;
-
-			if (ESP_OK != nvs_set_u8(testHandle, "storage", testCounter))
-			{
-				printf("Error writing testCounter!\n");
-			}
-
-			if (ESP_OK != nvs_commit(testHandle))
-			{
-				printf("Error committing testCounter!\n");
-			}
-
-			printf("testCounter: %d\n", testCounter);
-		}
-#endif
 	}
 }
 
@@ -94,49 +69,30 @@ void Main__createTasks (void)
 		printf("Task LedTable__mainFunction created\n");
 	}
 
-	if (pdPASS == xTaskCreate(ArtNet__mainFunction, "ArtNet__mainFunction", 1024, NULL, 1, NULL))
+	if (pdPASS == xTaskCreate(ArtNet__mainFunction, "ArtNet__mainFunction", 4096, NULL, 1, NULL))
 	{
 		printf("Task ArtNet__mainFunction created\n");
 	}
 
-	if (pdPASS == xTaskCreate(ArtNet__debug, "ArtNet__debug", 1024, NULL, 10 , NULL))
+	if (pdPASS == xTaskCreate(ArtNet__debug, "ArtNet__debug", 4096, NULL, 10 , NULL))
 	{
 		printf("Task ArtNet__debug created\n");
 	}
 
-	if (pdPASS == xTaskCreate(LedController__mainFunction, "LedController__mainFunction", 1024, NULL, 1, NULL))
+	if (pdPASS == xTaskCreate(LedController__mainFunction, "LedController__mainFunction", 4096, NULL, 1, NULL))
 	{
 		printf("Task LedController__mainFunction created\n");
 	}
 
-	if (pdPASS == xTaskCreate(Clock__mainFunction, "Clock__mainFunction", 1024, NULL, 1, NULL))
+	if (pdPASS == xTaskCreate(Clock__mainFunction, "Clock__mainFunction", 4096, NULL, 1, NULL))
 	{
 		printf("Task Clock__mainFunction created\n");
 	}
-
-#if 0 /* only for debug */
-	if (pdPASS ==  xTaskCreate(IRMP__mainFunction, "IRMP__mainFunction", 2048, NULL, 10, NULL))
-	{
-		printf("Task IRMP__mainFunction created\n");
-	}
-#endif
 }
 
 
 void app_main (void)
 {
 	Main__init();
-#if 1
-	if (ESP_OK != nvs_open("storage", NVS_READWRITE, &testHandle))
-	{
-		printf("Error opening NVS!\n");
-	}
-
-	if (ESP_OK != nvs_get_u8(testHandle, "storage", &testCounter))
-	{
-		testCounter = 0xFF;
-		printf("Error reading testCounter!\n");
-	}
-#endif
 	Main__createTasks();
 }

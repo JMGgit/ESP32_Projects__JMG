@@ -38,9 +38,12 @@
 
 static uint8_t clockSize, lineOffset, colOffset;
 
-static uint8_t clockSize_EEPROM EEMEM = 0;
-static uint8_t lineOffset_EEPROM EEMEM = 0;
-static uint8_t colOffset_EEPROM EEMEM = 0;
+static uint8_t clockSize_NVS;
+static nvs_handle nvsHandle_clockSize;
+static uint8_t lineOffset_NVS;
+static nvs_handle nvsHandle_lineOffset;
+static uint8_t colOffset_NVS;
+static nvs_handle nvsHandle_colOffset;
 
 static const uint8_t numTable[SIZE_LIN * SIZE_COL * 10] PROGMEM =
 {
@@ -73,43 +76,47 @@ static const uint8_t numTable_big[SIZE_LIN_BIG * SIZE_COL_BIG * 10] PROGMEM =
 
 void ModeClock__init (void)
 {
-	if (eeprom_read_byte(&clockSize_EEPROM) == CLOCK_SIZE_BIG)
+	uC__nvsInitStorage("clockSize", &nvsHandle_clockSize);
+	uC__nvsInitStorage("lineOffset", &nvsHandle_lineOffset);
+	uC__nvsInitStorage("colOffset", &nvsHandle_colOffset);
+
+	if (uC__nvsReadByte("clockSize", nvsHandle_clockSize, &clockSize_NVS) == CLOCK_SIZE_BIG)
 	{
 		clockSize = CLOCK_SIZE_BIG;
 	}
 	else
 	{
 		clockSize = CLOCK_SIZE_SMALL;
-		eeprom_update_byte(&clockSize_EEPROM, clockSize);
+		uC__nvsUpdateByte("clockSize", nvsHandle_clockSize, &clockSize_NVS, clockSize);
 	}
 
-	if (eeprom_read_byte(&lineOffset_EEPROM) <= LED_MATRIX_SIZE_LIN)
+	if (uC__nvsReadByte("lineOffset", nvsHandle_lineOffset, &lineOffset_NVS) <= LED_MATRIX_SIZE_LIN)
 	{
-		lineOffset = eeprom_read_byte(&lineOffset_EEPROM);
+		lineOffset = uC__nvsReadByte("lineOffset", nvsHandle_lineOffset, &lineOffset_NVS);
 	}
 	else
 	{
 		lineOffset = 0;
-		eeprom_update_byte(&lineOffset_EEPROM, lineOffset);
+		uC__nvsUpdateByte("lineOffset", nvsHandle_lineOffset, &lineOffset_NVS, lineOffset);
 	}
 
-	if (eeprom_read_byte(&colOffset_EEPROM) <= LED_MATRIX_SIZE_COL)
+	if (uC__nvsReadByte("colOffset", nvsHandle_colOffset, &colOffset_NVS) <= LED_MATRIX_SIZE_COL)
 	{
-		colOffset = eeprom_read_byte(&colOffset_EEPROM);
+		colOffset = uC__nvsReadByte("colOffset", nvsHandle_colOffset, &colOffset_NVS);
 	}
 	else
 	{
 		colOffset = 0;
-		eeprom_update_byte(&colOffset_EEPROM, colOffset);
+		uC__nvsUpdateByte("colOffset", nvsHandle_colOffset, &colOffset_NVS, colOffset);
 	}
 }
 
 
 static void ModeClock__eepromStorage (void)
 {
-	eeprom_update_byte(&clockSize_EEPROM, clockSize);
-	eeprom_update_byte(&lineOffset_EEPROM, lineOffset);
-	eeprom_update_byte(&colOffset_EEPROM, colOffset);
+	uC__nvsUpdateByte("clockSize", nvsHandle_clockSize, &clockSize_NVS, clockSize);
+	uC__nvsUpdateByte("lineOffset", nvsHandle_lineOffset, &lineOffset_NVS, lineOffset);
+	uC__nvsUpdateByte("colOffset", nvsHandle_colOffset, &colOffset_NVS, colOffset);
 }
 
 

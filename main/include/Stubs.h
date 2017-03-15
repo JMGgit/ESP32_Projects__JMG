@@ -40,17 +40,6 @@
 #define PROGMEM
 #define EEMEM
 
-static inline uint8_t eeprom_read_byte (uint8_t *x)
-{
-	return *x;
-}
-
-
-static inline void eeprom_update_byte (uint8_t *x, uint8_t y)
-{
-	*x = y;
-}
-
 static inline uint8_t pgm_read_byte (const uint8_t * x)
 {
 	return *x;

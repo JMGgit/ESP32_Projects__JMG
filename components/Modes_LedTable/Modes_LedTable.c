@@ -12,9 +12,11 @@
 
 static Mode_t currentMode;
 static uint16_t timerModeChange;
-uint8_t mode_EEPROM EEMEM = MODE__BLENDING_SLOW; /* init value */
+uint8_t mode_NVS;
+static nvs_handle nvsHandle_mode;
 static uint8_t startupOn;
-static uint8_t startupOn_EEPROM EEMEM;
+static uint8_t startupOn_NVS;
+static nvs_handle nvsHandle_startupOn;
 
 
 uint16_t timerModeChangeConf[MODE_NB] =
@@ -109,13 +111,13 @@ void Modes__Start (void)
 	else
 #endif
 	{
-		if (eeprom_read_byte(&mode_EEPROM) == MODE__FAILUREMEMORY)
+		if (uC__nvsReadByte("mode", nvsHandle_mode, &mode_NVS) == MODE__FAILUREMEMORY)
 		{
 			Modes__setMode(MODE_NB, TRUE);
 		}
 		else
 		{
-			Modes__setMode(eeprom_read_byte(&mode_EEPROM), TRUE);
+			Modes__setMode(uC__nvsReadByte("mode", nvsHandle_mode, &mode_NVS), TRUE);
 		}
 	}
 }
@@ -135,7 +137,7 @@ Mode_t Modes__getMode (void)
 
 static void Mode__eepromStorage (void)
 {
-	eeprom_update_byte(&mode_EEPROM, currentMode);
+	uC__nvsUpdateByte("mode", nvsHandle_mode, &mode_NVS, currentMode);
 }
 
 
@@ -145,8 +147,7 @@ static void Modes__updateMatrix (void)
 	{
 		case MODE__STARTUP:
 		{
-			//Startup__x10();
-			Modes__setNextMode();
+			Startup__x10();
 			break;
 		}
 
@@ -164,8 +165,7 @@ static void Modes__updateMatrix (void)
 
 		case MODE__ALL_ON:
 		{
-			//AllOn__x10();
-			Modes__setNextMode();
+			AllOn__x10();
 			break;
 		}
 
@@ -259,7 +259,10 @@ void Modes__init (void)
 {
 	LEDMatrix__clearMatrix();
 
-	if (eeprom_read_byte(&startupOn_EEPROM) == TRUE)
+	uC__nvsInitStorage("mode", &nvsHandle_mode);
+	uC__nvsInitStorage("startupOn", &nvsHandle_startupOn);
+
+	if (uC__nvsReadByte("startupOn", nvsHandle_startupOn, &startupOn_NVS) == TRUE)
 	{
 		Modes__setMode(MODE__STARTUP, FALSE);
 		startupOn = TRUE;
@@ -268,7 +271,7 @@ void Modes__init (void)
 	{
 		Modes__Start();
 		startupOn = FALSE;
-		eeprom_update_byte(&startupOn_EEPROM, startupOn);
+		uC__nvsUpdateByte("startupOn", nvsHandle_startupOn, &startupOn_NVS, startupOn);
 	}
 
 	ModeClock__init();
@@ -329,5 +332,5 @@ void Modes__toggleStartupMode (void)
 		startupOn = TRUE;
 	}
 
-	eeprom_update_byte(&startupOn_EEPROM, startupOn);
+	uC__nvsUpdateByte("startupOn", nvsHandle_startupOn, &startupOn_NVS, startupOn);
 }

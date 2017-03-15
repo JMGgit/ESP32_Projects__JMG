@@ -2204,18 +2204,8 @@ irmp_init (void)
 #elif defined (TEENSY_ARM_CORTEX_M4)                                    // TEENSY
     pinMode(IRMP_PIN, INPUT);
 
-#elif defined(__xtensa__)                                               // ESP8266
+#elif defined(__xtensa__)                                               // ESP32
     gpio_set_direction(IRMP_BIT_NUMBER, GPIO_MODE_INPUT);
-                                                                        // select pin function
-#  if (IRMP_BIT_NUMBER == 12)
-    PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTDI_U, FUNC_GPIO12);
-//  doesn't work for me:
-//  # elif (IRMP_BIT_NUMBER == 13)
-//  PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTCK_U , FUNC_GPIO13);
-#  else
-#   warning Please add PIN_FUNC_SELECT when necessary.
-#  endif
-    GPIO_DIS_OUTPUT(IRMP_BIT_NUMBER);
 
 #elif defined(__MBED__)
     gpio_init_in_ex(&gpioIRin, IRMP_PIN, IRMP_PINMODE);                 // initialize input for IR diode

@@ -13,7 +13,8 @@
 
 #if (LED_ORDER == RGB_LED_ORDER__CONFIGURABLE)
 static uint8_t ledOrder;
-static uint8_t ledOrder_EEPROM EEMEM;
+static nvs_handle nvsHandle_ledOrder;
+static uint8_t ledOrder_NVS;
 #endif
 
 
@@ -130,7 +131,7 @@ void LEDMatrix__toggleLedOrder (void)
 		ledOrder = LED_ORDER__LEFT_2_RIGHT;
 	}
 
-	eeprom_update_byte(&ledOrder_EEPROM, ledOrder);
+	uC__nvsUpdateByte(nvsHandle_ledOrder, &ledOrder_NVS, ledOrder);
 #endif
 }
 
@@ -150,14 +151,16 @@ uint8_t LEDMatrix__getLedOrder (void)
 void LEDMatrix__init (void)
 {
 #if (LED_ORDER == LED_ORDER__CONFIGURABLE)
-	ledOrder = eeprom_read_byte(&ledOrder_EEPROM);
+	uC__nvsInitStorage("ledOrder", &nvsHandle_ledOrder);
+
+	ledOrder = uC__nvsReadByte("ledOrder", nvsHandle_ledOrder, &ledOrder_NVS);
 
 	if (	(ledOrder != LED_ORDER__LEFT_2_RIGHT)
 		&& 	(ledOrder != LED_ORDER__STRAIGHT_FORWARD)
 		)
 	{
 		ledOrder = LED_ORDER__LEFT_2_RIGHT;
-		eeprom_update_byte(&ledOrder_EEPROM, ledOrder);
+		uC__nvsUpdateByte("ledOrder", nvsHandle_ledOrder, &ledOrder_NVS, ledOrder);
 	}
 #endif
 }
