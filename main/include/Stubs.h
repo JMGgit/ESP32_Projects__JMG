@@ -46,6 +46,12 @@ static inline uint8_t pgm_read_byte (const uint8_t * x)
 }
 
 
+static inline void FailureMemory__x10()
+{
+
+}
+
+
 #define uC__getTaskIncrement()				(1)
 
 #define LED_MATRIX_SIZE_LIN					LED_TABLE_SIZE_LIN

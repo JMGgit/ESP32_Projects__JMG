@@ -7,7 +7,6 @@
 
 
 #include "Modes_LedTable.h"
-#include "Mode_FailureMemory.h"
 
 
 static Mode_t currentMode;
