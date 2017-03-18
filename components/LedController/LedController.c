@@ -77,7 +77,7 @@ void LedController__mainFunction (void *param)
 		{
 			gpio_set_level(TEST_LED_LEDCTRL_GPIO, 1);
 
-			for (idxLed = 0; idxLed < NUMBER_OF_LEDS; idxLed++)
+			for (idxLed = 0; idxLed < LEDS_NB; idxLed++)
 			{
 				APA102__setRGBForLED(LEDMatrix__getRGBColorFromComponents(ledData[(3 * idxLed) + 2], ledData[(3 * idxLed) + 1], ledData[3 * idxLed]), idxLed);
 			}

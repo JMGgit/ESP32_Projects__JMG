@@ -44,13 +44,14 @@ static uint8_t previousDS1307MinutesCheck;
 static void Clock__updateTimeFromRTC (void)
 {
 #if (CLOCK_TYPE == CLOCK_TYPE_DS1307)
-	currentTime.seconds	= DS1307__getSeconds();
-	currentTime.minutes	= DS1307__getMinutes();
-	currentTime.hours	= DS1307__getHours();
-	currentTime.day	= DS1307__getDay();
-	currentTime.date	= DS1307__getDate();
-	currentTime.month	= DS1307__getMonth();
-	currentTime.year	= DS1307__getYear();
+	currentTime.seconds = DS1307__getSeconds();
+	currentTime.minutes = DS1307__getMinutes();
+	currentTime.hours   = DS1307__getHours();
+	currentTime.day     = DS1307__getDay();
+	currentTime.date    = DS1307__getDate();
+	currentTime.month   = DS1307__getMonth();
+	currentTime.year    = DS1307__getYear();
+
 #endif
 }
 
@@ -446,7 +447,7 @@ void Clock__init (void)
 
 void Clock__mainFunction (void *param)
 {
-#if (CLOCK_TYPE == CLOCK_SYNC_NTP)
+#if ((CLOCK_TYPE == CLOCK_TYPE_ESP32) && (CLOCK_SYNC == CLOCK_SYNC_NTP))
 	time_t currentNTPTime;
 	char buffer1[9];
 	char buffer2[9];

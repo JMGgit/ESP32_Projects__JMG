@@ -10,20 +10,11 @@
 
 #include "Wifi_SSID_Cfg.h"
 #include "Stubs.h"
+#include "LedTable_Main_Config.h"
+#include "Drivers_Config.h"
 
 
-/********** CTL LED *********/
-#define TEST_LED_BOARD_GPIO			    GPIO_NUM_5
-#define TEST_LED_ARTNET_GPIO			GPIO_NUM_4
-#define TEST_LED_LEDCTRL_GPIO			GPIO_NUM_25
-#define TEST_LED_IRMP_GPIO              TEST_LED_BOARD_GPIO
-
-
-/********* LEDS *********/
-#define LED_TABLE_SIZE_LIN				24
-#define LED_TABLE_SIZE_COL				42
-#define NUMBER_OF_LEDS					(LED_TABLE_SIZE_LIN * LED_TABLE_SIZE_COL)
-#define NUMBER_OF_LEDS_CHANNELS			(3* NUMBER_OF_LEDS)
+#define NUMBER_OF_LEDS_CHANNELS			(3 * LEDS_NB)
 
 
 #endif /* MAIN_CONFIGH_ */

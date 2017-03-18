@@ -7,19 +7,23 @@
 
 
 #include "APA102.h"
-#include "driver/spi_master.h"
-#include "driver/gpio.h"
+
 
 #if (LED_TYPE == LED_TYPE_APA102)
 
 /* SPI parameters */
 spi_bus_config_t spiBusConfig;
 spi_device_interface_config_t spiDeviceInterfaceConfig;
-spi_transaction_t spiTransaction;
+spi_transaction_t spiTransaction1, spiTransaction2;
 spi_device_handle_t spiDeviceHandle;
-#define SPI_TX_BUFFER_LENGTH (START_FRAME_LENGTH + (4 * NUMBER_OF_LEDS)+ STOP_FRAME_LENGTH)
-uint8_t spiTxBuffer[SPI_TX_BUFFER_LENGTH];
+#define SPI_TX_BUFFER1_LENGTH (START_FRAME_LENGTH + (4 * LEDS_NB))
+#define SPI_TX_BUFFER2_LENGTH (STOP_FRAME_LENGTH)
+uint8_t spiTxBuffer1[SPI_TX_BUFFER1_LENGTH];
+uint8_t spiTxBuffer2[SPI_TX_BUFFER2_LENGTH];
 
+#if ((SPI_TX_BUFFER1_LENGTH > 4095) || (SPI_TX_BUFFER2_LENGTH > 4095))
+#error "SPI buffer to long! Reduce number of LEDs or update implementation of SPI buffers to avoid buffer (max size is 4095)"
+#endif
 
 #if (RGB_LED_ORDER == RGB_LED_ORDER__CONFIGURABLE)
 static uint8_t RGBLedOrder;
@@ -29,7 +33,8 @@ static uint8_t RGBLedOrder_NVS;
 static uint8_t updateEnabled = TRUE;
 static uint8_t globalBrightness;
 
-RGB_Color_t GS_Data[NUMBER_OF_LEDS]; /* defined as struct to save run time compared to simple buffer */
+RGB_Color_t GS_Data[LEDS_NB]; /* defined as struct to save run time compared to simple buffer */
+
 
 uint8_t APA102__getRGBLedOrder (void)
 {
@@ -63,9 +68,9 @@ void APA102__toggleRGBLedOrder (void)
 
 void APA102__updateAll (void)
 {
-	memset(&spiTransaction, 0, sizeof(spiTransaction));
-	spiTransaction.tx_buffer = &spiTxBuffer[0];
-	spiTransaction.length = SPI_TX_BUFFER_LENGTH * 8;
+	memset(&spiTransaction1, 0, sizeof(spiTransaction1));
+	spiTransaction1.tx_buffer = &spiTxBuffer1[0];
+	spiTransaction1.length = SPI_TX_BUFFER1_LENGTH * 8;
 
 	uint16_t it, bufferIdx;
 
@@ -74,45 +79,65 @@ void APA102__updateAll (void)
 	/* START FRAME*/
 	for (it = 0; it < START_FRAME_LENGTH; it++)
 	{
-		spiTxBuffer[bufferIdx++] = 0;
+		spiTxBuffer1[bufferIdx++] = 0;
 	}
 
 	/* LED FRAMES */
-	for (it = 0; it < NUMBER_OF_LEDS; it++)
+	for (it = 0; it < LEDS_NB; it++)
 	{
-		spiTxBuffer[bufferIdx++] = 0xE0 | globalBrightness;
+		spiTxBuffer1[bufferIdx++] = 0xE0 | globalBrightness;
 
 		if (APA102__getRGBLedOrder() == RGB_LED_ORDER__BLUE_GREEN_RED)
 		{
-			spiTxBuffer[bufferIdx++] = GS_Data[it].blue;
+			spiTxBuffer1[bufferIdx++] = GS_Data[it].blue;
 		}
 		else
 		{
-			spiTxBuffer[bufferIdx++] = GS_Data[it].red;
+			spiTxBuffer1[bufferIdx++] = GS_Data[it].red;
 		}
 
-		spiTxBuffer[bufferIdx++] = GS_Data[it].green;
+		spiTxBuffer1[bufferIdx++] = GS_Data[it].green;
 
 		if (APA102__getRGBLedOrder() == RGB_LED_ORDER__BLUE_GREEN_RED)
 		{
-			spiTxBuffer[bufferIdx++] = GS_Data[it].red;
+			spiTxBuffer1[bufferIdx++] = GS_Data[it].red;
 		}
 		else
 		{
-			spiTxBuffer[bufferIdx++] = GS_Data[it].blue;
+			spiTxBuffer1[bufferIdx++] = GS_Data[it].blue;
 		}
 	}
+
+#if 0
+	/* END FRAME */
+	for (it = 0; it < STOP_FRAME_LENGTH; it++)
+	{
+		spiTxBuffer1[bufferIdx++] = 0xFF;
+	}
+#endif
+
+	if (ESP_OK != spi_device_queue_trans(spiDeviceHandle, &spiTransaction1, portMAX_DELAY))
+	{
+		assert(0);
+	}
+
+#if 1
+	spiTransaction2.tx_buffer = &spiTxBuffer2[0];
+	spiTransaction2.length = STOP_FRAME_LENGTH * 8;
+	bufferIdx = 0;
+
 
 	/* END FRAME */
 	for (it = 0; it < STOP_FRAME_LENGTH; it++)
 	{
-		spiTxBuffer[bufferIdx++] = 0xFF;
+		spiTxBuffer2[bufferIdx++] = 0xFF;
 	}
 
-	if (ESP_OK != spi_device_queue_trans(spiDeviceHandle, &spiTransaction, portMAX_DELAY))
+	if (ESP_OK != spi_device_queue_trans(spiDeviceHandle, &spiTransaction2, portMAX_DELAY))
 	{
 		assert(0);
 	}
+#endif
 }
 
 
@@ -140,7 +165,7 @@ void APA102__setRGBForAllLEDs (RGB_Color_t color)
 
 	if (updateEnabled)
 	{
-		for (idxLed = 0; idxLed < NUMBER_OF_LEDS; idxLed++)
+		for (idxLed = 0; idxLed < LEDS_NB; idxLed++)
 		{
 			GS_Data[idxLed] = color;
 		}
@@ -197,12 +222,12 @@ void APA102__init (void)
 	spiDeviceInterfaceConfig.spics_io_num = -1;
 	spiDeviceInterfaceConfig.queue_size = 5;
 
-	if (E_OK != spi_bus_initialize(HSPI_HOST, &spiBusConfig, 1))
+	if (ESP_OK != spi_bus_initialize(HSPI_HOST, &spiBusConfig, 1))
 	{
 		assert(0);
 	}
 
-	if (E_OK != spi_bus_add_device(HSPI_HOST, &spiDeviceInterfaceConfig, &spiDeviceHandle))
+	if (ESP_OK != spi_bus_add_device(HSPI_HOST, &spiDeviceInterfaceConfig, &spiDeviceHandle))
 	{
 		assert(0);
 	}

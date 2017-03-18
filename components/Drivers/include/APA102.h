@@ -12,6 +12,7 @@
 #include "Main_Types.h"
 #include "Main_Config.h"
 #include "uC.h"
+#include "driver/spi_master.h"
 
 
 #if (LED_TYPE == LED_TYPE_APA102)
@@ -31,13 +32,8 @@ void APA102__toggleRGBLedOrder (void);
 #define APA102_GLOBAL_BRIGHNESS__MAX	31
 #define APA102_GLOBAL_BRIGHNESS__MIN	1
 
-#define START_FRAME_LENGTH	4
-
-#if (((LEDS_NB / 16) > 1) && ((LEDS_NB % 16) == 0))
-#define STOP_FRAME_LENGTH	(LEDS_NB / 16)
-#else
-#define STOP_FRAME_LENGTH	((LEDS_NB / 16) + 1)
-#endif
+#define START_FRAME_LENGTH				4
+#define STOP_FRAME_LENGTH				((LEDS_NB + 15) / 16)
 
 #endif
 

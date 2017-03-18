@@ -36,7 +36,5 @@ typedef struct
 	uint8_t blue;
 } RGB_Color_t;
 
-#define LEDS_NB (64)
-
 
 #endif /* MAIN_TYPES_H_ */
