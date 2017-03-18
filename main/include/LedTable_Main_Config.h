@@ -43,7 +43,7 @@
 
 #define SNAKE_BRIGHTNESS_LEVEL			255
 
-#define LED_COLORS						LED_COLORS_LINEAR
+#define LED_COLORS						LED_COLORS_PWM
 
 #endif
 
