@@ -579,7 +579,7 @@ void ArtNet__mainFunction (void *param)
 	uint8_t TxDataLength = 0;
 	uint8_t artPollReply_portOffset = 0;
 	uint8_t stateTransition = TRUE;
-	static uint8_t noUdpFrameTransition = false;
+	static uint8_t noUdpFrameTransition = FALSE;
 	static TickType_t tickNoUdpFrameCurrent;
 	static TickType_t tickNoUdpFrameTransition;
 
@@ -589,11 +589,11 @@ void ArtNet__mainFunction (void *param)
 		{
 			artNetState = ARTNET_STATE_RECV_DECODE;
 			stateTransition = TRUE;
-			newUdpDataRecv = false;
+			newUdpDataRecv = FALSE;
 		}
 		else
 		{
-			stateTransition = false;
+			stateTransition = FALSE;
 		}
 
 
@@ -740,11 +740,11 @@ void ArtNet__mainFunction (void *param)
 					}
 
 					lastFrameDecoded = udpFrameIterator;
-					noUdpFrameTransition = false;
+					noUdpFrameTransition = FALSE;
 				}
 				else
 				{
-					if (noUdpFrameTransition == false)
+					if (noUdpFrameTransition == FALSE)
 					{
 						tickNoUdpFrameTransition = xTaskGetTickCount();
 						noUdpFrameTransition = TRUE;
