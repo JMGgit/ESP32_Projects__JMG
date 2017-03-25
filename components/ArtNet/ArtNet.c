@@ -9,7 +9,6 @@
 #include "ArtNet.h"
 #include "lwip/udp.h"
 #include "lwip/debug.h"
-#include "driver/uart.h"
 #include "Wifi.h"
 #include "LedController.h"
 #include <string.h>
@@ -33,12 +32,12 @@ uint8_t udpFrameCounter = 0;
 uint8_t udpDataTx[ARTNET_TX_DATA_LENGTH];
 
 /* define 2 led tables for receive and send */
-uint8_t artNetLedTable[NUMBER_OF_LEDS_CHANNELS];
+uint8_t artNetLedTable[LEDS_CHANNELS];
 
 /* flag to indicate that data for each universe has been received for the current frame*/
 uint16_t univDataRecv[ARTNET_FRAMECOUNTER_MAX + 1];
 
-uint8_t ledData[NUMBER_OF_LEDS_CHANNELS];
+uint8_t ledData[LEDS_CHANNELS];
 
 artNetState_t artNetState = ARTNET_STATE_NO_WIFI;
 uint8_t newUdpDataRecv;
@@ -90,7 +89,7 @@ esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t *frameNb, uint8_t **l
 		{
 			if (universe < ARTNET_UNIVERSE_NB)
 			{
-				if (		((universe == ARTNET_LAST_UNIVERSE) && (length == (NUMBER_OF_LEDS_CHANNELS % ARTNET_CHANNELS_PER_UNIVERSE)))
+				if (		((universe == ARTNET_LAST_UNIVERSE) && (length == (LEDS_CHANNELS % ARTNET_CHANNELS_PER_UNIVERSE)))
 						||	((universe < ARTNET_LAST_UNIVERSE) && (length <= ARTNET_CHANNELS_PER_UNIVERSE))
 				)
 				{
@@ -101,7 +100,7 @@ esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t *frameNb, uint8_t **l
 				}
 				else
 				{
-					printf("Artnet: wrong data length: should be less than %d or %d for last universe\n", ARTNET_CHANNELS_PER_UNIVERSE, NUMBER_OF_LEDS_CHANNELS % ARTNET_CHANNELS_PER_UNIVERSE);
+					printf("Artnet: wrong data length: should be less than %d or %d for last universe\n", ARTNET_CHANNELS_PER_UNIVERSE, LEDS_CHANNELS % ARTNET_CHANNELS_PER_UNIVERSE);
 					artNetState = ARTNET_STATE_IDLE;
 				}
 
@@ -475,7 +474,7 @@ void ArtNet__recvUdpFrame (void *arg, struct udp_pcb *pcb, struct pbuf *udpBuffe
 
 			if (artNetState != ARTNET_STATE_RECV_DECODE)
 			{
-				newUdpDataRecv = true;
+				newUdpDataRecv = TRUE;
 			}
 
 			if (udpDataRxFifo[udpFrameCounter][12] == frameNb)
@@ -579,7 +578,7 @@ void ArtNet__mainFunction (void *param)
 	uint8_t newFrame = 0;
 	uint8_t TxDataLength = 0;
 	uint8_t artPollReply_portOffset = 0;
-	uint8_t stateTransition = true;
+	uint8_t stateTransition = TRUE;
 	static uint8_t noUdpFrameTransition = false;
 	static TickType_t tickNoUdpFrameCurrent;
 	static TickType_t tickNoUdpFrameTransition;
@@ -589,7 +588,7 @@ void ArtNet__mainFunction (void *param)
 		if (newUdpDataRecv)
 		{
 			artNetState = ARTNET_STATE_RECV_DECODE;
-			stateTransition = true;
+			stateTransition = TRUE;
 			newUdpDataRecv = false;
 		}
 		else
@@ -748,7 +747,7 @@ void ArtNet__mainFunction (void *param)
 					if (noUdpFrameTransition == false)
 					{
 						tickNoUdpFrameTransition = xTaskGetTickCount();
-						noUdpFrameTransition = true;
+						noUdpFrameTransition = TRUE;
 					}
 					else
 					{

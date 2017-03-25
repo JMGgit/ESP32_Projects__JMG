@@ -7,6 +7,7 @@
 
 
 #include "APA102.h"
+#include "esp_err.h"
 
 
 #if (LED_TYPE == LED_TYPE_APA102)

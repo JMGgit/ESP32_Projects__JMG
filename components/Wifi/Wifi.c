@@ -34,7 +34,7 @@ void Wifi__init (void)
 	memcpy(&(sta_config.sta.ssid), WIFI_SSID, sizeof(WIFI_SSID));
 	memcpy(&(sta_config.sta.password), WIFI_PASSWORD, sizeof(WIFI_PASSWORD));
 
-	sta_config.sta.bssid_set = false;
+	sta_config.sta.bssid_set = FALSE;
 
 	esp_wifi_set_config(WIFI_IF_STA, &sta_config);
 	esp_wifi_start();
@@ -50,15 +50,15 @@ void Wifi__systemEvent (system_event_t *event)
 	{
 		case SYSTEM_EVENT_STA_GOT_IP:
 		{
-			printf("Event handler: SYSTEM_EVENT_STA_GOT_IP -> wifiConnected = true\n");
-			wifiConnected = true;
+			printf("Event handler: SYSTEM_EVENT_STA_GOT_IP -> wifiConnected = TRUE\n");
+			wifiConnected = TRUE;
 			break;
 		}
 
 		case SYSTEM_EVENT_STA_DISCONNECTED:
 		{
-			printf("Event handler: SYSTEM_EVENT_STA_DISCONNECTED -> wifiConnected = false\n");
-			wifiConnected = false;
+			printf("Event handler: SYSTEM_EVENT_STA_DISCONNECTED -> wifiConnected = FALSE\n");
+			wifiConnected = FALSE;
 			Wifi__init();
 			break;
 		}

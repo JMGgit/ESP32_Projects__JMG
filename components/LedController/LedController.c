@@ -25,7 +25,7 @@
 #include "Drivers.h"
 
 
-uint8_t ledData[NUMBER_OF_LEDS_CHANNELS];
+uint8_t ledData[LEDS_CHANNELS];
 uint8_t newDataTrigger;
 
 
@@ -53,7 +53,7 @@ esp_err_t LedController__outputLedData (void)
 
 	if (!newDataTrigger)
 	{
-		newDataTrigger = true;
+		newDataTrigger = TRUE;
 		retVal = ESP_OK;
 	}
 
@@ -84,7 +84,7 @@ void LedController__mainFunction (void *param)
 
 			APA102__x10();
 
-			newDataTrigger = false;
+			newDataTrigger = FALSE;
 
 			gpio_set_level(TEST_LED_LEDCTRL_GPIO, 0);
 		}

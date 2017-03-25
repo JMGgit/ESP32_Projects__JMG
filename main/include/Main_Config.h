@@ -14,7 +14,4 @@
 #include "Drivers_Config.h"
 
 
-#define NUMBER_OF_LEDS_CHANNELS			(3 * LEDS_NB)
-
-
 #endif /* MAIN_CONFIGH_ */

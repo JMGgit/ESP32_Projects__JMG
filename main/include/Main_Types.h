@@ -9,7 +9,6 @@
 #define MAIN_TYPES_H_
 
 #include <stdint.h>
-#include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
