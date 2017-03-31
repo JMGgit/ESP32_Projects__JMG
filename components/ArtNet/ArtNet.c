@@ -39,7 +39,7 @@ uint16_t univDataRecv[ARTNET_FRAMECOUNTER_MAX + 1];
 
 uint8_t ledData[LEDS_CHANNELS];
 
-artNetState_t artNetState = ARTNET_STATE_NO_WIFI;
+artNetState_t artNetState = ARTNET_STATE_INIT;
 uint8_t newUdpDataRecv;
 
 uint8_t *currentDmxData;
@@ -535,39 +535,42 @@ void ArtNet__recvUdpFrame (void *arg, struct udp_pcb *pcb, struct pbuf *udpBuffe
 
 esp_err_t ArtNet__init (void)
 {
-	uint8_t univIt;
+    uint8_t univIt;
 
-	esp_err_t retVal = ESP_FAIL;
+    esp_err_t retVal = ESP_FAIL;
 
-	/* re init universe table */
-	for (univIt = 0; univIt < ARTNET_UNIVERSE_NB; univIt++)
-	{
-		univDataRecv[univIt] = 0;
-	}
+    if (Wifi__isConnected())
+    {
+        /* re init universe table */
+        for (univIt = 0; univIt < ARTNET_UNIVERSE_NB; univIt++)
+        {
+            univDataRecv[univIt] = 0;
+        }
 
-	pcb = udp_new();
+        pcb = udp_new();
 
-	if (pcb != NULL)
-	{
-		if (udp_bind(pcb, &ip_addr_any, ARTNET_PORT) == ERR_OK)
-		{
-			udp_recv(pcb, ArtNet__recvUdpFrame, NULL);
-			printf("ArtNet__init OK\n");
-			retVal = ESP_OK;
-		}
-		else
-		{
-			printf("ArtNet__init failed: udp_bind\n");
-		}
-	}
-	else
-	{
-		printf("ArtNet__init failed: udp_new\n");
-	}
+        if (pcb != NULL)
+        {
+            if (udp_bind(pcb, &ip_addr_any, ARTNET_PORT) == ERR_OK)
+            {
+                udp_recv(pcb, ArtNet__recvUdpFrame, NULL);
+                printf("ArtNet__init OK\n");
+                retVal = ESP_OK;
+            }
+            else
+            {
+                printf("ArtNet__init failed: udp_bind\n");
+            }
+        }
+        else
+        {
+            printf("ArtNet__init failed: udp_new\n");
+        }
 
-    gpio_set_direction(TEST_LED_ARTNET_GPIO, GPIO_MODE_OUTPUT);
+        gpio_set_direction(TEST_LED_ARTNET_GPIO, GPIO_MODE_OUTPUT);
+    }
 
-	return retVal;
+    return retVal;
 }
 
 
@@ -585,7 +588,11 @@ void ArtNet__mainFunction (void *param)
 
 	while (1)
 	{
-		if (newUdpDataRecv)
+        if (!Wifi__isConnected())
+        {
+            artNetState = ARTNET_STATE_INIT;
+        }
+        else if (newUdpDataRecv)
 		{
 			artNetState = ARTNET_STATE_RECV_DECODE;
 			stateTransition = TRUE;
@@ -596,24 +603,8 @@ void ArtNet__mainFunction (void *param)
 			stateTransition = FALSE;
 		}
 
-
-		if (!Wifi__isConnected())
+        switch (artNetState)
 		{
-			artNetState = ARTNET_STATE_NO_WIFI;
-		}
-
-		switch (artNetState)
-		{
-			case ARTNET_STATE_NO_WIFI:
-			{
-				if (Wifi__isConnected())
-				{
-					artNetState = ARTNET_STATE_INIT;
-				}
-
-				break;
-			}
-
 			case ARTNET_STATE_INIT:
 			{
 				if (ArtNet__init() == ESP_OK)
@@ -801,19 +792,9 @@ void ArtNet__mainFunction (void *param)
 			}
 		}
 
-
+        /* statistics for Artnet__debug */
 		errorRateRecv = (float)(missedFrameCounterRecv * 100) / (float)frameCounterRecv;
 		errorRateMain = (float)(missedFrameCounterMain * 100) / (float)frameCounterMain;
-
-		if (missedFrameCounterRecv != missedFrameCounterRecv_prev)
-		{
-#if 0
-			printf("Missed frames counter (Interrupt): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterRecv, frameCounterRecv, errorRateRecv, oldFrameCounterRecv);
-			printf("Missed frames counter (MainFunction): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterMain, frameCounterMain, errorRateMain, oldFrameCounterMain);
-			printf("Frame delay: %d (max: %d)\n\n", frameDelay, maxFrameDelay);
-#endif
-		}
-
 		missedFrameCounterRecv_prev = missedFrameCounterRecv;
 	}
 }

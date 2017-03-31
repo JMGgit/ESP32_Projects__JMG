@@ -45,8 +45,7 @@
 /********** types *********/
 typedef enum
 {
-	ARTNET_STATE_NO_WIFI = 0,
-	ARTNET_STATE_INIT,
+	ARTNET_STATE_INIT = 0,
 	ARTNET_STATE_IDLE,			/* nothing to do */
 	ARTNET_STATE_RECV_DECODE,	/* decoding data */
 	ARTNET_STATE_POLL_REPLY
