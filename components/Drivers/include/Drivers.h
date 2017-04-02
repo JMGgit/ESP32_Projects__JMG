@@ -9,6 +9,7 @@
 #define DRIVERS_H_
 
 #include "APA102.h"
+#include "MSGEQ7.h"
 #include "uC.h"
 #include "Drivers_Config.h"
 

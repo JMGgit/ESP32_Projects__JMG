@@ -21,12 +21,12 @@
 #include "ArtNet.h"
 #include "driver/timer.h"
 #include <string.h>
-
 #include "Drivers.h"
 
 
 uint8_t ledData[LEDS_CHANNELS];
 uint8_t newDataTrigger;
+static uint8_t updateEnabled = TRUE;
 
 
 esp_err_t LedController__storeLedData(uint8_t *data, uint16_t start, uint16_t length)
@@ -51,7 +51,7 @@ esp_err_t LedController__outputLedData (void)
 {
 	esp_err_t retVal = ESP_FAIL;
 
-	if (!newDataTrigger)
+	if (!newDataTrigger && updateEnabled)
 	{
 		newDataTrigger = TRUE;
 		retVal = ESP_OK;
@@ -77,12 +77,14 @@ void LedController__mainFunction (void *param)
 		{
 			gpio_set_level(TEST_LED_LEDCTRL_GPIO, 1);
 
+#if (LED_TYPE == LED_TYPE_APA102)
 			for (idxLed = 0; idxLed < LEDS_NB; idxLed++)
 			{
 				APA102__setRGBForLED(LEDMatrix__getRGBColorFromComponents(ledData[(3 * idxLed) + 2], ledData[(3 * idxLed) + 1], ledData[3 * idxLed]), idxLed);
 			}
 
 			APA102__x10();
+#endif
 
 			newDataTrigger = FALSE;
 
@@ -91,4 +93,16 @@ void LedController__mainFunction (void *param)
 
 		vTaskDelay(1 / portTICK_PERIOD_MS);
 	}
+}
+
+
+void LedController__enableUpdate (uint8_t enable)
+{
+	updateEnabled = TRUE;
+}
+
+
+void LedController__disableUpdate (uint8_t enable)
+{
+	updateEnabled = FALSE;
 }

@@ -7,7 +7,6 @@
 
 
 #include "APA102.h"
-#include "esp_err.h"
 
 
 #if (LED_TYPE == LED_TYPE_APA102)
@@ -109,20 +108,11 @@ void APA102__updateAll (void)
 		}
 	}
 
-#if 0
-	/* END FRAME */
-	for (it = 0; it < STOP_FRAME_LENGTH; it++)
-	{
-		spiTxBuffer1[bufferIdx++] = 0xFF;
-	}
-#endif
-
 	if (ESP_OK != spi_device_queue_trans(spiDeviceHandle, &spiTransaction1, portMAX_DELAY))
 	{
 		assert(0);
 	}
 
-#if 1
 	spiTransaction2.tx_buffer = &spiTxBuffer2[0];
 	spiTransaction2.length = STOP_FRAME_LENGTH * 8;
 	bufferIdx = 0;
@@ -138,7 +128,6 @@ void APA102__updateAll (void)
 	{
 		assert(0);
 	}
-#endif
 }
 
 

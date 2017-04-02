@@ -8,6 +8,7 @@
 #include "uC.h"
 
 
+
 void uC__triggerSwReset (void)
 {
 	esp_restart();

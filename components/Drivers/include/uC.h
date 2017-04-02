@@ -9,11 +9,15 @@
 #define UC_H_
 
 #include "driver/gpio.h"
+#include "driver/adc.h"
 #include "driver/timer.h"
+#include "driver/spi_master.h"
 #include "esp_system.h"
 #include "nvs_flash.h"
 #include "nvs.h"
+#include "Main_Types.h"
 #include "Main_Config.h"
+#include "esp_err.h"
 
 
 void gpio__toggle (gpio_num_t gpio_num);

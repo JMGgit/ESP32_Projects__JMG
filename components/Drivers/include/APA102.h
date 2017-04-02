@@ -8,11 +8,8 @@
 #ifndef APA102_H_
 #define APA102_H_
 
-#include <string.h>
-#include "Main_Types.h"
-#include "Main_Config.h"
+
 #include "uC.h"
-#include "driver/spi_master.h"
 
 
 #if (LED_TYPE == LED_TYPE_APA102)

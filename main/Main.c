@@ -88,6 +88,11 @@ void Main__createTasks (void)
 	{
 		printf("Task Clock__mainFunction created\n");
 	}
+
+	if (pdPASS == xTaskCreate(MSGEQ7__mainFunction, "MSGEQ7__mainFunction", 4096, NULL, 1, NULL))
+	{
+		printf("Task MSGEQ7__mainFunction created\n");
+	}
 }
 
 
