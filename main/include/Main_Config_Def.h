@@ -73,5 +73,8 @@
 #define LED_COLORS_PWM					1
 #define LED_COLORS_LINEAR				2
 
+#define EQUALIZER_OFF					1
+#define EQUALIZER_MSGEQ7				2
+
 
 #endif /* MAIN_CONFIG_DEF_H_ */

@@ -45,6 +45,8 @@
 
 #define LED_COLORS						LED_COLORS_PWM
 
+#define EQUALIZER						EQUALIZER_MSGEQ7
+
 #endif
 
 #endif /* LEDTABLE_MAIN_CONFIG_H_ */

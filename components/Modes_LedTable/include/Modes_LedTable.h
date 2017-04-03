@@ -17,6 +17,7 @@
 #include "Mode_Snake.h"
 #include "Mode_Off.h"
 #include "Mode_LEDScreen.h"
+#include "Mode_Equalizer.h"
 
 
 typedef enum
@@ -37,6 +38,7 @@ typedef enum
 	MODE__BLENDING_CLOCK_INVERTED_FAST,
 	MODE__CLOCK,
 	MODE__SNAKE,
+	MODE__EQUALIZER,
 	MODE_NB
 } Mode_t;
 

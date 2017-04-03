@@ -36,48 +36,20 @@ uint16_t timerModeChangeConf[MODE_NB] =
 		0xFFFF,	/* MODE__BLENDING_CLOCK_INVERTED_FAST */
 		0xFFFF,	/* MODE__CLOCK */
 		0xFFFF,	/* MODE__SNAKE */
+		0xFFFF	/* MODE__EQUALIZER */
 };
 
-
-#if (LEDTABLE_REVISION == LEDTABLE_REVISION_2)
-uint16_t modeTaskIncrement[MODE_NB] =
-{
-		1,	/* MODE__STARTUP = 0 */
-		1,	/* MODE__FAILUREMEMORY */
-		1,	/* MODE__OFF */
-		1,	/* MODE__ALL_ON */
-		1,	/* MODE__BLENDING_SLOW */
-		2,	/* MODE__BLENDING_SLOW_2_COLORS */
-		1,	/* MODE__BLENDING_FAST */
-		2,	/* MODE__BLENDING_FAST_2_COLORS */
-		2,	/* MODE__BLENDING_SWEEP */
-		2,	/* MODE__BLENDING_SWEEP_FAST */
-		1,	/* MODE__BLENDING_CLOCK */
-		1,	/* MODE__BLENDING_CLOCK_INVERTED */
-		1,	/* MODE__BLENDING_CLOCK_FAST */
-		1,	/* MODE__BLENDING_CLOCK_INVERTED_FAST */
-		1,	/* MODE__CLOCK */
-		1,	/* MODE__SNAKE */
-};
-#endif
-
-
-uint8_t Modes__getTaskIncrement (void)
-{
-#if (LEDTABLE_REVISION == LEDTABLE_REVISION_1)
-	/* task update always every 10ms */
-	return 1;
-#else
-	/* task update depends on mode */
-	return modeTaskIncrement[currentMode];
-#endif
-}
 
  void Modes__transition (void)
 {
 	if (currentMode == MODE__SNAKE)
 	{
 		Snake__init();
+	}
+
+	if (currentMode == MODE__EQUALIZER)
+	{
+		Equalizer__init();
 	}
 }
 
@@ -238,6 +210,12 @@ static void Modes__updateMatrix (void)
 		case MODE__SNAKE:
 		{
 			Snake__x10(SNAKE_BRIGHTNESS_LEVEL);
+			break;
+		}
+
+		case MODE__EQUALIZER:
+		{
+			Equalizer__x10();
 			break;
 		}
 
