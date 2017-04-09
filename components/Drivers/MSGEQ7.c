@@ -13,6 +13,8 @@
 
 #if (EQUALIZER == EQUALIZER_MSGEQ7)
 
+#define ADCVALUES_NB	7
+
 void MSGEQ7__init (void)
 {
 	gpio_set_direction(MSGEQ7_RESET_GPIO, GPIO_MODE_OUTPUT);
@@ -35,7 +37,7 @@ void MSGEQ7__readValues (uint16_t *adcValues)
 {
 	uint8_t it;
 
-	for (it = 0; it < 7; it++)
+	for (it = 0; it < ADCVALUES_NB; it++)
 	{
 		gpio_set_level(MSGEQ7_STROBE_GPIO, 0);
 		ets_delay_us(50);
@@ -46,19 +48,47 @@ void MSGEQ7__readValues (uint16_t *adcValues)
 }
 
 
-void MSGEQ7__mainFunction (void *param)
+void MSGEQ7__readValueswithResolution (uint16_t *adcValues, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max)
 {
 	uint8_t it;
-	uint16_t adcValues[7];
+
+	MSGEQ7__readValues(adcValues);
+
+	for (it = 0; it < ADCVALUES_NB; it++)
+	{
+		if (adcValues[it] < in_min)
+		{
+			adcValues[it] = out_min;
+		}
+		else if (adcValues[it] > in_max)
+		{
+			adcValues[it] = out_max;
+		}
+		else  if ((in_max - in_min) > (out_max - out_min))
+		{
+			adcValues[it] = (uint16_t)(adcValues[it] - in_min) * (out_max - out_min + 1) / (in_max - in_min + 1) + out_min;
+		}
+		else
+		{
+			adcValues[it] = (uint16_t)(adcValues[it] - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+		}
+	}
+}
+
+
+void MSGEQ7__mainFunction (void *param)
+{
 #if MSGEQ7DEBUG
+	uint16_t adcValues[ADCVALUES_NB];
 	static uint8_t debugIt = 100;
+	uint8_t it;
 #endif
 
 	while (1)
 	{
-		MSGEQ7__readValues(&adcValues[0]);
-
 #if MSGEQ7DEBUG
+
+		MSGEQ7__readValueswithResolution(&adcValues[0]);
 
 		if (debugIt > 0)
 		{
@@ -68,7 +98,7 @@ void MSGEQ7__mainFunction (void *param)
 		{
 			printf("ADC values: ");
 
-			for (it = 0; it < 7; it++)
+			for (it = 0; it < ADCVALUES_NB; it++)
 			{
 				printf("%d ", adcValues[it]);
 			}

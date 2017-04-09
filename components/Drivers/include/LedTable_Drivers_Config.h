@@ -24,7 +24,7 @@
 #else
 #define RGB_LED_ORDER				RGB_LED_ORDER__BLUE_GREEN_RED
 #endif
-#define LED_ORDER					LED_ORDER__LEFT_2_RIGHT
+#define LED_ORDER					LED_ORDER__STRAIGHT_FORWARD
 
 
 /********** CTL LED *********/
