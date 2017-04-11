@@ -28,30 +28,6 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.cygwin.base.1483648234" name="Cygwin C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.cygwin.base">
 								<option id="gnu.c.compiler.option.include.paths.1595735016" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\esp32\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\driver\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\app_update\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\bootloader_support\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\bt\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\ethernet\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\expat\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\freertos\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\json\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\log\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\mbedtls\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\newlib\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\nghttp\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\nvs_flash\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\openssl\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\spi_flash\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\ulp\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\vfs\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\wpa_supplicant\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\xtensa-debug-module\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\tcpip_adapter\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\lwip\include\lwip&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\lwip\include\lwip\port&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\lwip\include\lwip\posix&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}\build\include&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin.1703963213" superClass="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin"/>
@@ -65,11 +41,6 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
-					<fileInfo id="cdt.managedbuild.toolchain.gnu.cross.base.1928356358.318430913" name="irmp.c" rcbsApplicability="disable" resourcePath="components/IRMP/irmp.c" toolsToInvoke="cdt.managedbuild.tool.gnu.c.compiler.cygwin.base.1483648234.889937510">
-						<tool id="cdt.managedbuild.tool.gnu.c.compiler.cygwin.base.1483648234.889937510" name="Cygwin C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.cygwin.base.1483648234">
-							<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin.1696348191" superClass="cdt.managedbuild.tool.gnu.c.compiler.input.cygwin"/>
-						</tool>
-					</fileInfo>
 					<sourceEntries>
 						<entry excluding="Drivers" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
@@ -124,6 +95,7 @@
 									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}/components/lwip/include/lwip/posix&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/build/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}/components/esp32/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\esp32\include&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1837867805" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
@@ -164,21 +136,6 @@
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
-	<storageModule moduleId="scannerConfiguration">
-		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.cross.base.1928356358;cdt.managedbuild.toolchain.gnu.cross.base.1928356358.1105606876;cdt.managedbuild.tool.gnu.cross.c.compiler.1284054150;cdt.managedbuild.tool.gnu.c.compiler.input.710902898">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.cross.base.1928356358;cdt.managedbuild.toolchain.gnu.cross.base.1928356358.1105606876;cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.base.1198097847;cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.2125918399">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.cross.base.1928356358;cdt.managedbuild.toolchain.gnu.cross.base.1928356358.1105606876;cdt.managedbuild.tool.gnu.c.compiler.cygwin.base.1483648234;cdt.managedbuild.tool.gnu.c.compiler.input.cygwin.1703963213">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.cross.base.1928356358;cdt.managedbuild.toolchain.gnu.cross.base.1928356358.1105606876;cdt.managedbuild.tool.gnu.cross.cpp.compiler.1456961327;cdt.managedbuild.tool.gnu.cpp.compiler.input.731724635">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 		<buildTargets>
 			<target name="app" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
@@ -222,5 +179,26 @@
 				<runAllBuilders>true</runAllBuilders>
 			</target>
 		</buildTargets>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.cross.base.1928356358.1519526675;cdt.managedbuild.toolchain.gnu.cross.base.1928356358.1519526675.;cdt.managedbuild.tool.gnu.cross.c.compiler.611125726;cdt.managedbuild.tool.gnu.c.compiler.input.1837867805">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.cross.base.1928356358;cdt.managedbuild.toolchain.gnu.cross.base.1928356358.1105606876;cdt.managedbuild.tool.gnu.cross.c.compiler.1284054150;cdt.managedbuild.tool.gnu.c.compiler.input.710902898">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.cross.base.1928356358;cdt.managedbuild.toolchain.gnu.cross.base.1928356358.1105606876;cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.base.1198097847;cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.2125918399">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.cross.base.1928356358;cdt.managedbuild.toolchain.gnu.cross.base.1928356358.1105606876;cdt.managedbuild.tool.gnu.c.compiler.cygwin.base.1483648234;cdt.managedbuild.tool.gnu.c.compiler.input.cygwin.1703963213">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.cross.base.1928356358;cdt.managedbuild.toolchain.gnu.cross.base.1928356358.1105606876;cdt.managedbuild.tool.gnu.cross.cpp.compiler.1456961327;cdt.managedbuild.tool.gnu.cpp.compiler.input.731724635">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.cross.base.1928356358.1519526675;cdt.managedbuild.toolchain.gnu.cross.base.1928356358.1519526675.;cdt.managedbuild.tool.gnu.cross.cpp.compiler.1811085582;cdt.managedbuild.tool.gnu.cpp.compiler.input.1768970936">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
 	</storageModule>
 </cproject>
