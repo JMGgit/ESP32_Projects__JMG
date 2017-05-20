@@ -35,7 +35,6 @@ void Main__init (void)
 	Clock__init();
 	LedController__init();
 	Modes__init();
-	Modes__setMode(MODE__EQUALIZER, TRUE);
 }
 
 

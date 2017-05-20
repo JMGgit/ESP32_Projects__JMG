@@ -67,29 +67,20 @@ esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t *frameNb, uint8_t **l
 {
 	esp_err_t retVal = ESP_FAIL;
 	const uint8_t seqNum = buffer[12];
-#if ARTNET_DEBUG_FRAME_INFO
 	const uint8_t physInput = buffer[13];
-#endif
 	const uint8_t subnet = buffer[14] / 16;
 	const uint8_t universe = buffer[14] % 16;
 	const uint8_t net = buffer[15];
 	const uint16_t length = (buffer[16] << 8) + buffer[17];
+	uint8_t error = FALSE;
 
-#if ARTNET_DEBUG_FRAME_INFO
-	printf("Frame sequence number: %u\n", seqNum);
-	printf("Physical input: %u\n", physInput);
-	printf("Subnet: %u\n", subnet);
-	printf("Universe: %u\n", universe);
-	printf("Net: %u\n", net);
-	printf("Length: %d\n", length);
-#endif
 	if (net == ARTNET_NET)
 	{
 		if (subnet == ARTNET_SUBNET)
 		{
 			if (universe < ARTNET_UNIVERSE_NB)
 			{
-				if (		((universe == ARTNET_LAST_UNIVERSE) && (length == (LEDS_CHANNELS % ARTNET_CHANNELS_PER_UNIVERSE)))
+				if (		((universe == ARTNET_LAST_UNIVERSE) && (length <= (LEDS_CHANNELS % ARTNET_CHANNELS_PER_UNIVERSE)))
 						||	((universe < ARTNET_LAST_UNIVERSE) && (length <= ARTNET_CHANNELS_PER_UNIVERSE))
 				)
 				{
@@ -100,7 +91,8 @@ esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t *frameNb, uint8_t **l
 				}
 				else
 				{
-					printf("Artnet: wrong data length: should be less than %d or %d for last universe\n", ARTNET_CHANNELS_PER_UNIVERSE, LEDS_CHANNELS % ARTNET_CHANNELS_PER_UNIVERSE);
+					printf("Artnet: wrong data length: max value is %d or %d for last universe\n", ARTNET_CHANNELS_PER_UNIVERSE, LEDS_CHANNELS % ARTNET_CHANNELS_PER_UNIVERSE);
+					error = TRUE;
 					artNetState = ARTNET_STATE_IDLE;
 				}
 
@@ -109,19 +101,32 @@ esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t *frameNb, uint8_t **l
 			else
 			{
 				printf("Artnet: wrong universe: should be less than %d\n", ARTNET_UNIVERSE_NB);
+				error = TRUE;
 				artNetState = ARTNET_STATE_IDLE;
 			}
 		}
 		else
 		{
 			printf("Artnet: wrong subnet: should be 0\n");
+			error = TRUE;
 			artNetState = ARTNET_STATE_IDLE;
 		}
 	}
 	else
 	{
 		printf("Artnet: wrong net: should be 0\n");
+		error = TRUE;
 		artNetState = ARTNET_STATE_IDLE;
+	}
+
+	if (error || ARTNET_DEBUG_FRAME_INFO)
+	{
+		printf("Frame sequence number: %u\n", seqNum);
+		printf("Physical input: %u\n", physInput);
+		printf("Subnet: %u\n", subnet);
+		printf("Universe: %u\n", universe);
+		printf("Net: %u\n", net);
+		printf("Length: %d\n", length);
 	}
 
 	return retVal;
@@ -419,7 +424,7 @@ esp_err_t ArtNet__sendPollReply (struct udp_pcb *pcb, uint8_t *data, uint8_t dat
 	udp_sendto(pcb, udpBuffer, IP_ADDR_BROADCAST, ARTNET_PORT);
 	pbuf_free(udpBuffer);
 
-#if ARTNET_DEBUG_FRAME_INFO
+	/* debug infos */
 	printf("ArtNet poll reply: %d bytes sent\n", dataLength);
 
 	for (int i = 0; i < dataLength; i++)
@@ -428,7 +433,6 @@ esp_err_t ArtNet__sendPollReply (struct udp_pcb *pcb, uint8_t *data, uint8_t dat
 	}
 
 	printf("\n");
-#endif
 
 	retVal  = ESP_OK;
 

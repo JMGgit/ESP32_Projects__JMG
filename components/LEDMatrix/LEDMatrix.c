@@ -131,7 +131,7 @@ void LEDMatrix__toggleLedOrder (void)
 		ledOrder = LED_ORDER__LEFT_2_RIGHT;
 	}
 
-	uC__nvsUpdateByte(nvsHandle_ledOrder, &ledOrder_NVS, ledOrder);
+	uC__nvsUpdateByte("ledOrder", nvsHandle_ledOrder, &ledOrder_NVS, ledOrder);
 #endif
 }
 
