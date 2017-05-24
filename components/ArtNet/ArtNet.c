@@ -81,7 +81,7 @@ esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t *frameNb, uint8_t **l
 			if (universe < ARTNET_UNIVERSE_NB)
 			{
 				if (		((universe == ARTNET_LAST_UNIVERSE) && (length <= (LEDS_CHANNELS % ARTNET_CHANNELS_PER_UNIVERSE)))
-						||	((universe < ARTNET_LAST_UNIVERSE) && (length <= ARTNET_CHANNELS_PER_UNIVERSE))
+						||	(((ARTNET_UNIVERSE_NB > 1) && (universe < ARTNET_LAST_UNIVERSE)) && (length == ARTNET_CHANNELS_PER_UNIVERSE))
 				)
 				{
 					*frameNb = seqNum;

@@ -12,7 +12,7 @@
 #include "iap_https.h"
 
 
-#define OTA_SOFTWARE_VERSION      10
+#define OTA_SOFTWARE_VERSION      13
 
 #define WIFI_NETWORK_SSID         "Leo-Wohnung"
 #define WIFI_NETWORK_PASSWORD     "ObereBurghalde33"
