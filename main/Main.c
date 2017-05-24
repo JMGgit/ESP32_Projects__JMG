@@ -6,6 +6,7 @@
 #include "ArtNet.h"
 #include "LedController.h"
 #include "Wifi.h"
+#include "OTA.h"
 #include "Main_Config.h"
 #include "Drivers.h"
 #include <string.h>
@@ -29,12 +30,13 @@ void Main__init (void)
 
 	uC__init();
 	Wifi__init();
-	Drivers__init();
-	IRMP__init();
-	Buttons__init();
-	Clock__init();
-	LedController__init();
-	Modes__init();
+	OTA__init();
+	//Drivers__init();
+	//IRMP__init();
+	//Buttons__init();
+	//Clock__init();
+	//LedController__init();
+	//Modes__init();
 }
 
 
@@ -99,5 +101,5 @@ void Main__createTasks (void)
 void app_main (void)
 {
 	Main__init();
-	Main__createTasks();
+	//Main__createTasks();
 }
