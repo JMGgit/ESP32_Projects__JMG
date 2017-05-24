@@ -127,7 +127,7 @@ int iap_https_init(iap_https_config_t *config)
 
 	iap_https_prepare_timer();
 
-	xTaskCreate(&iap_https_task, "fwup_wifi_task", 4096, NULL, 1, NULL);
+	xTaskCreate(&iap_https_task, "fwup_wifi_task", 4096, NULL, 5, NULL);
 
 	return 0;
 }

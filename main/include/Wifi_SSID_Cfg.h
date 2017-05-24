@@ -10,7 +10,7 @@
 
 
 /********* WIFI *********/
-#define WIFI_SSID 						"myWifiSSID"
-#define WIFI_PASSWORD 					"myPassword"
+#define WIFI_SSID 						"Leo-Wohnung"
+#define WIFI_PASSWORD 					"ObereBurghalde33"
 
 #endif /* WIFI_SSID_CFG_H_ */
