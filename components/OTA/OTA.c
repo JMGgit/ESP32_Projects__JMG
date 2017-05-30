@@ -31,19 +31,14 @@ void OTA__setCurrentSwVersion (uint8_t newSwVersion)
 }
 
 
+
+
+
 void OTA__init (void)
 {
 	uC__nvsInitStorage("otaSwVersion", &nvsHandle_otaSwVersion);
 
-	if (uC__nvsReadByte("otaSwVersion", nvsHandle_otaSwVersion, &otaSwVersion_NVS) == TRUE)
-	{
-		ota_config.current_software_version = otaSwVersion_NVS;
-	}
-	else
-	{
-		OTA__setCurrentSwVersion(0);
-	}
-
+	ota_config.current_software_version = uC__nvsReadByte("otaSwVersion", nvsHandle_otaSwVersion, &otaSwVersion_NVS);
 	ota_config.server_host_name = OTA_SERVER_HOST_NAME;
 	ota_config.server_port = "443";
 	strncpy(ota_config.server_metadata_path, OTA_SERVER_METADATA_PATH, sizeof(ota_config.server_metadata_path) / sizeof(char));

@@ -196,13 +196,17 @@ static void iap_https_task(void *pvParameter)
 			// previously been executed and the result was that we should update the firmware.
 
 			if (bits & FWUP_DOWNLOAD_IMAGE) {
-				ESP_LOGI(TAG, "---------- Software version: %2d -----------", OTA__getCurrentSwVersion());
+
+				printf("\nCurrent software version: %d, Server software version: %d\n\n", fwupdater_config->current_software_version, fwupdater_config->server_software_version);
+
 				ESP_LOGI(TAG, "Firmware updater task will now download the new firmware image.");
 				iap_https_download_image();
 				xEventGroupClearBits(event_group, FWUP_DOWNLOAD_IMAGE);
 
 			} else if (bits & FWUP_CHECK_FOR_UPDATE) {
-				ESP_LOGI(TAG, "---------- Software version: %2d -----------", OTA__getCurrentSwVersion());
+
+				printf("\nCurrent software version: %d, Server software version: %d\n", fwupdater_config->current_software_version, fwupdater_config->server_software_version);
+
 				ESP_LOGI(TAG, "Firmware updater task checking for firmware update.");
 				iap_https_check_for_update();
 
@@ -328,6 +332,8 @@ http_continue_receiving_t iap_https_metadata_body_callback(struct http_request_ 
 
 	// --- Check if the version on the server is the same as the currently installed version ---
 
+	fwupdater_config->server_software_version = version;
+
 	if (version == fwupdater_config->current_software_version) {
 		ESP_LOGD(TAG, "iap_https_metadata_body_callback: we're up-to-date!");
 		return HTTP_STOP_RECEIVING;
@@ -337,9 +343,6 @@ http_continue_receiving_t iap_https_metadata_body_callback(struct http_request_ 
 			fwupdater_config->current_software_version, version);
 
 	// --- Request the firmware image ---
-
-	ESP_LOGD(TAG, "iap_https_firmware_body_callback: starting IPA session.");
-	ESP_LOGD(TAG, "Updating SW version number: %d", fwupdater_config->current_software_version);
 
 	xEventGroupSetBits(event_group, FWUP_DOWNLOAD_IMAGE);
 
@@ -352,7 +355,7 @@ http_continue_receiving_t iap_https_firmware_body_callback(struct http_request_ 
 
 	// The first time we receive the callback, we neet to start the IAP session.
 	if (!has_iap_session) {
-		OTA__setCurrentSwVersion(fwupdater_config->current_software_version);
+		ESP_LOGD(TAG, "iap_https_firmware_body_callback: starting IPA session.");
 		iap_err_t result = iap_begin();
 		if (result == IAP_ERR_SESSION_ALREADY_OPEN) {
 			iap_abort();
@@ -391,10 +394,11 @@ http_continue_receiving_t iap_https_firmware_body_callback(struct http_request_ 
 		}
 
 		has_new_firmware = 1;
-		//OTA__setCurrentSwVersion(fwupdater_config->current_software_version);
 
 		if (fwupdater_config->auto_reboot) {
 			ESP_LOGI(TAG, "Automatic re-boot in 2 seconds - goodbye!...");
+			OTA__setCurrentSwVersion(fwupdater_config->server_software_version);
+
 			vTaskDelay(2000 / portTICK_RATE_MS);
 			esp_restart();
 		}
