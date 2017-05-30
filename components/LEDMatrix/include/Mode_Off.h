@@ -13,6 +13,9 @@
 #include "Main_Config.h"
 #include "Buttons.h"
 #include "LEDMatrix.h"
+#if (OTA_SW_UPDATE == OTA_SW_UPDATE_ON)
+#include "OTA.h"
+#endif
 
 void Off__x10 (void);
 

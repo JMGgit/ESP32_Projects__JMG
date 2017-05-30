@@ -76,5 +76,8 @@
 #define EQUALIZER_OFF					1
 #define EQUALIZER_MSGEQ7				2
 
+#define OTA_SW_UPDATE_OFF				1
+#define OTA_SW_UPDATE_ON				2
+
 
 #endif /* MAIN_CONFIG_DEF_H_ */

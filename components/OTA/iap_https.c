@@ -78,6 +78,7 @@ http_continue_receiving_t iap_https_firmware_headers_callback(struct http_reques
 http_continue_receiving_t iap_https_firmware_body_callback(struct http_request_ *request, size_t bytesReceived);
 void iap_https_error_callback(struct http_request_ *request, http_err_t error, int additionalInfo);
 
+TaskHandle_t xHandle = NULL;
 
 int iap_https_init(iap_https_config_t *config)
 {
@@ -126,9 +127,20 @@ int iap_https_init(iap_https_config_t *config)
 
 	iap_https_prepare_timer();
 
-	xTaskCreate(&iap_https_task, "fwup_wifi_task", 4096, NULL, 5, NULL);
-
 	return 0;
+}
+
+void iap_https_startTask(void)
+{
+	xTaskCreate(&iap_https_task, "fwup_wifi_task", 4096, NULL, 5, &xHandle);
+}
+
+void iap_https_stopTask(void)
+{
+	if (xHandle != NULL)
+	{
+		vTaskDelete(xHandle);
+	}
 }
 
 int iap_https_check_now()
@@ -398,13 +410,17 @@ http_continue_receiving_t iap_https_firmware_body_callback(struct http_request_ 
 
 		has_new_firmware = 1;
 
+		OTA__setCurrentSwVersion(fwupdater_config->server_software_version);
+		printf("\n\nSW REVISION %d SUCCESSFULLY FLASHED\n\n", fwupdater_config->server_software_version);
+		OTA__runAfterSwUpdate();
+
 		if (fwupdater_config->auto_reboot) {
 			ESP_LOGI(TAG, "Automatic re-boot in 2 seconds - goodbye!...");
-			OTA__setCurrentSwVersion(fwupdater_config->server_software_version);
-
 			vTaskDelay(2000 / portTICK_RATE_MS);
 			esp_restart();
 		}
+
+		iap_https_stopTask();
 
 	} else {
 		ESP_LOGE(TAG, "iap_https_firmware_body_callback: something's not OK - the new firmware image is empty!");

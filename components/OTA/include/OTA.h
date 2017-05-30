@@ -22,7 +22,7 @@
 #define OTA_SERVER_HOST_NAME      "jmg-dev"
 #define OTA_SERVER_METADATA_PATH  "/esp32/ota.txt"
 #define OTA_POLLING_INTERVAL_S    5
-#define OTA_AUTO_REBOOT           1
+#define OTA_AUTO_REBOOT           0
 
 
 #define OTA_SERVER_ROOT_CA_PEM \
@@ -75,10 +75,15 @@
 
 
 void OTA__init (void);
+void OTA__enable (void);
+void OTA__disable (void);
+uint8_t OTA__isUpdateInProgress (void);
+uint8_t OTA__isNewSwFlashed (void);
 
 uint8_t OTA__getCurrentSwVersion (void);
 void OTA__setCurrentSwVersion (uint8_t newSwVersion);
 void OTA__runBeforeSwUpdate (void);
+void OTA__runAfterSwUpdate (void);
 
 
 #endif /* OTA_H_ */

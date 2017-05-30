@@ -47,6 +47,8 @@
 
 #define EQUALIZER						EQUALIZER_MSGEQ7
 
+#define OTA_SW_UPDATE					OTA_SW_UPDATE_ON
+
 #endif
 
 #endif /* LEDTABLE_MAIN_CONFIG_H_ */

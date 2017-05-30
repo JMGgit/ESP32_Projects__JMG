@@ -85,12 +85,12 @@ void Main__createTasks (void)
 		printf("Task LedController__mainFunction created\n");
 	}
 
-	if (pdPASS == xTaskCreate(Clock__mainFunction, "Clock__mainFunction", 4096, NULL, 1, NULL))
+	if (pdPASS == xTaskCreate(Clock__mainFunction, "Clock__mainFunction", 4096, NULL, 2, NULL))
 	{
 		printf("Task Clock__mainFunction created\n");
 	}
 
-	if (pdPASS == xTaskCreate(MSGEQ7__mainFunction, "MSGEQ7__mainFunction", 4096, NULL, 1, NULL))
+	if (pdPASS == xTaskCreate(MSGEQ7__mainFunction, "MSGEQ7__mainFunction", 4096, NULL, 3, NULL))
 	{
 		printf("Task MSGEQ7__mainFunction created\n");
 	}

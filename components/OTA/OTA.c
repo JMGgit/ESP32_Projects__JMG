@@ -7,7 +7,7 @@
 
 
 #include "OTA.h"
-#include "IRMP.h"
+#include "IRMP_Appl.h"
 
 
 static const char *server_root_ca_public_key_pem = OTA_SERVER_ROOT_CA_PEM;
@@ -47,13 +47,41 @@ void OTA__init (void)
 	ota_config.auto_reboot = OTA_AUTO_REBOOT;
 
 	iap_https_init(&ota_config);
+}
 
-	// Immediately check if there's a new firmware image available.
+
+void OTA__enable (void)
+{
+	iap_https_startTask();
 	iap_https_check_now();
+}
+
+
+void OTA__disable (void)
+{
+	iap_https_stopTask();
+}
+
+
+uint8_t OTA__isUpdateInProgress (void)
+{
+	return iap_https_update_in_progress();
+}
+
+
+uint8_t OTA__isNewSwFlashed (void)
+{
+	return iap_https_new_firmware_installed();
 }
 
 
 void OTA__runBeforeSwUpdate (void)
 {
 	IRMP__disable();
+}
+
+
+void OTA__runAfterSwUpdate (void)
+{
+	IRMP__enable();
 }

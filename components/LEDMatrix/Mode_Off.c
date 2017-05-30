@@ -26,6 +26,9 @@ void Off__x10 (void)
 	if (firstCall)
 	{
 		LEDMatrix__clearMatrix();
+#if (OTA_SW_UPDATE == OTA_SW_UPDATE_ON)
+		OTA__enable();
+#endif
 		firstCall = FALSE;
 	}
 	else
@@ -34,6 +37,9 @@ void Off__x10 (void)
 
 		if (Buttons__isPressedOnce(&buttonOff))
 		{
+#if (OTA_SW_UPDATE == OTA_SW_UPDATE_ON)
+			OTA__disable();
+#endif
 			Modes__Start();
 			LEDMatrix__enableUpdate();
 			firstCall = TRUE;
@@ -91,6 +97,28 @@ void Off__x10 (void)
 		else
 		{
 			startupTimer = 255;
+		}
+
+#if (OTA_SW_UPDATE == OTA_SW_UPDATE_ON)
+		if (OTA__isUpdateInProgress())
+		{
+			LEDMatrix__enableUpdate();
+			LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(100, 0 , 0));
+		}
+		else if (OTA__isNewSwFlashed())
+		{
+			LEDMatrix__enableUpdate();
+			LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(0, 100 , 0));
+		}
+		else
+		{
+			/* nothing to do */
+		}
+#endif
+
+		if (Buttons__isPressedOnce(&buttonDown))
+		{
+			uC__triggerSwReset();
 		}
 
 #if (DEBUG_MODE == DEBUG_MODE_ON)
