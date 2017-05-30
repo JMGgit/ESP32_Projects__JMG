@@ -53,6 +53,12 @@ void IRMP__init (void)
 	irmp_set_callback_ptr(&IRMP__testLed);
 }
 
+void IRMP__disable (void)
+{
+	/* disable interrupt */
+	timer_pause(TIMER_GROUP_0, TIMER_1);
+}
+
 
 uint8_t IRMP__readData (uint16_t address, uint8_t *data, uint8_t dataLength, uint8_t *repeat)
 {

@@ -38,7 +38,6 @@
 
 #include "OTA.h"
 
-
 #define TAG "fwup_wifi"
 
 
@@ -200,6 +199,10 @@ static void iap_https_task(void *pvParameter)
 				printf("\nCurrent software version: %d, Server software version: %d\n\n", fwupdater_config->current_software_version, fwupdater_config->server_software_version);
 
 				ESP_LOGI(TAG, "Firmware updater task will now download the new firmware image.");
+
+				printf("\n\nNEW SW DETECTED --> WILL BE DOWNLOADED AND FLASHED\n\n");
+				OTA__runBeforeSwUpdate();
+
 				iap_https_download_image();
 				xEventGroupClearBits(event_group, FWUP_DOWNLOAD_IMAGE);
 

@@ -31,12 +31,12 @@ void Main__init (void)
 	uC__init();
 	Wifi__init();
 	OTA__init();
-	//Drivers__init();
-	//IRMP__init();
-	//Buttons__init();
-	//Clock__init();
-	//LedController__init();
-	//Modes__init();
+	Drivers__init();
+	IRMP__init();
+	Buttons__init();
+	Clock__init();
+	LedController__init();
+	Modes__init();
 }
 
 
@@ -65,8 +65,6 @@ void LedTable__mainFunction (void *param)
 
 void Main__createTasks (void)
 {
-	/* Tasks for ArtNet controller */
-#if 0
 	if (pdPASS == xTaskCreate(LedTable__mainFunction, "LedTable__mainFunction", 4096, NULL, 1, NULL))
 	{
 		printf("Task LedTable__mainFunction created\n");
@@ -96,7 +94,6 @@ void Main__createTasks (void)
 	{
 		printf("Task MSGEQ7__mainFunction created\n");
 	}
-#endif
 }
 
 

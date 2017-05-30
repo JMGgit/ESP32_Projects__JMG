@@ -21,6 +21,7 @@
 void IRMP__init (void);
 uint8_t IRMP__readData (uint16_t address, uint8_t *data, uint8_t dataLength, uint8_t *repeat);
 void IRMP__mainFunction (void* param);
+void IRMP__disable (void);
 
 #endif
 

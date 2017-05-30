@@ -78,6 +78,7 @@ void OTA__init (void);
 
 uint8_t OTA__getCurrentSwVersion (void);
 void OTA__setCurrentSwVersion (uint8_t newSwVersion);
+void OTA__runBeforeSwUpdate (void);
 
 
 #endif /* OTA_H_ */

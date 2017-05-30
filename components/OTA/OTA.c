@@ -7,6 +7,7 @@
 
 
 #include "OTA.h"
+#include "IRMP.h"
 
 
 static const char *server_root_ca_public_key_pem = OTA_SERVER_ROOT_CA_PEM;
@@ -31,9 +32,6 @@ void OTA__setCurrentSwVersion (uint8_t newSwVersion)
 }
 
 
-
-
-
 void OTA__init (void)
 {
 	uC__nvsInitStorage("otaSwVersion", &nvsHandle_otaSwVersion);
@@ -52,4 +50,10 @@ void OTA__init (void)
 
 	// Immediately check if there's a new firmware image available.
 	iap_https_check_now();
+}
+
+
+void OTA__runBeforeSwUpdate (void)
+{
+	IRMP__disable();
 }
