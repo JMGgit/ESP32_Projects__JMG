@@ -36,7 +36,7 @@
 #include "iap.h"
 #include "iap_https.h"
 
-#include "include/OTA.h"
+#include "OTA.h"
 
 
 #define TAG "fwup_wifi"
@@ -196,12 +196,13 @@ static void iap_https_task(void *pvParameter)
 			// previously been executed and the result was that we should update the firmware.
 
 			if (bits & FWUP_DOWNLOAD_IMAGE) {
+				ESP_LOGI(TAG, "---------- Software version: %2d -----------", OTA__getCurrentSwVersion());
 				ESP_LOGI(TAG, "Firmware updater task will now download the new firmware image.");
 				iap_https_download_image();
 				xEventGroupClearBits(event_group, FWUP_DOWNLOAD_IMAGE);
 
 			} else if (bits & FWUP_CHECK_FOR_UPDATE) {
-				ESP_LOGI(TAG, "---------- Software version: %2d -----------", OTA_SOFTWARE_VERSION);
+				ESP_LOGI(TAG, "---------- Software version: %2d -----------", OTA__getCurrentSwVersion());
 				ESP_LOGI(TAG, "Firmware updater task checking for firmware update.");
 				iap_https_check_for_update();
 
@@ -337,6 +338,9 @@ http_continue_receiving_t iap_https_metadata_body_callback(struct http_request_ 
 
 	// --- Request the firmware image ---
 
+	ESP_LOGD(TAG, "iap_https_firmware_body_callback: starting IPA session.");
+	ESP_LOGD(TAG, "Updating SW version number: %d", fwupdater_config->current_software_version);
+
 	xEventGroupSetBits(event_group, FWUP_DOWNLOAD_IMAGE);
 
 	return HTTP_STOP_RECEIVING;
@@ -348,7 +352,7 @@ http_continue_receiving_t iap_https_firmware_body_callback(struct http_request_ 
 
 	// The first time we receive the callback, we neet to start the IAP session.
 	if (!has_iap_session) {
-		ESP_LOGD(TAG, "iap_https_firmware_body_callback: starting IPA session.");
+		OTA__setCurrentSwVersion(fwupdater_config->current_software_version);
 		iap_err_t result = iap_begin();
 		if (result == IAP_ERR_SESSION_ALREADY_OPEN) {
 			iap_abort();
@@ -387,6 +391,7 @@ http_continue_receiving_t iap_https_firmware_body_callback(struct http_request_ 
 		}
 
 		has_new_firmware = 1;
+		//OTA__setCurrentSwVersion(fwupdater_config->current_software_version);
 
 		if (fwupdater_config->auto_reboot) {
 			ESP_LOGI(TAG, "Automatic re-boot in 2 seconds - goodbye!...");

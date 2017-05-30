@@ -29,10 +29,10 @@ uint8_t uC__nvsReadByte (const char *key, nvs_handle nvsHandle, uint8_t *byte)
 	if (ESP_OK != nvs_get_u8(nvsHandle, key, byte))
 	{
 		*byte = 0xFF;
-		printf("Error reading testCounter!\n");
+		printf("Error reading NVS key: %s, handle: %d\n", key, nvsHandle);
 	}
 
-	printf("NVS item: %d, read value: %d\n", nvsHandle, *byte);
+	printf("NVS key: %s, handle: %d, read value: %d\n", key, nvsHandle, *byte);
 
 	return *byte;
 }
@@ -45,18 +45,18 @@ void uC__nvsUpdateByte (const char *key, nvs_handle nvsHandle, uint8_t *byte_NVS
 	{
 		if (ESP_OK != nvs_set_u8(nvsHandle, key, byte))
 		{
-			printf("Error writing testCounter!\n");
+			printf("Error writing NVS key: %s, handle: %d, write value: %d\n", key, nvsHandle, byte);
 		}
 
 		if (ESP_OK != nvs_commit(nvsHandle))
 		{
-			printf("Error committing testCounter!\n");
+			printf("Error committing NVS key: %s, handle: %d, write value: %d\n", key, nvsHandle, byte);
 		}
 
 		/* assume storage was successful */
 		*byte_NVS = byte;
 
-		printf("NVS item: %d, write value: %d\n", nvsHandle, byte);
+		printf("NVS key: %s, handle: %d, write value: %d\n", key, nvsHandle, byte);
 	}
 }
 

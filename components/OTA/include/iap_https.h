@@ -30,7 +30,7 @@
 typedef struct iap_https_config_ {
   
     // Version number of the running firmware image.
-    int current_software_version;
+    uint8_t current_software_version;
   
     // Name of the host that provides the firmware images, e.g. "www.classycode.io".
     const char *server_host_name;

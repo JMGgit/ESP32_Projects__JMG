@@ -9,10 +9,12 @@
 #ifndef OTA_H_
 #define OTA_H_
 
+
+#include "Main_Types.h"
+#include "Main_Config.h"
+#include "uC.h"
 #include "iap_https.h"
 
-
-#define OTA_SOFTWARE_VERSION      13
 
 #define WIFI_NETWORK_SSID         "Leo-Wohnung"
 #define WIFI_NETWORK_PASSWORD     "ObereBurghalde33"
@@ -73,5 +75,9 @@
 
 
 void OTA__init (void);
+
+uint8_t OTA__getCurrentSwVersion (void);
+void OTA__setCurrentSwVersion (uint8_t newSwVersion);
+
 
 #endif /* OTA_H_ */
