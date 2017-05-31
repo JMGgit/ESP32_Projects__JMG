@@ -35,6 +35,7 @@ void Main__init (void)
 	IRMP__init();
 	Buttons__init();
 	Clock__init();
+	LEDMatrix__init();
 	LedController__init();
 	Modes__init();
 }

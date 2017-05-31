@@ -33,8 +33,8 @@
 #endif
 
 #if (LEDTABLE_REVISION == LEDTABLE_REVISION_2)
-#define LED_MATRIX_SIZE_LIN				8
-#define LED_MATRIX_SIZE_COL				8
+#define LED_MATRIX_SIZE_LIN				6
+#define LED_MATRIX_SIZE_COL				10
 #endif
 
 #define WHITE_COLOR_PERCENT_RED			80

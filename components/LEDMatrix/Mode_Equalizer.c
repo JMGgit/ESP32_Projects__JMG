@@ -51,7 +51,7 @@ void Equalizer__x10 (void)
 			{
 				if (itLin < adcValues[itCol % ADCVALUES_NB])
 				{
-					LEDMatrix__setRGBColor(itLin + 1, itCol + 1, eqColor);
+					LEDMatrix__setRGBColor(LED_MATRIX_SIZE_LIN - itLin - 1, itCol + 1, eqColor);
 				}
 			}
 		}
