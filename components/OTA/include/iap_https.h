@@ -28,34 +28,37 @@
 #include <stdint.h>
 
 typedef struct iap_https_config_ {
-  
+
     // Version number of the running firmware image.
     uint8_t current_software_version;
 
     // Version number of the server firmware image.
     uint8_t server_software_version;
-  
+
+    // Force SW update
+    uint8_t trigger_software_update;
+
     // Name of the host that provides the firmware images, e.g. "www.classycode.io".
     const char *server_host_name;
-    
+
     // TCP port for TLS communication, e.g. "443".
     const char *server_port;
-  
+
     // Public key of the server's root CA certificate.
     // Needs to be in PEM format (base64-encoded DER data with begin and end marker).
     const char *server_root_ca_public_key_pem;
-    
+
     // Public key of the server's peer certificate (for certificate pinning).
     // Needs to be in PEM format (base64-encoded DER data with begin and end marker).
     const char *peer_public_key_pem;
-    
+
     // Path to the metadata file which contains information on the firmware image,
     // e.g. /ota/meta.txt. We perform an HTTP/1.1 GET request on this file.
     char server_metadata_path[256];
-    
+
     // Path to the firmware image file.
     char server_firmware_path[256];
-  
+
     // Default time between two checks, in seconds.
     // If you want to trigger the check manually, set the value to 0 and call the
     // iap_https_check_now function.
@@ -63,7 +66,7 @@ typedef struct iap_https_config_ {
     // In production, especially with many devices, higher values make more sense
     // to keep the network traffic low (e.g. 3600 for 1 hour).
     uint32_t polling_interval_s;
-    
+
     // Automatic re-boot after upgrade.
     // If the application can't handle arbitrary re-boots, set this to 'false'
     // and manually trigger the reboot.

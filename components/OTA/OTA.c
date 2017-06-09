@@ -18,6 +18,9 @@ static iap_https_config_t ota_config;
 static uint8_t otaSwVersion_NVS;
 static nvs_handle nvsHandle_otaSwVersion;
 
+static uint8_t otaTriggerSwUpdate_NVS;
+static nvs_handle nvsHandle_otaTriggerSwUpdate;
+
 
 uint8_t OTA__getCurrentSwVersion (void)
 {
@@ -35,8 +38,12 @@ void OTA__setCurrentSwVersion (uint8_t newSwVersion)
 void OTA__init (void)
 {
 	uC__nvsInitStorage("otaSwVersion", &nvsHandle_otaSwVersion);
+    uC__nvsInitStorage("otaTriggerSwUpdate", &nvsHandle_otaTriggerSwUpdate);
 
 	ota_config.current_software_version = uC__nvsReadByte("otaSwVersion", nvsHandle_otaSwVersion, &otaSwVersion_NVS);
+	ota_config.trigger_software_update = uC__nvsReadByte("otaTriggerSwUpdate", nvsHandle_otaTriggerSwUpdate, &otaTriggerSwUpdate_NVS);
+	uC__nvsUpdateByte("otaTriggerSwUpdate", nvsHandle_otaTriggerSwUpdate, &otaTriggerSwUpdate_NVS, FALSE);
+
 	ota_config.server_host_name = OTA_SERVER_HOST_NAME;
 	ota_config.server_port = "443";
 	strncpy(ota_config.server_metadata_path, OTA_SERVER_METADATA_PATH, sizeof(ota_config.server_metadata_path) / sizeof(char));
@@ -84,4 +91,17 @@ void OTA__runBeforeSwUpdate (void)
 void OTA__runAfterSwUpdate (void)
 {
 	IRMP__enable();
+}
+
+
+void OTA__triggerSwUpdate (void)
+{
+    uC__nvsUpdateByte("otaTriggerSwUpdate", nvsHandle_otaTriggerSwUpdate, &otaTriggerSwUpdate_NVS, TRUE);
+    uC__triggerSwReset();
+}
+
+
+void OTA__isSwUpdateTriggered (void)
+{
+    return ota_config.trigger_software_update;
 }

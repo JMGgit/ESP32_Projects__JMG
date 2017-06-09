@@ -82,8 +82,12 @@ uint8_t OTA__isNewSwFlashed (void);
 
 uint8_t OTA__getCurrentSwVersion (void);
 void OTA__setCurrentSwVersion (uint8_t newSwVersion);
+
 void OTA__runBeforeSwUpdate (void);
 void OTA__runAfterSwUpdate (void);
+
+void OTA__triggerSwUpdate (void);
+void OTA__isSwUpdateTriggered (void);
 
 
 #endif /* OTA_H_ */
