@@ -92,6 +92,9 @@ int iap_https_check_now();
 // Returns 1 if an update is currently in progress, 0 otherwise.
 int iap_https_update_in_progress();
 
+// Returns 1 if an download is currently in progress, 0 otherwise.
+int iap_https_download_in_progress();
+
 // Returns 1 if a new firmware has been installed but not yet booted, 0 otherwise.
 int iap_https_new_firmware_installed();
 

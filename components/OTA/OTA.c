@@ -18,8 +18,8 @@ static iap_https_config_t ota_config;
 static uint8_t otaSwVersion_NVS;
 static nvs_handle nvsHandle_otaSwVersion;
 
-static uint8_t otaTriggerSwUpdate_NVS;
-static nvs_handle nvsHandle_otaTriggerSwUpdate;
+static uint8_t otaTrigSwUpdate_NVS;
+static nvs_handle nvsHandle_otaTrigSwUpdate;
 
 
 uint8_t OTA__getCurrentSwVersion (void)
@@ -38,11 +38,11 @@ void OTA__setCurrentSwVersion (uint8_t newSwVersion)
 void OTA__init (void)
 {
 	uC__nvsInitStorage("otaSwVersion", &nvsHandle_otaSwVersion);
-    uC__nvsInitStorage("otaTriggerSwUpdate", &nvsHandle_otaTriggerSwUpdate);
+	uC__nvsInitStorage("otaTrigSwUpdate", &nvsHandle_otaTrigSwUpdate);
 
 	ota_config.current_software_version = uC__nvsReadByte("otaSwVersion", nvsHandle_otaSwVersion, &otaSwVersion_NVS);
-	ota_config.trigger_software_update = uC__nvsReadByte("otaTriggerSwUpdate", nvsHandle_otaTriggerSwUpdate, &otaTriggerSwUpdate_NVS);
-	uC__nvsUpdateByte("otaTriggerSwUpdate", nvsHandle_otaTriggerSwUpdate, &otaTriggerSwUpdate_NVS, FALSE);
+	ota_config.trigger_software_update = uC__nvsReadByte("otaTrigSwUpdate", nvsHandle_otaTrigSwUpdate, &otaTrigSwUpdate_NVS);
+	uC__nvsUpdateByte("otaTrigSwUpdate", nvsHandle_otaTrigSwUpdate, &otaTrigSwUpdate_NVS, FALSE);
 
 	ota_config.server_host_name = OTA_SERVER_HOST_NAME;
 	ota_config.server_port = "443";
@@ -70,15 +70,28 @@ void OTA__disable (void)
 }
 
 
-uint8_t OTA__isUpdateInProgress (void)
+OTA_State_t OTA__getCurrentState (void)
 {
-	return iap_https_update_in_progress();
-}
+	OTA_State_t otaState;
 
+	if (iap_https_new_firmware_installed())
+	{
+		otaState = OTA_STATE_UPDADE_FINISHED;
+	}
+	else if (iap_https_update_in_progress())
+	{
+		otaState = OTA_STATE_UPDATE_IN_PROGRESS;
+	}
+	else if (iap_https_download_in_progress())
+	{
+		otaState = OTA_STATE_DOWNLOAD_IN_PROGRESS;
+	}
+	else
+	{
+		otaState = OTA_STATE_IDLE;
+	}
 
-uint8_t OTA__isNewSwFlashed (void)
-{
-	return iap_https_new_firmware_installed();
+	return otaState;
 }
 
 
@@ -96,12 +109,12 @@ void OTA__runAfterSwUpdate (void)
 
 void OTA__triggerSwUpdate (void)
 {
-    uC__nvsUpdateByte("otaTriggerSwUpdate", nvsHandle_otaTriggerSwUpdate, &otaTriggerSwUpdate_NVS, TRUE);
-    uC__triggerSwReset();
+	uC__nvsUpdateByte("otaTrigSwUpdate", nvsHandle_otaTrigSwUpdate, &otaTrigSwUpdate_NVS, TRUE);
+	uC__triggerSwReset();
 }
 
 
-void OTA__isSwUpdateTriggered (void)
+uint8_t OTA__isSwUpdateTriggered (void)
 {
-    return ota_config.trigger_software_update;
+	return ota_config.trigger_software_update;
 }

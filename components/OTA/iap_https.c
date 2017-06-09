@@ -64,6 +64,7 @@ static TimerHandle_t check_for_updates_timer;
 static int has_iap_session;
 static int has_new_firmware;
 static int total_nof_bytes_received;
+static int download_in_progress;
 
 static void iap_https_periodic_check_timer_callback(TimerHandle_t xTimer);
 static void iap_https_task(void *pvParameter);
@@ -155,6 +156,11 @@ int iap_https_update_in_progress()
 	return has_iap_session;
 }
 
+int iap_https_download_in_progress()
+{
+	return download_in_progress;
+}
+
 int iap_https_new_firmware_installed()
 {
 	return has_new_firmware;
@@ -216,6 +222,7 @@ static void iap_https_task(void *pvParameter)
 				OTA__runBeforeSwUpdate();
 
 				iap_https_download_image();
+				download_in_progress = 0;
 				xEventGroupClearBits(event_group, FWUP_DOWNLOAD_IMAGE);
 
 			} else if (bits & FWUP_CHECK_FOR_UPDATE) {
@@ -308,6 +315,8 @@ static void iap_https_download_image()
 	if (httpResult != HTTP_SUCCESS) {
 		ESP_LOGE(TAG, "iap_https_download_image: failed to send HTTPS firmware image request; https_send_request returned %d", httpResult);
 	}
+
+	download_in_progress = 1;
 }
 
 http_continue_receiving_t iap_https_metadata_body_callback(struct http_request_ *request, size_t bytesReceived)
@@ -349,7 +358,7 @@ http_continue_receiving_t iap_https_metadata_body_callback(struct http_request_ 
 
 	fwupdater_config->server_software_version = version;
 
-	if (version == fwupdater_config->current_software_version) {
+	if ((!OTA__isSwUpdateTriggered()) && (version == fwupdater_config->current_software_version)) {
 		ESP_LOGD(TAG, "iap_https_metadata_body_callback: we're up-to-date!");
 		return HTTP_STOP_RECEIVING;
 	}
@@ -414,7 +423,8 @@ http_continue_receiving_t iap_https_firmware_body_callback(struct http_request_ 
 		printf("\n\nSW REVISION %d SUCCESSFULLY FLASHED\n\n", fwupdater_config->server_software_version);
 		OTA__runAfterSwUpdate();
 
-		if (fwupdater_config->auto_reboot) {
+		/* reboot if configured or if SW update has been forced */
+		if ((fwupdater_config->auto_reboot) || OTA__isSwUpdateTriggered()) {
 			ESP_LOGI(TAG, "Automatic re-boot in 2 seconds - goodbye!...");
 			vTaskDelay(2000 / portTICK_RATE_MS);
 			esp_restart();

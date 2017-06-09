@@ -150,6 +150,7 @@ uint8_t LEDMatrix__getLedOrder (void)
 
 void LEDMatrix__init (void)
 {
+	LEDMatrix__clearMatrix();
 #if (LED_ORDER == LED_ORDER__CONFIGURABLE)
 	uC__nvsInitStorage("ledOrder", &nvsHandle_ledOrder);
 

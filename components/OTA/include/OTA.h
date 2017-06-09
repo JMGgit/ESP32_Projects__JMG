@@ -74,11 +74,21 @@
 		"-----END CERTIFICATE-----\n"
 
 
+typedef enum
+{
+	OTA_STATE_IDLE = 0,
+	OTA_STATE_DOWNLOAD_IN_PROGRESS,
+	OTA_STATE_UPDATE_IN_PROGRESS,
+	OTA_STATE_UPDADE_FINISHED
+} OTA_State_t;
+
+
 void OTA__init (void);
+
 void OTA__enable (void);
 void OTA__disable (void);
-uint8_t OTA__isUpdateInProgress (void);
-uint8_t OTA__isNewSwFlashed (void);
+
+OTA_State_t OTA__getCurrentState (void);
 
 uint8_t OTA__getCurrentSwVersion (void);
 void OTA__setCurrentSwVersion (uint8_t newSwVersion);
@@ -87,7 +97,7 @@ void OTA__runBeforeSwUpdate (void);
 void OTA__runAfterSwUpdate (void);
 
 void OTA__triggerSwUpdate (void);
-void OTA__isSwUpdateTriggered (void);
+uint8_t OTA__isSwUpdateTriggered (void);
 
 
 #endif /* OTA_H_ */

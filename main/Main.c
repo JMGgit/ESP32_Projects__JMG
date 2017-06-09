@@ -16,6 +16,8 @@
 #include "Buttons.h"
 
 
+#define STARTUP_TIME	250
+
 static esp_err_t Main__eventHandler(void *ctx, system_event_t *event)
 {
 	Wifi__systemEvent(event);
@@ -38,6 +40,7 @@ void Main__init (void)
 	LEDMatrix__init();
 	LedController__init();
 	Modes__init();
+	APA102__x10();
 }
 
 
@@ -45,6 +48,7 @@ void LedTable__mainFunction (void *param)
 {
 	TickType_t xLastWakeTime;
 	const TickType_t xFrequency = 10 / portTICK_PERIOD_MS;
+	static uint32_t startupCounter = STARTUP_TIME;
 
 	xLastWakeTime = xTaskGetTickCount();
 
@@ -52,13 +56,20 @@ void LedTable__mainFunction (void *param)
 	{
 		vTaskDelayUntil(&xLastWakeTime, xFrequency);
 
-		if (!ArtNet__isActive())
+		if (startupCounter > 0)
 		{
-			gpio_set_level(TEST_LED_LEDCTRL_GPIO, 1);
-			Buttons__x10();
-			Modes__x10();
-			APA102__x10();
-			gpio_set_level(TEST_LED_LEDCTRL_GPIO, 0);
+			startupCounter--;
+		}
+		else
+		{
+			if (!ArtNet__isActive())
+			{
+				gpio_set_level(TEST_LED_LEDCTRL_GPIO, 1);
+				Buttons__x10();
+				Modes__x10();
+				APA102__x10();
+				gpio_set_level(TEST_LED_LEDCTRL_GPIO, 0);
+			}
 		}
 	}
 }
@@ -95,11 +106,24 @@ void Main__createTasks (void)
 	{
 		printf("Task MSGEQ7__mainFunction created\n");
 	}
+
+	if (pdPASS == xTaskCreate(uC__mainFunction, "uC__mainFunction", 4096, NULL, 1, NULL))
+	{
+		printf("Task uC__mainFunction created\n");
+	}
 }
 
 
 void app_main (void)
 {
 	Main__init();
-	Main__createTasks();
+
+	if (OTA__isSwUpdateTriggered())
+	{
+		OTA__enable();
+	}
+	else
+	{
+		Main__createTasks();
+	}
 }
