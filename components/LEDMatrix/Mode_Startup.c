@@ -10,7 +10,7 @@
 #include "Modes.h"
 
 
-#define TEST_BRIGHTNESS_LEVEL	60
+#define TEST_BRIGHTNESS_LEVEL	100
 
 typedef enum
 {

@@ -26,6 +26,8 @@ void uC__triggerSwReset (void);
 void uC__nvsInitStorage (const char *key, nvs_handle *nvsHandle);
 uint8_t uC__nvsReadByte (const char *key, nvs_handle nvsHandle, uint8_t *byte);
 void uC__nvsUpdateByte (const char *key, nvs_handle nvsHandle, uint8_t *byte_NVS, uint8_t byte);
+
 void uC__init (void);
+void uC__mainFunction (void *param);
 
 #endif /* UC_H_ */

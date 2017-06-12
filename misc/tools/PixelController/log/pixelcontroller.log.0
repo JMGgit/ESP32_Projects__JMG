@@ -1,0 +1,2188 @@
+Jun 09, 2017 9:03:29 PM com.neophob.PixelController setup
+INFORMATION: 
+
+PixelController Developer Snapshot - http://www.pixelinvaders.ch
+
+
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.setup.InitApplication loadConfiguration
+INFORMATION: Config loaded, 28 entries
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.properties.ApplicationConfigurationHelper <init>
+INFORMATION: found Artnet device: 1
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize collector
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.glue.helper.InitHelper getColorPalettes
+INFORMATION: ColorSets loaded, 35 entries
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.sound.SoundDummy <init>
+INFORMATION: Sound thread started, dummy implementation...
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.glue.MatrixData <init>
+INFORMATION: screenSize: 60 (10 * 6), multiplication factor: 8 (80 * 48)
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Start init, data root: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: BLINKENLIGHTS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Blinkenlights <init>
+INFORMATION: Blinkenlights, found 20 movie files
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml.
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml / 600 frames in 254ms
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: IMAGE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: load image c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\pics\_logo.gif
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: resize to img _logo.gif 80, 48 using PIXEL_RESIZE
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Image <init>
+INFORMATION: Image, found 45 image files
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: PLASMA, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: PLASMA_ADVANCED, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: FIRE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: PASSTHRU, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: METABALLS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: PIXELIMAGE, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.PixelImage <init>
+INFORMATION: PixelImage resize value 10/6 [80/48]
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: TEXTWRITER, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Textwriter <init>
+INFORMATION: Loaded font 04B_03__.TTF, size: 82
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: CELL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: FFT, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: DROPS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: COLOR_SCROLL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: COLOR_FADE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: OSC_GEN1, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: OSC_GEN2, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: VISUAL_ZERO, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Init finished
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize 2 Visuals
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize output
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.glue.FileUtils loadPresents
+INFORMATION: Loaded 128 presets from file presets.led
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.jmx.PixelControllerStatus <init>
+INFORMATION: Initialize the PixelControllerStatus JMX Bean
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.osc.PixelControllerOscServer <init>
+INFORMATION: Start OSC Server at port 9.876
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.osc.server.impl.OscServerImpl <init>
+INFORMATION: OSC Server initialized on port 9876, buffersize: 50000
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.osc.server.impl.OscServerImpl startServer
+INFORMATION: OSC Server started
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.output.Output <init>
+INFORMATION: Output created: ARTNET, Layout: HORIZONTAL, BPP: 8, Gamma Correction: GAMMA_22
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Pixels per universe: 170
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	First universe ID: 0
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	# of universe: 1
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Output Mapping entry size: 0
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Target address: /192.168.2.109
+Jun 09, 2017 9:03:30 PM artnet4j.ArtNet <init>
+INFORMATION: Art-Net v0001-20091119
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: Initialize ArtNet device IP: /192.168.2.109, broadcast IP: 2.255.255.255, Port: 6.454
+Jun 09, 2017 9:03:30 PM artnet4j.ArtNetServer start
+INFORMATION: Art-Net server started at port: 6454
+Jun 09, 2017 9:03:30 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: ArtNet device initialized, use 1 panels
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.core.setup.InitApplication setupInitialConfig
+INFORMATION: Load preset 0
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml.
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml / 250 frames in 64ms
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: new filename does not differ from old: _logo.gif
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Select beat workmode MODERATE
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 111111111111111111
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.core.glue.Collector setCurrentStatus
+INFORMATION: Preset loaded in 93ms
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.gui.OutputGui <init>
+INFORMATION: Create LED Matrix simulator window: LedSimulatorOutputWindow [ledSize=10, rahmenSize=2, matrixData=MatrixData [deviceXSize=10, deviceYSize=6, deviceSize=60, bufferWidth=80, bufferHeight=48], windowSize=Point [x=124, y=118]]
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: create GUI, nr of screens: 2
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.gui.model.WindowSizeCalculator <init>
+WARNUNG: Adjusted window width to minimal value 820, configured value was 600
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: Create new window: WindowSizeCalculator [singleVisualWidth=167, singleVisualHeight=100, windowHeight=500, windowWidth=820]
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: Create GUI Window with size 820/500
+Jun 09, 2017 9:03:31 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: --- PixelController Setup END ---
+Jun 09, 2017 9:03:31 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: ---------------------------------
+Jun 09, 2017 9:03:31 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: 
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: GUI logo loaded
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_OUTPUT: 0.0
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CURRENT_OUTPUT 0
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: PRESET_BUTTONS 0
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CHANGE_SHUFFLER_SELECT 
+Jun 09, 2017 9:03:31 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 25 settings updated.
+Jun 09, 2017 9:03:33 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:03:43 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:03:55 PM com.neophob.PixelController setup
+INFORMATION: 
+
+PixelController Developer Snapshot - http://www.pixelinvaders.ch
+
+
+Jun 09, 2017 9:03:55 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.setup.InitApplication loadConfiguration
+INFORMATION: Config loaded, 28 entries
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.properties.ApplicationConfigurationHelper <init>
+INFORMATION: found Artnet device: 1
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize collector
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.glue.helper.InitHelper getColorPalettes
+INFORMATION: ColorSets loaded, 35 entries
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.sound.SoundDummy <init>
+INFORMATION: Sound thread started, dummy implementation...
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.glue.MatrixData <init>
+INFORMATION: screenSize: 60 (10 * 6), multiplication factor: 8 (80 * 48)
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Start init, data root: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: BLINKENLIGHTS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Blinkenlights <init>
+INFORMATION: Blinkenlights, found 20 movie files
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml.
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml / 600 frames in 247ms
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: IMAGE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: load image c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\pics\_logo.gif
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: resize to img _logo.gif 80, 48 using PIXEL_RESIZE
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Image <init>
+INFORMATION: Image, found 45 image files
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: PLASMA, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: PLASMA_ADVANCED, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: FIRE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: PASSTHRU, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: METABALLS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: PIXELIMAGE, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.PixelImage <init>
+INFORMATION: PixelImage resize value 10/6 [80/48]
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: TEXTWRITER, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Textwriter <init>
+INFORMATION: Loaded font 04B_03__.TTF, size: 82
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: CELL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: FFT, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: DROPS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: COLOR_SCROLL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: COLOR_FADE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: OSC_GEN1, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: OSC_GEN2, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: VISUAL_ZERO, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Init finished
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize 2 Visuals
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize output
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.glue.FileUtils loadPresents
+INFORMATION: Loaded 128 presets from file presets.led
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.jmx.PixelControllerStatus <init>
+INFORMATION: Initialize the PixelControllerStatus JMX Bean
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.osc.PixelControllerOscServer <init>
+INFORMATION: Start OSC Server at port 9.876
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.osc.server.impl.OscServerImpl <init>
+INFORMATION: OSC Server initialized on port 9876, buffersize: 50000
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.osc.server.impl.OscServerImpl startServer
+INFORMATION: OSC Server started
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.output.Output <init>
+INFORMATION: Output created: ARTNET, Layout: HORIZONTAL, BPP: 8, Gamma Correction: GAMMA_22
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Pixels per universe: 170
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	First universe ID: 0
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	# of universe: 1
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Output Mapping entry size: 0
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Target address: /192.168.2.109
+Jun 09, 2017 9:03:56 PM artnet4j.ArtNet <init>
+INFORMATION: Art-Net v0001-20091119
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: Initialize ArtNet device IP: /192.168.2.109, broadcast IP: 2.255.255.255, Port: 6.454
+Jun 09, 2017 9:03:56 PM artnet4j.ArtNetServer start
+INFORMATION: Art-Net server started at port: 6454
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: ArtNet device initialized, use 1 panels
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.setup.InitApplication setupInitialConfig
+INFORMATION: Load preset 0
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml.
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml / 250 frames in 60ms
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: new filename does not differ from old: _logo.gif
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Select beat workmode MODERATE
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 111111111111111111
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.glue.Collector setCurrentStatus
+INFORMATION: Preset loaded in 82ms
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.gui.OutputGui <init>
+INFORMATION: Create LED Matrix simulator window: LedSimulatorOutputWindow [ledSize=10, rahmenSize=2, matrixData=MatrixData [deviceXSize=10, deviceYSize=6, deviceSize=60, bufferWidth=80, bufferHeight=48], windowSize=Point [x=124, y=118]]
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: create GUI, nr of screens: 2
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.gui.model.WindowSizeCalculator <init>
+WARNUNG: Adjusted window width to minimal value 820, configured value was 600
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: Create new window: WindowSizeCalculator [singleVisualWidth=167, singleVisualHeight=100, windowHeight=500, windowWidth=820]
+Jun 09, 2017 9:03:56 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: Create GUI Window with size 820/500
+Jun 09, 2017 9:03:57 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: --- PixelController Setup END ---
+Jun 09, 2017 9:03:57 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: ---------------------------------
+Jun 09, 2017 9:03:57 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: 
+Jun 09, 2017 9:03:57 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:03:57 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: GUI logo loaded
+Jun 09, 2017 9:03:57 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:03:57 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_OUTPUT: 0.0
+Jun 09, 2017 9:03:57 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CURRENT_OUTPUT 0
+Jun 09, 2017 9:03:57 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: PRESET_BUTTONS 0
+Jun 09, 2017 9:03:57 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CHANGE_SHUFFLER_SELECT 
+Jun 09, 2017 9:03:57 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 25 settings updated.
+Jun 09, 2017 9:03:59 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:04:31 PM com.neophob.PixelController setup
+INFORMATION: 
+
+PixelController Developer Snapshot - http://www.pixelinvaders.ch
+
+
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.setup.InitApplication loadConfiguration
+INFORMATION: Config loaded, 29 entries
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.properties.ApplicationConfigurationHelper <init>
+INFORMATION: found Artnet device: 1
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize collector
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.glue.helper.InitHelper getColorPalettes
+INFORMATION: ColorSets loaded, 35 entries
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.sound.SoundDummy <init>
+INFORMATION: Sound thread started, dummy implementation...
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.glue.MatrixData <init>
+INFORMATION: screenSize: 60 (10 * 6), multiplication factor: 8 (80 * 48)
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Start init, data root: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: BLINKENLIGHTS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Blinkenlights <init>
+INFORMATION: Blinkenlights, found 20 movie files
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml.
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml / 600 frames in 234ms
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: IMAGE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: load image c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\pics\_logo.gif
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: resize to img _logo.gif 80, 48 using PIXEL_RESIZE
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Image <init>
+INFORMATION: Image, found 45 image files
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: PLASMA, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: PLASMA_ADVANCED, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: FIRE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: PASSTHRU, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: METABALLS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: PIXELIMAGE, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.PixelImage <init>
+INFORMATION: PixelImage resize value 10/6 [80/48]
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: TEXTWRITER, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Textwriter <init>
+INFORMATION: Loaded font 04B_03__.TTF, size: 82
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: CELL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: FFT, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: DROPS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: COLOR_SCROLL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: COLOR_FADE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: OSC_GEN1, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: OSC_GEN2, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 3.840 (80/48), name: VISUAL_ZERO, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Init finished
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize 2 Visuals
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize output
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.glue.FileUtils loadPresents
+INFORMATION: Loaded 128 presets from file presets.led
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.jmx.PixelControllerStatus <init>
+INFORMATION: Initialize the PixelControllerStatus JMX Bean
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.osc.PixelControllerOscServer <init>
+INFORMATION: Start OSC Server at port 9.876
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.osc.server.impl.OscServerImpl <init>
+INFORMATION: OSC Server initialized on port 9876, buffersize: 50000
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.osc.server.impl.OscServerImpl startServer
+INFORMATION: OSC Server started
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.output.Output <init>
+INFORMATION: Output created: ARTNET, Layout: HORIZONTAL, BPP: 8, Gamma Correction: GAMMA_22
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Pixels per universe: 170
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	First universe ID: 0
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	# of universe: 1
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Output Mapping entry size: 0
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Target address: /192.168.2.109
+Jun 09, 2017 9:04:32 PM artnet4j.ArtNet <init>
+INFORMATION: Art-Net v0001-20091119
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: Initialize ArtNet device IP: /192.168.2.109, broadcast IP: 2.255.255.255, Port: 6.454
+Jun 09, 2017 9:04:32 PM artnet4j.ArtNetServer start
+INFORMATION: Art-Net server started at port: 6454
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: ArtNet device initialized, use 1 panels
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.setup.InitApplication setupInitialConfig
+INFORMATION: Load preset 0
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml.
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml / 250 frames in 62ms
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: new filename does not differ from old: _logo.gif
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Select beat workmode MODERATE
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 111111111111111111
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.glue.Collector setCurrentStatus
+INFORMATION: Preset loaded in 83ms
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.gui.OutputGui <init>
+INFORMATION: Create LED Matrix simulator window: LedSimulatorOutputWindow [ledSize=10, rahmenSize=2, matrixData=MatrixData [deviceXSize=10, deviceYSize=6, deviceSize=60, bufferWidth=80, bufferHeight=48], windowSize=Point [x=124, y=118]]
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: create GUI, nr of screens: 2
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.gui.model.WindowSizeCalculator <init>
+WARNUNG: Adjusted window width to minimal value 820, configured value was 600
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: Create new window: WindowSizeCalculator [singleVisualWidth=167, singleVisualHeight=100, windowHeight=500, windowWidth=820]
+Jun 09, 2017 9:04:32 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: Create GUI Window with size 820/500
+Jun 09, 2017 9:04:33 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: --- PixelController Setup END ---
+Jun 09, 2017 9:04:33 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: ---------------------------------
+Jun 09, 2017 9:04:33 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: 
+Jun 09, 2017 9:04:33 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:04:33 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: GUI logo loaded
+Jun 09, 2017 9:04:33 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:04:33 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_OUTPUT: 0.0
+Jun 09, 2017 9:04:33 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CURRENT_OUTPUT 0
+Jun 09, 2017 9:04:33 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: PRESET_BUTTONS 0
+Jun 09, 2017 9:04:33 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CHANGE_SHUFFLER_SELECT 
+Jun 09, 2017 9:04:33 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 25 settings updated.
+Jun 09, 2017 9:04:35 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:04:41 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 2.0
+Jun 09, 2017 9:04:45 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:04:55 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:05:02 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 8.0
+Jun 09, 2017 9:05:05 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:05:07 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 1.0
+Jun 09, 2017 9:05:07 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:05:10 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:05:10 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:05:15 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 10.0
+Jun 09, 2017 9:05:15 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:05:22 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 14.0
+Jun 09, 2017 9:05:22 PM com.neophob.sematrix.core.generator.PixelControllerGenerator getGenerator
+WARNUNG: Invalid Generator index selected: 14
+Jun 09, 2017 9:05:22 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+WARNUNG: Ignored command
+java.lang.NullPointerException
+	at com.neophob.sematrix.core.listener.MessageProcessor.processMsg(MessageProcessor.java:81)
+	at com.neophob.sematrix.gui.P5EventListener.singleSendMessageOut(P5EventListener.java:299)
+	at com.neophob.sematrix.gui.P5EventListener.handleGenerator(P5EventListener.java:393)
+	at com.neophob.sematrix.gui.P5EventListener.controlEvent(P5EventListener.java:112)
+	at controlP5.ControlBroadcaster.broadcast(Unknown Source)
+	at controlP5.DropdownList.controlEvent(Unknown Source)
+	at controlP5.Controller.broadcast(Unknown Source)
+	at controlP5.Button.setValue(Unknown Source)
+	at controlP5.Button.activate(Unknown Source)
+	at controlP5.Button.mouseReleased(Unknown Source)
+	at controlP5.Controller.setMousePressed(Unknown Source)
+	at controlP5.ControllerGroup.setMousePressed(Unknown Source)
+	at controlP5.ControllerGroup.setMousePressed(Unknown Source)
+	at controlP5.ControlWindow.mouseReleasedEvent(Unknown Source)
+	at controlP5.ControlWindow.mouseEvent(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at processing.core.PApplet$RegisteredMethods.handle(PApplet.java:985)
+	at processing.core.PApplet.handleMouseEvent(PApplet.java:2112)
+	at processing.core.PApplet.dequeueMouseEvents(PApplet.java:2066)
+	at processing.core.PApplet.handleDraw(PApplet.java:1902)
+	at processing.core.PApplet.run(PApplet.java:1788)
+	at java.lang.Thread.run(Unknown Source)
+
+Jun 09, 2017 9:05:25 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:05:28 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 9.0
+Jun 09, 2017 9:05:35 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:05:37 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: EFFECT Value: 0.0
+Jun 09, 2017 9:05:39 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: MIXER_DROPDOWN Value: 0.0
+Jun 09, 2017 9:05:41 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_TWO_DROPDOWN Value: 0.0
+Jun 09, 2017 9:05:45 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:05:48 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 1.0
+Jun 09, 2017 9:05:48 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:05:51 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:05:51 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:05:52 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 1.0
+Jun 09, 2017 9:05:52 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:05:53 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:05:53 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:05:54 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 1.0
+Jun 09, 2017 9:05:54 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:05:55 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_TWO_DROPDOWN Value: 0.0
+Jun 09, 2017 9:05:55 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:05:57 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: EFFECT Value: 0.0
+Jun 09, 2017 9:05:58 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: COLOR_SET_DROPDOWN 0.0
+Jun 09, 2017 9:06:05 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:06:09 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:06:09 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:06:11 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 1.0
+Jun 09, 2017 9:06:11 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 4 settings updated.
+Jun 09, 2017 9:06:14 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:06:14 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 4 settings updated.
+Jun 09, 2017 9:06:15 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:06:18 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 0.0
+Jun 09, 2017 9:06:25 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:06:31 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: TEXTUREDEFORM_OPTIONS 2.0
+Jun 09, 2017 9:06:35 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:06:36 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: EFFECT Value: 9.0
+Jun 09, 2017 9:06:37 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: EFFECT Value: 0.0
+Jun 09, 2017 9:06:39 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 0.0
+Jun 09, 2017 9:06:45 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: COLOR_SET_DROPDOWN 7.0
+Jun 09, 2017 9:06:45 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:06:47 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: COLOR_SET_DROPDOWN 0.0
+Jun 09, 2017 9:06:55 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:07:05 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:07:15 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:07:25 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:07:30 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: BLINKENLIGHTS_DROPDOWN bb-frogskin2.bml
+Jun 09, 2017 9:07:30 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml.
+Jun 09, 2017 9:07:30 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml / 600 frames in 65ms
+Jun 09, 2017 9:07:30 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:07:35 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:07:44 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Select beat workmode LINEAR
+Jun 09, 2017 9:07:45 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:07:47 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: COLORSCROLL_OPTIONS 0.0
+Jun 09, 2017 9:07:55 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:07:55 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 1.0
+Jun 09, 2017 9:07:55 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 8 settings updated.
+Jun 09, 2017 9:07:57 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:07:57 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 3 settings updated.
+Jun 09, 2017 9:08:05 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:08:12 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 6.0
+Jun 09, 2017 9:08:15 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:08:25 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:08:25 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+Jun 09, 2017 9:08:25 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 011111111111111111
+Jun 09, 2017 9:08:26 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 
+Jun 09, 2017 9:08:26 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 011110111111111111
+Jun 09, 2017 9:08:26 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 1 1 1 1 0 1 1 1 1 0 1 1 1 1 1 1 1 
+Jun 09, 2017 9:08:26 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 011110111101111111
+Jun 09, 2017 9:08:27 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 1 1 1 1 0 1 1 1 1 0 1 1 1 1 0 1 1 
+Jun 09, 2017 9:08:27 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 011110111101111011
+Jun 09, 2017 9:08:31 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: BUTTONS_RANDOM_MODE Value: 0.0
+Jun 09, 2017 9:08:31 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Random Mode enabled
+Jun 09, 2017 9:08:35 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: BUTTONS_RANDOM_MODE Value: -1.0
+Jun 09, 2017 9:08:35 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Random Mode disabled
+Jun 09, 2017 9:08:35 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:08:36 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 1 1 1 0 1 1 1 1 0 1 1 1 1 0 1 1 
+Jun 09, 2017 9:08:36 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 001110111101111011
+Jun 09, 2017 9:08:36 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 1 1 1 0 0 1 1 1 0 1 1 1 1 0 1 1 
+Jun 09, 2017 9:08:36 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 001110011101111011
+Jun 09, 2017 9:08:36 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 1 1 1 0 0 1 1 1 0 0 1 1 1 0 1 1 
+Jun 09, 2017 9:08:36 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 001110011100111011
+Jun 09, 2017 9:08:37 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 1 1 1 0 0 1 1 1 0 0 1 1 1 0 0 1 
+Jun 09, 2017 9:08:37 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 001110011100111001
+Jun 09, 2017 9:08:37 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 1 1 1 0 0 1 1 1 0 0 1 1 1 0 0 0 
+Jun 09, 2017 9:08:37 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 001110011100111000
+Jun 09, 2017 9:08:38 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 1 1 1 0 0 1 1 1 0 0 0 1 1 0 0 0 
+Jun 09, 2017 9:08:38 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 001110011100011000
+Jun 09, 2017 9:08:38 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 1 1 1 0 0 0 1 1 0 0 0 1 1 0 0 0 
+Jun 09, 2017 9:08:38 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 001110001100011000
+Jun 09, 2017 9:08:39 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 0 1 1 0 0 0 1 1 0 0 0 1 1 0 0 0 
+Jun 09, 2017 9:08:39 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 000110001100011000
+Jun 09, 2017 9:08:39 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 0 0 1 0 0 0 1 1 0 0 0 1 1 0 0 0 
+Jun 09, 2017 9:08:39 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 000010001100011000
+Jun 09, 2017 9:08:39 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 0 0 1 0 0 0 0 1 0 0 0 1 1 0 0 0 
+Jun 09, 2017 9:08:39 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 000010000100011000
+Jun 09, 2017 9:08:40 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 
+Jun 09, 2017 9:08:40 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 000010000100001000
+Jun 09, 2017 9:08:40 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 
+Jun 09, 2017 9:08:40 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 000010000100000000
+Jun 09, 2017 9:08:41 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Jun 09, 2017 9:08:41 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 000010000000000000
+Jun 09, 2017 9:08:41 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Jun 09, 2017 9:08:41 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 000000000000000000
+Jun 09, 2017 9:08:42 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Jun 09, 2017 9:08:42 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 000010000000000000
+Jun 09, 2017 9:08:42 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 
+Jun 09, 2017 9:08:42 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 000010000000001000
+Jun 09, 2017 9:08:43 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Jun 09, 2017 9:08:43 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 000010000000000000
+Jun 09, 2017 9:08:43 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 
+Jun 09, 2017 9:08:43 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 000010000100000000
+Jun 09, 2017 9:08:44 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: BUTTONS_RANDOM_MODE Value: 0.0
+Jun 09, 2017 9:08:44 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Random Mode enabled
+Jun 09, 2017 9:08:45 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 
+Jun 09, 2017 9:08:45 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 000010000100001000
+Jun 09, 2017 9:08:45 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:08:46 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: BUTTON_RANDOM_CONFIGURATION Value: 0.0
+Jun 09, 2017 9:08:46 PM com.neophob.sematrix.core.glue.Shuffler manualShuffleStuff
+INFORMATION: Manual Shuffle for Visual 0
+Jun 09, 2017 9:08:46 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: load image c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\pics\hls.jpg
+Jun 09, 2017 9:08:46 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: resize to img hls.jpg 80, 48 using PIXEL_RESIZE
+Jun 09, 2017 9:08:46 PM com.neophob.sematrix.core.glue.Shuffler manualShuffleStuff
+INFORMATION: Shuffle finished in 168ms
+Jun 09, 2017 9:08:46 PM com.neophob.sematrix.core.fader.Fader startFade
+INFORMATION: Started preset fader CROSSFADE, duration 500, steps 12, new visual 0
+Jun 09, 2017 9:08:46 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 3 settings updated.
+Jun 09, 2017 9:08:46 PM com.neophob.sematrix.core.glue.Collector updateSystem
+INFORMATION: Cleanup preset CROSSFADE, new visual: 0
+Jun 09, 2017 9:08:47 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 1 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 
+Jun 09, 2017 9:08:47 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 001010000100001000
+Jun 09, 2017 9:08:48 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: RANDOM_ELEMENT 0 0 1 0 1 0 0 0 0 1 0 0 0 0 1 0 0 1 
+Jun 09, 2017 9:08:48 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 001010000100001001
+Jun 09, 2017 9:08:55 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:08:56 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: EFFECT Value: 2.0
+Jun 09, 2017 9:09:05 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:09:15 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:09:25 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:09:35 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:09:37 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: TEXTUREDEFORM_OPTIONS 1.0
+Jun 09, 2017 9:09:43 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: ZOOM_OPTIONS 1.0
+Jun 09, 2017 9:09:44 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: ZOOM_OPTIONS 0.0
+Jun 09, 2017 9:09:45 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:09:55 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:10:03 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 1.0
+Jun 09, 2017 9:10:03 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 6 settings updated.
+Jun 09, 2017 9:10:04 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:10:04 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:10:05 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:10:06 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 1.0
+Jun 09, 2017 9:10:06 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:10:11 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: MIXER_DROPDOWN Value: 0.0
+Jun 09, 2017 9:10:15 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 0.0
+Jun 09, 2017 9:10:15 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:10:20 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:10:20 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:10:25 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:10:32 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 0.0
+Jun 09, 2017 9:10:35 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: EFFECT Value: 0.0
+Jun 09, 2017 9:10:35 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:10:39 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: COLOR_SET_DROPDOWN 4.0
+Jun 09, 2017 9:10:42 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 1.0
+Jun 09, 2017 9:10:45 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:10:55 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:11:05 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:11:15 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:11:25 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:11:35 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:11:45 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:11:55 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:12:05 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:12:15 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:12:16 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 5.0
+Jun 09, 2017 9:12:25 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:12:47 PM com.neophob.PixelController setup
+INFORMATION: 
+
+PixelController Developer Snapshot - http://www.pixelinvaders.ch
+
+
+Jun 09, 2017 9:12:47 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:12:47 PM com.neophob.sematrix.core.setup.InitApplication loadConfiguration
+INFORMATION: Config loaded, 29 entries
+Jun 09, 2017 9:12:47 PM com.neophob.sematrix.core.properties.ApplicationConfigurationHelper <init>
+INFORMATION: found Artnet device: 1
+Jun 09, 2017 9:12:47 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize collector
+Jun 09, 2017 9:12:47 PM com.neophob.sematrix.core.glue.helper.InitHelper getColorPalettes
+INFORMATION: ColorSets loaded, 35 entries
+Jun 09, 2017 9:12:47 PM com.neophob.sematrix.core.sound.SoundDummy <init>
+INFORMATION: Sound thread started, dummy implementation...
+Jun 09, 2017 9:12:47 PM com.neophob.sematrix.core.glue.MatrixData <init>
+INFORMATION: screenSize: 1.008 (42 * 24), multiplication factor: 4 (168 * 96)
+Jun 09, 2017 9:12:47 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Start init, data root: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:12:47 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: BLINKENLIGHTS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:12:47 PM com.neophob.sematrix.core.generator.Blinkenlights <init>
+INFORMATION: Blinkenlights, found 20 movie files
+Jun 09, 2017 9:12:47 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml.
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml / 600 frames in 235ms
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: IMAGE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: load image c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\pics\_logo.gif
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: resize to img _logo.gif 168, 96 using PIXEL_RESIZE
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Image <init>
+INFORMATION: Image, found 45 image files
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PLASMA, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PLASMA_ADVANCED, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: FIRE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PASSTHRU, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: METABALLS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PIXELIMAGE, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.PixelImage <init>
+INFORMATION: PixelImage resize value 21/12 [168/96]
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: TEXTWRITER, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Textwriter <init>
+INFORMATION: Loaded font 04B_03__.TTF, size: 82
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: CELL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: FFT, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: DROPS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: COLOR_SCROLL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: COLOR_FADE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: OSC_GEN1, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: OSC_GEN2, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: VISUAL_ZERO, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Init finished
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize 2 Visuals
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize output
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.glue.FileUtils loadPresents
+INFORMATION: Loaded 128 presets from file presets.led
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.jmx.PixelControllerStatus <init>
+INFORMATION: Initialize the PixelControllerStatus JMX Bean
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.osc.PixelControllerOscServer <init>
+INFORMATION: Start OSC Server at port 9.876
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.osc.server.impl.OscServerImpl <init>
+INFORMATION: OSC Server initialized on port 9876, buffersize: 50000
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.osc.server.impl.OscServerImpl startServer
+INFORMATION: OSC Server started
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.output.Output <init>
+INFORMATION: Output created: ARTNET, Layout: HORIZONTAL, BPP: 8, Gamma Correction: GAMMA_22
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Pixels per universe: 170
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	First universe ID: 0
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	# of universe: 6
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Output Mapping entry size: 0
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Target address: /192.168.2.109
+Jun 09, 2017 9:12:48 PM artnet4j.ArtNet <init>
+INFORMATION: Art-Net v0001-20091119
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: Initialize ArtNet device IP: /192.168.2.109, broadcast IP: 2.255.255.255, Port: 6.454
+Jun 09, 2017 9:12:48 PM artnet4j.ArtNetServer start
+INFORMATION: Art-Net server started at port: 6454
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: ArtNet device initialized, use 1 panels
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.setup.InitApplication setupInitialConfig
+INFORMATION: Load preset 0
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml.
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml / 250 frames in 67ms
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: new filename does not differ from old: _logo.gif
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Select beat workmode MODERATE
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 111111111111111111
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.glue.Collector setCurrentStatus
+INFORMATION: Preset loaded in 97ms
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.gui.OutputGui <init>
+INFORMATION: Create LED Matrix simulator window: LedSimulatorOutputWindow [ledSize=10, rahmenSize=2, matrixData=MatrixData [deviceXSize=42, deviceYSize=24, deviceSize=1008, bufferWidth=168, bufferHeight=96], windowSize=Point [x=508, y=334]]
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: create GUI, nr of screens: 2
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.gui.model.WindowSizeCalculator <init>
+WARNUNG: Adjusted window width to minimal value 820, configured value was 600
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: Create new window: WindowSizeCalculator [singleVisualWidth=175, singleVisualHeight=100, windowHeight=500, windowWidth=820]
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: Create GUI Window with size 820/500
+Jun 09, 2017 9:12:48 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: --- PixelController Setup END ---
+Jun 09, 2017 9:12:48 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: ---------------------------------
+Jun 09, 2017 9:12:48 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: GUI logo loaded
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_OUTPUT: 0.0
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CURRENT_OUTPUT 0
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: PRESET_BUTTONS 0
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CHANGE_SHUFFLER_SELECT 
+Jun 09, 2017 9:12:48 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 25 settings updated.
+Jun 09, 2017 9:12:51 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:13:13 PM com.neophob.PixelController setup
+INFORMATION: 
+
+PixelController Developer Snapshot - http://www.pixelinvaders.ch
+
+
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.setup.InitApplication loadConfiguration
+INFORMATION: Config loaded, 29 entries
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.properties.ApplicationConfigurationHelper <init>
+INFORMATION: found Artnet device: 1
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize collector
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.glue.helper.InitHelper getColorPalettes
+INFORMATION: ColorSets loaded, 35 entries
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.sound.SoundDummy <init>
+INFORMATION: Sound thread started, dummy implementation...
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.glue.MatrixData <init>
+INFORMATION: screenSize: 1.008 (42 * 24), multiplication factor: 4 (168 * 96)
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Start init, data root: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: BLINKENLIGHTS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Blinkenlights <init>
+INFORMATION: Blinkenlights, found 20 movie files
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml.
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml / 600 frames in 290ms
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: IMAGE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: load image c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\pics\_logo.gif
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: resize to img _logo.gif 168, 96 using PIXEL_RESIZE
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Image <init>
+INFORMATION: Image, found 45 image files
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PLASMA, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PLASMA_ADVANCED, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: FIRE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PASSTHRU, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: METABALLS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PIXELIMAGE, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.PixelImage <init>
+INFORMATION: PixelImage resize value 21/12 [168/96]
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: TEXTWRITER, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Textwriter <init>
+INFORMATION: Loaded font 04B_03__.TTF, size: 82
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: CELL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: FFT, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: DROPS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: COLOR_SCROLL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: COLOR_FADE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: OSC_GEN1, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: OSC_GEN2, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: VISUAL_ZERO, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Init finished
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize 2 Visuals
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize output
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.glue.FileUtils loadPresents
+INFORMATION: Loaded 128 presets from file presets.led
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.jmx.PixelControllerStatus <init>
+INFORMATION: Initialize the PixelControllerStatus JMX Bean
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.osc.PixelControllerOscServer <init>
+INFORMATION: Start OSC Server at port 9.876
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.osc.server.impl.OscServerImpl <init>
+INFORMATION: OSC Server initialized on port 9876, buffersize: 50000
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.osc.server.impl.OscServerImpl startServer
+INFORMATION: OSC Server started
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.output.Output <init>
+INFORMATION: Output created: ARTNET, Layout: HORIZONTAL, BPP: 8, Gamma Correction: GAMMA_22
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Pixels per universe: 170
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	First universe ID: 0
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	# of universe: 6
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Output Mapping entry size: 0
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Target address: /192.168.2.109
+Jun 09, 2017 9:13:14 PM artnet4j.ArtNet <init>
+INFORMATION: Art-Net v0001-20091119
+Jun 09, 2017 9:13:14 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: Initialize ArtNet device IP: /192.168.2.109, broadcast IP: 2.255.255.255, Port: 6.454
+Jun 09, 2017 9:13:14 PM artnet4j.ArtNetServer start
+INFORMATION: Art-Net server started at port: 6454
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: ArtNet device initialized, use 1 panels
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.core.setup.InitApplication setupInitialConfig
+INFORMATION: Load preset 0
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml.
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml / 250 frames in 67ms
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: new filename does not differ from old: _logo.gif
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Select beat workmode MODERATE
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 111111111111111111
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.core.glue.Collector setCurrentStatus
+INFORMATION: Preset loaded in 103ms
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.gui.OutputGui <init>
+INFORMATION: Create LED Matrix simulator window: LedSimulatorOutputWindow [ledSize=29, rahmenSize=0, matrixData=MatrixData [deviceXSize=42, deviceYSize=24, deviceSize=1008, bufferWidth=168, bufferHeight=96], windowSize=Point [x=1218, y=736]]
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: create GUI, nr of screens: 2
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.gui.model.WindowSizeCalculator <init>
+WARNUNG: Adjusted window width to minimal value 820, configured value was 600
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: Create new window: WindowSizeCalculator [singleVisualWidth=175, singleVisualHeight=100, windowHeight=500, windowWidth=820]
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: Create GUI Window with size 820/500
+Jun 09, 2017 9:13:15 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: --- PixelController Setup END ---
+Jun 09, 2017 9:13:15 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: ---------------------------------
+Jun 09, 2017 9:13:15 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: 
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: GUI logo loaded
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_OUTPUT: 0.0
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CURRENT_OUTPUT 0
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: PRESET_BUTTONS 0
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CHANGE_SHUFFLER_SELECT 
+Jun 09, 2017 9:13:15 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 25 settings updated.
+Jun 09, 2017 9:13:18 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:13:28 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:13:28 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 1.0
+Jun 09, 2017 9:13:28 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:13:29 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:13:29 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:13:35 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 5.0
+Jun 09, 2017 9:13:38 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:13:40 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:13:40 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 1 settings updated.
+Jun 09, 2017 9:13:47 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: MIXER_DROPDOWN Value: 0.0
+Jun 09, 2017 9:13:48 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:13:51 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_TWO_DROPDOWN Value: 0.0
+Jun 09, 2017 9:13:54 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_TWO_DROPDOWN Value: 3.0
+Jun 09, 2017 9:13:58 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:13:59 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 1.0
+Jun 09, 2017 9:13:59 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:14:02 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:14:02 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:14:04 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 1.0
+Jun 09, 2017 9:14:04 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:14:05 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:14:05 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 5 settings updated.
+Jun 09, 2017 9:14:08 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:14:08 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_TWO_DROPDOWN Value: 0.0
+Jun 09, 2017 9:14:10 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: EFFECT Value: 0.0
+Jun 09, 2017 9:14:13 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: COLOR_SET_DROPDOWN 2.0
+Jun 09, 2017 9:14:18 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:14:26 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 2.0
+Jun 09, 2017 9:14:28 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:14:30 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_TWO_DROPDOWN Value: 3.0
+Jun 09, 2017 9:14:33 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_TWO_DROPDOWN Value: 5.0
+Jun 09, 2017 9:14:35 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: EFFECT Value: 3.0
+Jun 09, 2017 9:14:38 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:14:40 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: MIXER_DROPDOWN Value: 1.0
+Jun 09, 2017 9:14:48 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:14:49 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: MIXER_DROPDOWN Value: 3.0
+Jun 09, 2017 9:14:54 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: MIXER_DROPDOWN Value: 1.0
+Jun 09, 2017 9:14:57 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: MIXER_DROPDOWN Value: 5.0
+Jun 09, 2017 9:14:58 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:15:02 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: MIXER_DROPDOWN Value: 0.0
+Jun 09, 2017 9:15:04 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: EFFECT Value: 0.0
+Jun 09, 2017 9:15:07 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: COLOR_SET_DROPDOWN 4.0
+Jun 09, 2017 9:15:08 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:15:10 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: COLOR_SET_DROPDOWN 8.0
+Jun 09, 2017 9:15:18 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:15:28 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:15:38 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:15:48 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:15:58 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:16:08 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:16:18 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:16:28 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:16:38 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:16:48 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:16:58 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:17:08 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:17:18 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:17:28 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:17:38 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:17:48 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:17:58 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:18:08 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:18:18 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:18:28 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:18:38 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:18:48 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:18:58 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:19:08 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:19:18 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:19:28 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:19:38 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:19:48 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:19:58 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:20:08 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:20:18 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:20:28 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:20:38 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:20:48 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:20:58 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:21:08 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:21:17 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 2.0
+Jun 09, 2017 9:21:18 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:21:18 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: BLINKENLIGHTS_DROPDOWN blender.bml
+Jun 09, 2017 9:21:18 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\blender.bml.
+Jun 09, 2017 9:21:18 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\blender.bml / 160 frames in 32ms
+Jun 09, 2017 9:21:18 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:21:22 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: GENERATOR_ONE_DROPDOWN Value: 1.0
+Jun 09, 2017 9:21:28 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:24:13 PM com.neophob.PixelController setup
+INFORMATION: 
+
+PixelController Developer Snapshot - http://www.pixelinvaders.ch
+
+
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.setup.InitApplication loadConfiguration
+INFORMATION: Config loaded, 29 entries
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.properties.ApplicationConfigurationHelper <init>
+INFORMATION: found Artnet device: 1
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize collector
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.glue.helper.InitHelper getColorPalettes
+INFORMATION: ColorSets loaded, 35 entries
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.sound.SoundDummy <init>
+INFORMATION: Sound thread started, dummy implementation...
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.glue.MatrixData <init>
+INFORMATION: screenSize: 1.008 (42 * 24), multiplication factor: 4 (168 * 96)
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Start init, data root: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: BLINKENLIGHTS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Blinkenlights <init>
+INFORMATION: Blinkenlights, found 20 movie files
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml.
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml / 600 frames in 247ms
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: IMAGE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: load image c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\pics\_logo.gif
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: resize to img _logo.gif 168, 96 using PIXEL_RESIZE
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Image <init>
+INFORMATION: Image, found 45 image files
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PLASMA, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PLASMA_ADVANCED, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: FIRE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PASSTHRU, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: METABALLS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PIXELIMAGE, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.PixelImage <init>
+INFORMATION: PixelImage resize value 21/12 [168/96]
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: TEXTWRITER, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Textwriter <init>
+INFORMATION: Loaded font 04B_03__.TTF, size: 82
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: CELL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: FFT, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: DROPS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: COLOR_SCROLL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: COLOR_FADE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: OSC_GEN1, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: OSC_GEN2, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: VISUAL_ZERO, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Init finished
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize 2 Visuals
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize output
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.glue.FileUtils loadPresents
+INFORMATION: Loaded 128 presets from file presets.led
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.jmx.PixelControllerStatus <init>
+INFORMATION: Initialize the PixelControllerStatus JMX Bean
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.osc.PixelControllerOscServer <init>
+INFORMATION: Start OSC Server at port 9.876
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.osc.server.impl.OscServerImpl <init>
+INFORMATION: OSC Server initialized on port 9876, buffersize: 50000
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.osc.server.impl.OscServerImpl startServer
+INFORMATION: OSC Server started
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.output.Output <init>
+INFORMATION: Output created: ARTNET, Layout: HORIZONTAL, BPP: 8, Gamma Correction: GAMMA_22
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Pixels per universe: 170
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	First universe ID: 0
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	# of universe: 6
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Output Mapping entry size: 0
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Target address: /192.168.2.109
+Jun 09, 2017 9:24:14 PM artnet4j.ArtNet <init>
+INFORMATION: Art-Net v0001-20091119
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: Initialize ArtNet device IP: /192.168.2.109, broadcast IP: 2.255.255.255, Port: 6.454
+Jun 09, 2017 9:24:14 PM artnet4j.ArtNetServer start
+INFORMATION: Art-Net server started at port: 6454
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: ArtNet device initialized, use 1 panels
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.setup.InitApplication setupInitialConfig
+INFORMATION: Load preset 0
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml.
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml / 250 frames in 63ms
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: new filename does not differ from old: _logo.gif
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Select beat workmode MODERATE
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 111111111111111111
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.glue.Collector setCurrentStatus
+INFORMATION: Preset loaded in 92ms
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:24:14 PM com.neophob.sematrix.gui.OutputGui <init>
+INFORMATION: Create LED Matrix simulator window: LedSimulatorOutputWindow [ledSize=29, rahmenSize=0, matrixData=MatrixData [deviceXSize=42, deviceYSize=24, deviceSize=1008, bufferWidth=168, bufferHeight=96], windowSize=Point [x=1218, y=736]]
+Jun 09, 2017 9:24:15 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: create GUI, nr of screens: 2
+Jun 09, 2017 9:24:15 PM com.neophob.sematrix.gui.model.WindowSizeCalculator <init>
+WARNUNG: Adjusted window width to minimal value 820, configured value was 600
+Jun 09, 2017 9:24:15 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: Create new window: WindowSizeCalculator [singleVisualWidth=175, singleVisualHeight=100, windowHeight=500, windowWidth=820]
+Jun 09, 2017 9:24:15 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: Create GUI Window with size 820/500
+Jun 09, 2017 9:24:15 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: --- PixelController Setup END ---
+Jun 09, 2017 9:24:15 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: ---------------------------------
+Jun 09, 2017 9:24:15 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: 
+Jun 09, 2017 9:24:15 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:24:15 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: GUI logo loaded
+Jun 09, 2017 9:24:15 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:24:15 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_OUTPUT: 0.0
+Jun 09, 2017 9:24:15 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CURRENT_OUTPUT 0
+Jun 09, 2017 9:24:15 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: PRESET_BUTTONS 0
+Jun 09, 2017 9:24:15 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CHANGE_SHUFFLER_SELECT 
+Jun 09, 2017 9:24:15 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 25 settings updated.
+Jun 09, 2017 9:24:17 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:24:27 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:24:37 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:24:47 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:24:57 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:25:07 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:25:17 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:25:27 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:25:37 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:25:47 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:25:57 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:26:07 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:26:17 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:26:27 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:26:39 PM com.neophob.PixelController setup
+INFORMATION: 
+
+PixelController Developer Snapshot - http://www.pixelinvaders.ch
+
+
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.setup.InitApplication loadConfiguration
+INFORMATION: Config loaded, 30 entries
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.properties.ApplicationConfigurationHelper <init>
+INFORMATION: found Artnet device: 1
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize collector
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.glue.helper.InitHelper getColorPalettes
+INFORMATION: ColorSets loaded, 35 entries
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.sound.SoundDummy <init>
+INFORMATION: Sound thread started, dummy implementation...
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.glue.MatrixData <init>
+INFORMATION: screenSize: 1.008 (42 * 24), multiplication factor: 4 (168 * 96)
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Start init, data root: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: BLINKENLIGHTS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Blinkenlights <init>
+INFORMATION: Blinkenlights, found 20 movie files
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml.
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml / 600 frames in 253ms
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: IMAGE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: load image c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\pics\_logo.gif
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: resize to img _logo.gif 168, 96 using PIXEL_RESIZE
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Image <init>
+INFORMATION: Image, found 45 image files
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PLASMA, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PLASMA_ADVANCED, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: FIRE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PASSTHRU, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: METABALLS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PIXELIMAGE, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.PixelImage <init>
+INFORMATION: PixelImage resize value 21/12 [168/96]
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: TEXTWRITER, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Textwriter <init>
+INFORMATION: Loaded font 04B_03__.TTF, size: 82
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: CELL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: FFT, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: DROPS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: COLOR_SCROLL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: COLOR_FADE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: OSC_GEN1, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: OSC_GEN2, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: VISUAL_ZERO, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Init finished
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize 2 Visuals
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize output
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.glue.FileUtils loadPresents
+INFORMATION: Loaded 128 presets from file presets.led
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.jmx.PixelControllerStatus <init>
+INFORMATION: Initialize the PixelControllerStatus JMX Bean
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.osc.PixelControllerOscServer <init>
+INFORMATION: Start OSC Server at port 9.876
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.osc.server.impl.OscServerImpl <init>
+INFORMATION: OSC Server initialized on port 9876, buffersize: 50000
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.osc.server.impl.OscServerImpl startServer
+INFORMATION: OSC Server started
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.output.Output <init>
+INFORMATION: Output created: ARTNET, Layout: HORIZONTAL, BPP: 8, Gamma Correction: GAMMA_22
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Pixels per universe: 170
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	First universe ID: 0
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	# of universe: 6
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Output Mapping entry size: 0
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Target address: /192.168.2.109
+Jun 09, 2017 9:26:40 PM artnet4j.ArtNet <init>
+INFORMATION: Art-Net v0001-20091119
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: Initialize ArtNet device IP: /192.168.2.109, broadcast IP: 2.255.255.255, Port: 6.454
+Jun 09, 2017 9:26:40 PM artnet4j.ArtNetServer start
+INFORMATION: Art-Net server started at port: 6454
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: ArtNet device initialized, use 1 panels
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.setup.InitApplication setupInitialConfig
+INFORMATION: Load preset 0
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml.
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml / 250 frames in 59ms
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: new filename does not differ from old: _logo.gif
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Select beat workmode MODERATE
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 111111111111111111
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.glue.Collector setCurrentStatus
+INFORMATION: Preset loaded in 87ms
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.gui.OutputGui <init>
+INFORMATION: Create LED Matrix simulator window: LedSimulatorOutputWindow [ledSize=29, rahmenSize=0, matrixData=MatrixData [deviceXSize=42, deviceYSize=24, deviceSize=1008, bufferWidth=168, bufferHeight=96], windowSize=Point [x=1218, y=736]]
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: create GUI, nr of screens: 2
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.gui.model.WindowSizeCalculator <init>
+WARNUNG: Adjusted window width to minimal value 820, configured value was 600
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: Create new window: WindowSizeCalculator [singleVisualWidth=175, singleVisualHeight=100, windowHeight=500, windowWidth=820]
+Jun 09, 2017 9:26:40 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: Create GUI Window with size 820/500
+Jun 09, 2017 9:26:41 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: --- PixelController Setup END ---
+Jun 09, 2017 9:26:41 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: ---------------------------------
+Jun 09, 2017 9:26:41 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: 
+Jun 09, 2017 9:26:41 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:26:41 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: GUI logo loaded
+Jun 09, 2017 9:26:41 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:26:41 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_OUTPUT: 0.0
+Jun 09, 2017 9:26:41 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CURRENT_OUTPUT 0
+Jun 09, 2017 9:26:41 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: PRESET_BUTTONS 0
+Jun 09, 2017 9:26:41 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CHANGE_SHUFFLER_SELECT 
+Jun 09, 2017 9:26:41 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 25 settings updated.
+Jun 09, 2017 9:26:43 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:26:53 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:27:03 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:27:13 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:27:23 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:27:33 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:27:43 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:27:53 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:28:03 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:28:49 PM com.neophob.PixelController setup
+INFORMATION: 
+
+PixelController Developer Snapshot - http://www.pixelinvaders.ch
+
+
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.setup.InitApplication loadConfiguration
+INFORMATION: Config loaded, 30 entries
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.properties.ApplicationConfigurationHelper <init>
+INFORMATION: found Artnet device: 1
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize collector
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.glue.helper.InitHelper getColorPalettes
+INFORMATION: ColorSets loaded, 35 entries
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.sound.SoundDummy <init>
+INFORMATION: Sound thread started, dummy implementation...
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.glue.MatrixData <init>
+INFORMATION: screenSize: 1.008 (42 * 24), multiplication factor: 4 (168 * 96)
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Start init, data root: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: BLINKENLIGHTS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Blinkenlights <init>
+INFORMATION: Blinkenlights, found 20 movie files
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml.
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml / 600 frames in 238ms
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: IMAGE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: load image c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\pics\_logo.gif
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: resize to img _logo.gif 168, 96 using PIXEL_RESIZE
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Image <init>
+INFORMATION: Image, found 45 image files
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PLASMA, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PLASMA_ADVANCED, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: FIRE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PASSTHRU, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: METABALLS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PIXELIMAGE, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.PixelImage <init>
+INFORMATION: PixelImage resize value 21/12 [168/96]
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: TEXTWRITER, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Textwriter <init>
+INFORMATION: Loaded font 04B_03__.TTF, size: 82
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: CELL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: FFT, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: DROPS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: COLOR_SCROLL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: COLOR_FADE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: OSC_GEN1, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: OSC_GEN2, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: VISUAL_ZERO, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Init finished
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize 2 Visuals
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize output
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.glue.FileUtils loadPresents
+INFORMATION: Loaded 128 presets from file presets.led
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.jmx.PixelControllerStatus <init>
+INFORMATION: Initialize the PixelControllerStatus JMX Bean
+Jun 09, 2017 9:28:49 PM com.neophob.sematrix.core.osc.PixelControllerOscServer <init>
+INFORMATION: Start OSC Server at port 9.876
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.osc.server.impl.OscServerImpl <init>
+INFORMATION: OSC Server initialized on port 9876, buffersize: 50000
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.osc.server.impl.OscServerImpl startServer
+INFORMATION: OSC Server started
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.output.Output <init>
+INFORMATION: Output created: ARTNET, Layout: HORIZONTAL, BPP: 8, Gamma Correction: GAMMA_22
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Pixels per universe: 170
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	First universe ID: 0
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	# of universe: 6
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Output Mapping entry size: 0
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Target address: /192.168.2.109
+Jun 09, 2017 9:28:50 PM artnet4j.ArtNet <init>
+INFORMATION: Art-Net v0001-20091119
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: Initialize ArtNet device IP: /192.168.2.109, broadcast IP: 2.255.255.255, Port: 6.454
+Jun 09, 2017 9:28:50 PM artnet4j.ArtNetServer start
+INFORMATION: Art-Net server started at port: 6454
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: ArtNet device initialized, use 1 panels
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.setup.InitApplication setupInitialConfig
+INFORMATION: Load preset 0
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml.
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml / 250 frames in 60ms
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: new filename does not differ from old: _logo.gif
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Select beat workmode MODERATE
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 111111111111111111
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.glue.Collector setCurrentStatus
+INFORMATION: Preset loaded in 89ms
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.gui.OutputGui <init>
+INFORMATION: Create LED Matrix simulator window: LedSimulatorOutputWindow [ledSize=20, rahmenSize=2, matrixData=MatrixData [deviceXSize=42, deviceYSize=24, deviceSize=1008, bufferWidth=168, bufferHeight=96], windowSize=Point [x=928, y=574]]
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: create GUI, nr of screens: 2
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.gui.model.WindowSizeCalculator <init>
+WARNUNG: Adjusted window width to minimal value 820, configured value was 600
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: Create new window: WindowSizeCalculator [singleVisualWidth=175, singleVisualHeight=100, windowHeight=500, windowWidth=820]
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: Create GUI Window with size 820/500
+Jun 09, 2017 9:28:50 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: --- PixelController Setup END ---
+Jun 09, 2017 9:28:50 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: ---------------------------------
+Jun 09, 2017 9:28:50 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: 
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: GUI logo loaded
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_OUTPUT: 0.0
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CURRENT_OUTPUT 0
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: PRESET_BUTTONS 0
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CHANGE_SHUFFLER_SELECT 
+Jun 09, 2017 9:28:50 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 25 settings updated.
+Jun 09, 2017 9:28:53 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:29:03 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:29:13 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:29:29 PM com.neophob.PixelController setup
+INFORMATION: 
+
+PixelController Developer Snapshot - http://www.pixelinvaders.ch
+
+
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.setup.InitApplication loadConfiguration
+INFORMATION: Config loaded, 30 entries
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.properties.ApplicationConfigurationHelper <init>
+INFORMATION: found Artnet device: 1
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize collector
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.glue.helper.InitHelper getColorPalettes
+INFORMATION: ColorSets loaded, 35 entries
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.sound.SoundDummy <init>
+INFORMATION: Sound thread started, dummy implementation...
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.glue.MatrixData <init>
+INFORMATION: screenSize: 1.008 (42 * 24), multiplication factor: 4 (168 * 96)
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Start init, data root: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: BLINKENLIGHTS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Blinkenlights <init>
+INFORMATION: Blinkenlights, found 20 movie files
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml.
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\bb-frogskin2.bml / 600 frames in 235ms
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: IMAGE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: load image c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\pics\_logo.gif
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: resize to img _logo.gif 168, 96 using PIXEL_RESIZE
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Image <init>
+INFORMATION: Image, found 45 image files
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PLASMA, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PLASMA_ADVANCED, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: FIRE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PASSTHRU, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: METABALLS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: PIXELIMAGE, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.PixelImage <init>
+INFORMATION: PixelImage resize value 21/12 [168/96]
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: TEXTWRITER, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:29:29 PM com.neophob.sematrix.core.generator.Textwriter <init>
+INFORMATION: Loaded font 04B_03__.TTF, size: 82
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: CELL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: FFT, resize option: PIXEL_RESIZE 
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: DROPS, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: COLOR_SCROLL, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: COLOR_FADE, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: OSC_GEN1, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: OSC_GEN2, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.generator.Generator <init>
+INFORMATION: Generator: internalBufferSize: 16.128 (168/96), name: VISUAL_ZERO, resize option: QUALITY_RESIZE 
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.generator.PixelControllerGenerator initAll
+INFORMATION: Init finished
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize 2 Visuals
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.glue.Collector init
+INFORMATION: Initialize output
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.glue.FileUtils loadPresents
+INFORMATION: Loaded 128 presets from file presets.led
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.fader.Fader <init>
+WARNUNG: Invalid fadeTime 50 fixed to 200
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.jmx.PixelControllerStatus <init>
+INFORMATION: Initialize the PixelControllerStatus JMX Bean
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.osc.PixelControllerOscServer <init>
+INFORMATION: Start OSC Server at port 9.876
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.osc.server.impl.OscServerImpl <init>
+INFORMATION: OSC Server initialized on port 9876, buffersize: 50000
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.osc.server.impl.OscServerImpl startServer
+INFORMATION: OSC Server started
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.output.Output <init>
+INFORMATION: Output created: ARTNET, Layout: HORIZONTAL, BPP: 8, Gamma Correction: GAMMA_22
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Pixels per universe: 170
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	First universe ID: 0
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	# of universe: 6
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Output Mapping entry size: 0
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.output.AbstractDmxDevice calculateNrOfUniverse
+INFORMATION: 	Target address: /192.168.2.109
+Jun 09, 2017 9:29:30 PM artnet4j.ArtNet <init>
+INFORMATION: Art-Net v0001-20091119
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: Initialize ArtNet device IP: /192.168.2.109, broadcast IP: 2.255.255.255, Port: 6.454
+Jun 09, 2017 9:29:30 PM artnet4j.ArtNetServer start
+INFORMATION: Art-Net server started at port: 6454
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.output.ArtnetDevice <init>
+INFORMATION: ArtNet device initialized, use 1 panels
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.setup.InitApplication setupInitialConfig
+INFORMATION: Load preset 0
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: old fx: 0, new fx 0
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: Load blinkenlights file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml.
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.generator.blinken.BlinkenLibrary loadFile
+INFORMATION: Loaded file c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController\data\blinken\torus.bml / 250 frames in 60ms
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.generator.Blinkenlights loadFile
+INFORMATION: DONE
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.generator.Image loadFile
+INFORMATION: new filename does not differ from old: _logo.gif
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Select beat workmode MODERATE
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.listener.MessageProcessor processMsg
+INFORMATION: Shuffler select: 111111111111111111
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.glue.Collector setCurrentStatus
+INFORMATION: Preset loaded in 88ms
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.layout.Layout <init>
+INFORMATION: Layout created: HORIZONTAL, size row 1: 1, row 2: 0
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.layout.HorizontalLayout <init>
+INFORMATION: HorizontalLayout created, size row1: 1, row2:0
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.gui.OutputGui <init>
+INFORMATION: Create LED Matrix simulator window: LedSimulatorOutputWindow [ledSize=20, rahmenSize=2, matrixData=MatrixData [deviceXSize=42, deviceYSize=24, deviceSize=1008, bufferWidth=168, bufferHeight=96], windowSize=Point [x=928, y=574]]
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: create GUI, nr of screens: 2
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.gui.model.WindowSizeCalculator <init>
+WARNUNG: Adjusted window width to minimal value 820, configured value was 600
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.gui.GeneratorGuiCreator <init>
+INFORMATION: Create new window: WindowSizeCalculator [singleVisualWidth=175, singleVisualHeight=100, windowHeight=500, windowWidth=820]
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: Create GUI Window with size 820/500
+Jun 09, 2017 9:29:30 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: --- PixelController Setup END ---
+Jun 09, 2017 9:29:30 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: ---------------------------------
+Jun 09, 2017 9:29:30 PM com.neophob.PixelController asyncInitApplication
+INFORMATION: 
+Jun 09, 2017 9:29:30 PM com.neophob.sematrix.core.glue.FileUtils <init>
+INFORMATION: Use root directory: c:\Users\JMG\Documents\Projekte\ESP32_Projects__JMG\misc\tools\PixelController
+Jun 09, 2017 9:29:31 PM com.neophob.sematrix.gui.GeneratorGui setup
+INFORMATION: GUI logo loaded
+Jun 09, 2017 9:29:31 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_VISUAL Value: 0.0
+Jun 09, 2017 9:29:31 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: CURRENT_OUTPUT: 0.0
+Jun 09, 2017 9:29:31 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CURRENT_OUTPUT 0
+Jun 09, 2017 9:29:31 PM com.neophob.sematrix.gui.P5EventListener controlEvent
+INFORMATION: PRESET_BUTTONS 0
+Jun 09, 2017 9:29:31 PM com.neophob.sematrix.gui.GeneratorGui updateGuiElements
+WARNUNG: Not implemented: CHANGE_SHUFFLER_SELECT 
+Jun 09, 2017 9:29:31 PM com.neophob.sematrix.gui.callback.GuiUpdateFeedback update
+INFORMATION: 25 settings updated.
+Jun 09, 2017 9:29:33 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:29:43 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:29:53 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:30:03 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:30:13 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:30:23 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:30:33 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:30:43 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:30:53 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:31:03 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:31:13 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:31:23 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:31:33 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
+Jun 09, 2017 9:31:43 PM com.neophob.sematrix.core.output.ArtnetDevice discoveryCompleted
+INFORMATION: ArtNet discovery complete, found 0 devices
