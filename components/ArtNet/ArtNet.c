@@ -80,8 +80,8 @@ esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t *frameNb, uint8_t **l
 		{
 			if (universe < ARTNET_UNIVERSE_NB)
 			{
-				if (		((universe == ARTNET_LAST_UNIVERSE) && (length <= (LEDS_CHANNELS % ARTNET_CHANNELS_PER_UNIVERSE)))
-						||	(((ARTNET_UNIVERSE_NB > 1) && (universe < ARTNET_LAST_UNIVERSE)) && (length == ARTNET_CHANNELS_PER_UNIVERSE))
+				if (		((universe == ARTNET_LAST_UNIVERSE) && (length <= (LEDS_CHANNELS % ARTNET_CFG_CHANNELS_PER_UNIVERSE)))
+						||	(((ARTNET_UNIVERSE_NB > 1) && (universe < ARTNET_LAST_UNIVERSE)) && (length == ARTNET_CFG_CHANNELS_PER_UNIVERSE))
 				)
 				{
 					*frameNb = seqNum;
@@ -91,7 +91,7 @@ esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t *frameNb, uint8_t **l
 				}
 				else
 				{
-					printf("Artnet: wrong data length: max value is %d or %d for last universe\n", ARTNET_CHANNELS_PER_UNIVERSE, LEDS_CHANNELS % ARTNET_CHANNELS_PER_UNIVERSE);
+					printf("Artnet: wrong data length: max value is %d or %d for last universe\n", ARTNET_CFG_CHANNELS_PER_UNIVERSE, LEDS_CHANNELS % ARTNET_CFG_CHANNELS_PER_UNIVERSE);
 					error = TRUE;
 					artNetState = ARTNET_STATE_IDLE;
 				}
@@ -527,7 +527,7 @@ void ArtNet__recvUdpFrame (void *arg, struct udp_pcb *pcb, struct pbuf *udpBuffe
 		}
 		else
 		{
-			printf("UDP frame size exceed ArtNet buffer length");
+			printf("UDP frame size exceed ArtNet buffer length\n");
 		}
 
 		pbuf_free(udpBuffer);
@@ -689,7 +689,7 @@ void ArtNet__mainFunction (void *param)
 										currentFrame = newFrame;
 										ArtNet__setDataAvailable(currentFrame, currentUniverse);
 
-										while (ESP_OK != LedController__storeLedData(currentDmxData,  currentUniverse * ARTNET_CHANNELS_PER_UNIVERSE, currentDmxDataLength))
+										while (ESP_OK != LedController__storeLedData(currentDmxData,  currentUniverse * ARTNET_CFG_CHANNELS_PER_UNIVERSE, currentDmxDataLength))
 										{
 											/* wait until data are sent */
 										}

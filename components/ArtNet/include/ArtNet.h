@@ -16,31 +16,33 @@
 #define ARTNET_PORT		0x1936
 
 /* according to protocol: 512 */
-#define ARTNET_CHANNELS_PER_UNIVERSE	510
+#define ARTNET_MAX_CHANNELS_PER_UNIVERSE	512
 
-#define ARTNET_RX_UDP_FIFO_BUFFER_SIZE	200
+#define ARTNET_CFG_CHANNELS_PER_UNIVERSE	510
+
+#define ARTNET_RX_UDP_FIFO_BUFFER_SIZE		200
 
 /* ArtDmx package: max 512 channels + 18 bytes */
-#define ARTNET_RX_MAX_DATA_LENGTH		(ARTNET_CHANNELS_PER_UNIVERSE + 18)
+#define ARTNET_RX_MAX_DATA_LENGTH			(ARTNET_MAX_CHANNELS_PER_UNIVERSE + 18)
 
 /* ArtPollReply: 178 bytes */
-#define ARTNET_TX_DATA_LENGTH			239
+#define ARTNET_TX_DATA_LENGTH				239
 
 /* Op codes supported */
-#define ARTNET_OPCODE_POLL				0x2000
-#define ARTNET_OPCODE_POLLREPLY			0x2100
-#define ARTNET_OPCODE_DMX				0x5000
+#define ARTNET_OPCODE_POLL					0x2000
+#define ARTNET_OPCODE_POLLREPLY				0x2100
+#define ARTNET_OPCODE_DMX					0x5000
 
-#define ARTNET_PROTOCOL_VERSION			14
+#define ARTNET_PROTOCOL_VERSION				14
 
-#define ARTNET_NET						0
-#define ARTNET_SUBNET					0
-#define ARTNET_UNIVERSE_NB				((LEDS_CHANNELS / ARTNET_CHANNELS_PER_UNIVERSE) + 1)
-#define ARTNET_LAST_UNIVERSE			(ARTNET_UNIVERSE_NB - 1)
-#define ARTNET_FRAMECOUNTER_MAX			255
+#define ARTNET_NET							0
+#define ARTNET_SUBNET						0
+#define ARTNET_UNIVERSE_NB					((LEDS_CHANNELS / ARTNET_CFG_CHANNELS_PER_UNIVERSE) + 1)
+#define ARTNET_LAST_UNIVERSE				(ARTNET_UNIVERSE_NB - 1)
+#define ARTNET_FRAMECOUNTER_MAX				255
 
 /* time after which the ArtNet component will be considered as inactive if no udp frame is received */
-#define ARTNET_MAX_IDLE_TIME_MS			(2000 / portTICK_PERIOD_MS)
+#define ARTNET_MAX_IDLE_TIME_MS				(2000 / portTICK_PERIOD_MS)
 
 /********** types *********/
 typedef enum
