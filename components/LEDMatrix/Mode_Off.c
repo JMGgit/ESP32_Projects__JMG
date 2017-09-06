@@ -38,10 +38,50 @@ void Off__x10 (void)
 	{
 		LEDMatrix__disableUpdate();
 
+#if (OTA_SW_UPDATE == OTA_SW_UPDATE_ON)
+		otaState = OTA__getCurrentState();
+
+		switch (otaState)
+		{
+			case OTA_STATE_DOWNLOAD_IN_PROGRESS:
+			{
+				LEDMatrix__enableUpdate();
+				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(0, 0 , 100));
+				break;
+			}
+
+			case OTA_STATE_UPDATE_IN_PROGRESS:
+			{
+				LEDMatrix__enableUpdate();
+				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(100, 0 , 0));
+				break;
+			}
+
+			case OTA_STATE_UPDADE_FINISHED:
+			{
+				LEDMatrix__enableUpdate();
+				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(0, 100 , 0));
+				break;
+			}
+
+			default:
+			{
+				break;
+			}
+		}
+#endif
+
 		if (Buttons__isPressedOnce(&buttonOff))
 		{
 #if (OTA_SW_UPDATE == OTA_SW_UPDATE_ON)
-			OTA__disable();
+			if (otaState == OTA_STATE_UPDADE_FINISHED)
+			{
+				uC__triggerSwReset();
+			}
+			else
+			{
+				OTA__disable();
+			}
 #endif
 			Modes__Start();
 			LEDMatrix__enableUpdate();
@@ -101,40 +141,6 @@ void Off__x10 (void)
 		{
 			startupTimer = 255;
 		}
-
-#if (OTA_SW_UPDATE == OTA_SW_UPDATE_ON)
-
-		otaState = OTA__getCurrentState();
-
-		switch (otaState)
-		{
-			case OTA_STATE_DOWNLOAD_IN_PROGRESS:
-			{
-				LEDMatrix__enableUpdate();
-				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(0, 0 , 100));
-				break;
-			}
-
-			case OTA_STATE_UPDATE_IN_PROGRESS:
-			{
-				LEDMatrix__enableUpdate();
-				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(100, 0 , 0));
-				break;
-			}
-
-			case OTA_STATE_UPDADE_FINISHED:
-			{
-				LEDMatrix__enableUpdate();
-				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(0, 100 , 0));
-				break;
-			}
-
-			default:
-			{
-				break;
-			}
-		}
-#endif
 
 		if (Buttons__isPressedOnce(&buttonDown))
 		{
