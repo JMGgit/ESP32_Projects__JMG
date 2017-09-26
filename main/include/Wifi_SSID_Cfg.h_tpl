@@ -10,7 +10,7 @@
 
 
 /********* WIFI *********/
-#define WIFI_SSID 						"Leo-Wohnung - 2,4 Ghz"
-#define WIFI_PASSWORD 					"ObereBurghalde33"
+#define WIFI_SSID 						"yourWifiSSID"
+#define WIFI_PASSWORD 					"yourPassword"
 
 #endif /* WIFI_SSID_CFG_H_ */
