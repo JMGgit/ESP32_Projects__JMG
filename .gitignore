@@ -1,4 +1,3 @@
-.settings/
 build/
 sdkconfig.old
 main/include/Wifi_SSID_Cfg.h
