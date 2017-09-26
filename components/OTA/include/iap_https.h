@@ -30,10 +30,10 @@
 typedef struct iap_https_config_ {
 
     // Version number of the running firmware image.
-    uint8_t current_software_version;
+    uint64_t current_software_version;
 
     // Version number of the server firmware image.
-    uint8_t server_software_version;
+    uint64_t server_software_version;
 
     // Force SW update
     uint8_t trigger_software_update;

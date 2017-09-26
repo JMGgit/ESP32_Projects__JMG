@@ -60,7 +60,7 @@ void APA102__toggleRGBLedOrder (void)
 		RGBLedOrder = RGB_LED_ORDER__RED_GREEN_BLUE;
 	}
 
-	uC__nvsUpdateByte("RGBLedOrder", nvsHandle_RGBLedOrder, &RGBLedOrder_NVS, RGBLedOrder);
+	uC__nvsUpdate_u8("RGBLedOrder", nvsHandle_RGBLedOrder, &RGBLedOrder_NVS, RGBLedOrder);
 }
 #endif
 
@@ -225,14 +225,14 @@ void APA102__init (void)
 #if (RGB_LED_ORDER == RGB_LED_ORDER__CONFIGURABLE)
 	uC__nvsInitStorage("RGBLedOrder", &nvsHandle_RGBLedOrder);
 
-	RGBLedOrder = uC__nvsReadByte("RGBLedOrder", nvsHandle_RGBLedOrder, &RGBLedOrder_NVS);
+	RGBLedOrder = uC__nvsRead_u8("RGBLedOrder", nvsHandle_RGBLedOrder, &RGBLedOrder_NVS);
 
 	if (		(RGBLedOrder != RGB_LED_ORDER__BLUE_GREEN_RED)
 			&& 	(RGBLedOrder != RGB_LED_ORDER__RED_GREEN_BLUE)
 	)
 	{
 		RGBLedOrder = RGB_LED_ORDER__RED_GREEN_BLUE;
-		uC__nvsUpdateByte("RGBLedOrder", nvsHandle_RGBLedOrder, &RGBLedOrder_NVS, RGBLedOrder);
+		uC__nvsUpdate_u8("RGBLedOrder", nvsHandle_RGBLedOrder, &RGBLedOrder_NVS, RGBLedOrder);
 	}
 
 #endif

@@ -82,13 +82,13 @@ void Modes__Start (void)
 	else
 #endif
 	{
-		if (uC__nvsReadByte("mode", nvsHandle_mode, &mode_NVS) == MODE__FAILUREMEMORY)
+		if (uC__nvsRead_u8("mode", nvsHandle_mode, &mode_NVS) == MODE__FAILUREMEMORY)
 		{
 			Modes__setMode(MODE_NB, TRUE);
 		}
 		else
 		{
-			Modes__setMode(uC__nvsReadByte("mode", nvsHandle_mode, &mode_NVS), TRUE);
+			Modes__setMode(uC__nvsRead_u8("mode", nvsHandle_mode, &mode_NVS), TRUE);
 		}
 	}
 }
@@ -108,7 +108,7 @@ Mode_t Modes__getMode (void)
 
 static void Mode__eepromStorage (void)
 {
-	uC__nvsUpdateByte("mode", nvsHandle_mode, &mode_NVS, currentMode);
+	uC__nvsUpdate_u8("mode", nvsHandle_mode, &mode_NVS, currentMode);
 }
 
 
@@ -239,7 +239,7 @@ void Modes__init (void)
 	uC__nvsInitStorage("mode", &nvsHandle_mode);
 	uC__nvsInitStorage("startupOn", &nvsHandle_startupOn);
 
-	if (uC__nvsReadByte("startupOn", nvsHandle_startupOn, &startupOn_NVS) == TRUE)
+	if (uC__nvsRead_u8("startupOn", nvsHandle_startupOn, &startupOn_NVS) == TRUE)
 	{
 		Modes__setMode(MODE__STARTUP, FALSE);
 		startupOn = TRUE;
@@ -248,7 +248,7 @@ void Modes__init (void)
 	{
 		Modes__Start();
 		startupOn = FALSE;
-		uC__nvsUpdateByte("startupOn", nvsHandle_startupOn, &startupOn_NVS, startupOn);
+		uC__nvsUpdate_u8("startupOn", nvsHandle_startupOn, &startupOn_NVS, startupOn);
 	}
 
 	ModeClock__init();
@@ -309,5 +309,5 @@ void Modes__toggleStartupMode (void)
 		startupOn = TRUE;
 	}
 
-	uC__nvsUpdateByte("startupOn", nvsHandle_startupOn, &startupOn_NVS, startupOn);
+	uC__nvsUpdate_u8("startupOn", nvsHandle_startupOn, &startupOn_NVS, startupOn);
 }

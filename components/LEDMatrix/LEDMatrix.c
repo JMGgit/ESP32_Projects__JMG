@@ -131,7 +131,7 @@ void LEDMatrix__toggleLedOrder (void)
 		ledOrder = LED_ORDER__LEFT_2_RIGHT;
 	}
 
-	uC__nvsUpdateByte("ledOrder", nvsHandle_ledOrder, &ledOrder_NVS, ledOrder);
+	uC__nvsUpdate_u8("ledOrder", nvsHandle_ledOrder, &ledOrder_NVS, ledOrder);
 #endif
 }
 
@@ -154,14 +154,14 @@ void LEDMatrix__init (void)
 #if (LED_ORDER == LED_ORDER__CONFIGURABLE)
 	uC__nvsInitStorage("ledOrder", &nvsHandle_ledOrder);
 
-	ledOrder = uC__nvsReadByte("ledOrder", nvsHandle_ledOrder, &ledOrder_NVS);
+	ledOrder = uC__nvsRead_u8("ledOrder", nvsHandle_ledOrder, &ledOrder_NVS);
 
 	if (	(ledOrder != LED_ORDER__LEFT_2_RIGHT)
 		&& 	(ledOrder != LED_ORDER__STRAIGHT_FORWARD)
 		)
 	{
 		ledOrder = LED_ORDER__LEFT_2_RIGHT;
-		uC__nvsUpdateByte("ledOrder", nvsHandle_ledOrder, &ledOrder_NVS, ledOrder);
+		uC__nvsUpdate_u8("ledOrder", nvsHandle_ledOrder, &ledOrder_NVS, ledOrder);
 	}
 #endif
 }

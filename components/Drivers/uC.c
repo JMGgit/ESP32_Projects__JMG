@@ -29,39 +29,74 @@ void uC__nvsInitStorage (const char *key, nvs_handle *nvsHandle)
 }
 
 
-uint8_t uC__nvsReadByte (const char *key, nvs_handle nvsHandle, uint8_t *byte)
+uint8_t uC__nvsRead_u8 (const char *key, nvs_handle nvsHandle, uint8_t *value)
 {
-	if (ESP_OK != nvs_get_u8(nvsHandle, key, byte))
+	if (ESP_OK != nvs_get_u8(nvsHandle, key, value))
 	{
-		*byte = 0xFF;
+		*value = 0xFF;
 		printf("Error reading NVS key: %s, handle: %d\n", key, nvsHandle);
 	}
 
-	printf("NVS key: %s, handle: %d, read value: %d\n", key, nvsHandle, *byte);
+	printf("NVS key: %s, handle: %d, read value: %d\n", key, nvsHandle, *value);
 
-	return *byte;
+	return *value;
 }
 
 
-
-void uC__nvsUpdateByte (const char *key, nvs_handle nvsHandle, uint8_t *byte_NVS, uint8_t byte)
+uint64_t uC__nvsRead_u64 (const char *key, nvs_handle nvsHandle, uint64_t *value)
 {
-	if (*byte_NVS != byte)
+	if (ESP_OK != nvs_get_u64(nvsHandle, key, value))
 	{
-		if (ESP_OK != nvs_set_u8(nvsHandle, key, byte))
+		*value = 0xFFFFFFFFFFFFFFFF;
+		printf("Error reading NVS key: %s, handle: %d\n", key, nvsHandle);
+	}
+
+	printf("NVS key: %s, handle: %d, read value: %llu\n", key, nvsHandle, *value);
+
+	return *value;
+}
+
+
+void uC__nvsUpdate_u8 (const char *key, nvs_handle nvsHandle, uint8_t *value_NVS, uint8_t value)
+{
+	if (*value_NVS != value)
+	{
+		if (ESP_OK != nvs_set_u8(nvsHandle, key, value))
 		{
-			printf("Error writing NVS key: %s, handle: %d, write value: %d\n", key, nvsHandle, byte);
+			printf("Error writing NVS key: %s, handle: %d, write value: %d\n", key, nvsHandle, value);
 		}
 
 		if (ESP_OK != nvs_commit(nvsHandle))
 		{
-			printf("Error committing NVS key: %s, handle: %d, write value: %d\n", key, nvsHandle, byte);
+			printf("Error committing NVS key: %s, handle: %d, write value: %d\n", key, nvsHandle, value);
 		}
 
 		/* assume storage was successful */
-		*byte_NVS = byte;
+		*value_NVS = value;
 
-		printf("NVS key: %s, handle: %d, write value: %d\n", key, nvsHandle, byte);
+		printf("NVS key: %s, handle: %d, write value: %d\n", key, nvsHandle, value);
+	}
+}
+
+
+void uC__nvsUpdate_u64 (const char *key, nvs_handle nvsHandle, uint64_t *value_NVS, uint64_t value)
+{
+	if (*value_NVS != value)
+	{
+		if (ESP_OK != nvs_set_u64(nvsHandle, key, value))
+		{
+			printf("Error writing NVS key: %s, handle: %d, write value: %llu\n", key, nvsHandle, value);
+		}
+
+		if (ESP_OK != nvs_commit(nvsHandle))
+		{
+			printf("Error committing NVS key: %s, handle: %d, write value: %llu\n", key, nvsHandle, value);
+		}
+
+		/* assume storage was successful */
+		*value_NVS = value;
+
+		printf("NVS key: %s, handle: %d, write value: %llu\n", key, nvsHandle, value);
 	}
 }
 

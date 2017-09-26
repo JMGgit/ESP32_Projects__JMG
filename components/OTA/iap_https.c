@@ -214,7 +214,7 @@ static void iap_https_task(void *pvParameter)
 
 			if (bits & FWUP_DOWNLOAD_IMAGE) {
 
-				printf("\nCurrent software version: %d, Server software version: %d\n\n", fwupdater_config->current_software_version, fwupdater_config->server_software_version);
+				printf("\nCurrent software version: %llu, Server software version: %llu\n\n", fwupdater_config->current_software_version, fwupdater_config->server_software_version);
 
 				ESP_LOGI(TAG, "Firmware updater task will now download the new firmware image.");
 
@@ -227,7 +227,7 @@ static void iap_https_task(void *pvParameter)
 
 			} else if (bits & FWUP_CHECK_FOR_UPDATE) {
 
-				printf("\nCurrent software version: %d, Server software version: %d\n", fwupdater_config->current_software_version, fwupdater_config->server_software_version);
+				printf("\nCurrent software version: %llu, Server software version: %llu\n", fwupdater_config->current_software_version, fwupdater_config->server_software_version);
 
 				ESP_LOGI(TAG, "Firmware updater task checking for firmware update.");
 				iap_https_check_for_update();
@@ -336,9 +336,9 @@ http_continue_receiving_t iap_https_metadata_body_callback(struct http_request_ 
 		}
 	}
 
-	int version = 0;
-	if (!http_parse_key_value_int(request->response_buffer, "VERSION=", &version)) {
-		ESP_LOGD(TAG, "[VERSION=] '%d'", version);
+	uint64_t version = 0;
+	if (!http_parse_key_value_uint64(request->response_buffer, "VERSION=", &version)) {
+		ESP_LOGD(TAG, "[VERSION=] '%llu'", version);
 	} else {
 		ESP_LOGW(TAG, "iap_https_metadata_body_callback: firmware version not provided, skipping firmware update");
 		return HTTP_STOP_RECEIVING;
@@ -363,7 +363,7 @@ http_continue_receiving_t iap_https_metadata_body_callback(struct http_request_ 
 		return HTTP_STOP_RECEIVING;
 	}
 
-	ESP_LOGD(TAG, "iap_https_metadata_body_callback: our version is %d, the version on the server is %d",
+	ESP_LOGD(TAG, "iap_https_metadata_body_callback: our version is %llu, the version on the server is %llu",
 			fwupdater_config->current_software_version, version);
 
 	// --- Request the firmware image ---
@@ -420,7 +420,7 @@ http_continue_receiving_t iap_https_firmware_body_callback(struct http_request_ 
 		has_new_firmware = 1;
 
 		OTA__setCurrentSwVersion(fwupdater_config->server_software_version);
-		printf("\n\nSW REVISION %d SUCCESSFULLY FLASHED\n\n", fwupdater_config->server_software_version);
+		printf("\n\nSW REVISION %llu SUCCESSFULLY FLASHED\n\n", fwupdater_config->server_software_version);
 		OTA__runAfterSwUpdate();
 
 		/* reboot if configured or if SW update has been forced */

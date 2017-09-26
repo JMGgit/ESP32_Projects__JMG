@@ -299,6 +299,18 @@ int http_parse_key_value_int(const char *buffer, const char *key, int *value)
     return 0;
 }
 
+int http_parse_key_value_uint64(const char *buffer, const char *key, uint64_t *value)
+{
+    const char *locKey = strstr(buffer, key);
+
+    if (!locKey) {
+        return -1;
+    }
+
+    *value = atoll(&locKey[strlen(key)]);
+    return 0;
+}
+
 int http_parse_key_value_string(const char *buffer, const char *key, char *str, int strLen)
 {
     const char *locKey = strstr(buffer, key);

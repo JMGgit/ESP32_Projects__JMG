@@ -80,43 +80,43 @@ void ModeClock__init (void)
 	uC__nvsInitStorage("lineOffset", &nvsHandle_lineOffset);
 	uC__nvsInitStorage("colOffset", &nvsHandle_colOffset);
 
-	if (uC__nvsReadByte("clockSize", nvsHandle_clockSize, &clockSize_NVS) == CLOCK_SIZE_BIG)
+	if (uC__nvsRead_u8("clockSize", nvsHandle_clockSize, &clockSize_NVS) == CLOCK_SIZE_BIG)
 	{
 		clockSize = CLOCK_SIZE_BIG;
 	}
 	else
 	{
 		clockSize = CLOCK_SIZE_SMALL;
-		uC__nvsUpdateByte("clockSize", nvsHandle_clockSize, &clockSize_NVS, clockSize);
+		uC__nvsUpdate_u8("clockSize", nvsHandle_clockSize, &clockSize_NVS, clockSize);
 	}
 
-	if (uC__nvsReadByte("lineOffset", nvsHandle_lineOffset, &lineOffset_NVS) <= LED_MATRIX_SIZE_LIN)
+	if (uC__nvsRead_u8("lineOffset", nvsHandle_lineOffset, &lineOffset_NVS) <= LED_MATRIX_SIZE_LIN)
 	{
-		lineOffset = uC__nvsReadByte("lineOffset", nvsHandle_lineOffset, &lineOffset_NVS);
+		lineOffset = uC__nvsRead_u8("lineOffset", nvsHandle_lineOffset, &lineOffset_NVS);
 	}
 	else
 	{
 		lineOffset = 0;
-		uC__nvsUpdateByte("lineOffset", nvsHandle_lineOffset, &lineOffset_NVS, lineOffset);
+		uC__nvsUpdate_u8("lineOffset", nvsHandle_lineOffset, &lineOffset_NVS, lineOffset);
 	}
 
-	if (uC__nvsReadByte("colOffset", nvsHandle_colOffset, &colOffset_NVS) <= LED_MATRIX_SIZE_COL)
+	if (uC__nvsRead_u8("colOffset", nvsHandle_colOffset, &colOffset_NVS) <= LED_MATRIX_SIZE_COL)
 	{
-		colOffset = uC__nvsReadByte("colOffset", nvsHandle_colOffset, &colOffset_NVS);
+		colOffset = uC__nvsRead_u8("colOffset", nvsHandle_colOffset, &colOffset_NVS);
 	}
 	else
 	{
 		colOffset = 0;
-		uC__nvsUpdateByte("colOffset", nvsHandle_colOffset, &colOffset_NVS, colOffset);
+		uC__nvsUpdate_u8("colOffset", nvsHandle_colOffset, &colOffset_NVS, colOffset);
 	}
 }
 
 
 static void ModeClock__eepromStorage (void)
 {
-	uC__nvsUpdateByte("clockSize", nvsHandle_clockSize, &clockSize_NVS, clockSize);
-	uC__nvsUpdateByte("lineOffset", nvsHandle_lineOffset, &lineOffset_NVS, lineOffset);
-	uC__nvsUpdateByte("colOffset", nvsHandle_colOffset, &colOffset_NVS, colOffset);
+	uC__nvsUpdate_u8("clockSize", nvsHandle_clockSize, &clockSize_NVS, clockSize);
+	uC__nvsUpdate_u8("lineOffset", nvsHandle_lineOffset, &lineOffset_NVS, lineOffset);
+	uC__nvsUpdate_u8("colOffset", nvsHandle_colOffset, &colOffset_NVS, colOffset);
 }
 
 

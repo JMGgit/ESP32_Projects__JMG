@@ -129,6 +129,10 @@ http_err_t https_send_request(struct wifi_tls_context_ *tlsContext, http_request
 // Returns 0 on success.
 int http_parse_key_value_int(const char *buffer, const char *key, int *value);
 
+// Search the buffer for the specified key and try to parse an integer value right after the key.
+// Returns 0 on success.
+int http_parse_key_value_uint64(const char *buffer, const char *key, uint64_t *value);
+
 // Search the buffer for the specified key. If it exists, copy the string after the key up to
 // but without newline into the str buffer which has a size of strLen.
 // Returns 0 on success.
