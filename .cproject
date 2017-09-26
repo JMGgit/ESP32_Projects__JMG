@@ -199,6 +199,14 @@
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>true</runAllBuilders>
 			</target>
+			<target name="upload" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>C:/Users/JMG/Documents/Projekte/ESP32_Projects__JMG/UploadNewSW.bat</buildCommand>
+				<buildArguments/>
+				<buildTarget>upload</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>false</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
 		</buildTargets>
 	</storageModule>
 </cproject>
