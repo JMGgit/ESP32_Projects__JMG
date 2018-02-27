@@ -238,6 +238,9 @@ void APA102__init (void)
 #endif
 
 	APA102__setGlobalBrightness(APA102_GLOBAL_BRIGHNESS__MAX);
+
+	/* run main function to initialize output */
+	APA102__x10();
 }
 
 #endif

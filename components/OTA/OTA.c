@@ -54,6 +54,8 @@ void OTA__init (void)
 	ota_config.auto_reboot = OTA_AUTO_REBOOT;
 
 	iap_https_init(&ota_config);
+
+	printf("OTA__init done\n");
 }
 
 

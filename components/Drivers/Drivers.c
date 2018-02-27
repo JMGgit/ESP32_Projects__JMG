@@ -15,4 +15,6 @@ void Drivers__init(void)
 	MSGEQ7__init();
 #endif
 	APA102__init();
+
+	printf("Drivers__init done\n");
 }

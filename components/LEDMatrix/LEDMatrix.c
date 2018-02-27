@@ -164,6 +164,8 @@ void LEDMatrix__init (void)
 		uC__nvsUpdate_u8("ledOrder", nvsHandle_ledOrder, &ledOrder_NVS, ledOrder);
 	}
 #endif
+
+	printf("LEDMatrix__init done\n");
 }
 
 #endif

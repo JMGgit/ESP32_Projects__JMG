@@ -252,6 +252,8 @@ void Modes__init (void)
 	}
 
 	ModeClock__init();
+
+    printf("Modes__init done\n");
 }
 
 

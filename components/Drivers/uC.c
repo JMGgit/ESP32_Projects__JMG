@@ -9,6 +9,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "Ota.h"
+#include "esp_task_wdt.h"
 
 
 static uint8_t gpio_interrupt_num = 255;
@@ -140,6 +141,11 @@ void uC__init (void)
 	gpio_set_intr_type(BUTTON__BOARD_GPIO, GPIO_INTR_POSEDGE);
 	gpio_install_isr_service(0);
 	gpio_isr_handler_add(BUTTON__BOARD_GPIO, gpio__handleInterrupt, (void*) BUTTON__BOARD_GPIO);
+
+	/* initialize watchdog */
+	uc__enableWatchdog();
+
+	printf("uC__init done\n");
 }
 
 
@@ -160,5 +166,20 @@ void uC__mainFunction (void *param)
 		}
 
 		vTaskDelay(100 / portTICK_PERIOD_MS);
+
+		/* reset watchdog */
+		esp_task_wdt_reset();
 	}
+}
+
+
+void uc__enableWatchdog (void)
+{
+	esp_task_wdt_init(WATCHDOG_PERIOD_SECONDS, TRUE);
+}
+
+
+void uc__disableWatchdog (void)
+{
+	esp_task_wdt_deinit();
 }

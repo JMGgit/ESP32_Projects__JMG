@@ -50,6 +50,8 @@ void Buttons__init (void)
 #if (BUTTONS_IRMP == BUTTONS_IRMP_SEND_TO_TWI)
 	TWI__slaveInit (twiTxBuffer, 2);
 #endif
+
+	printf("Buttons__init done\n");
 }
 
 

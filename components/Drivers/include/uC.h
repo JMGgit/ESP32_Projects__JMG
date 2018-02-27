@@ -34,4 +34,7 @@ void uC__nvsUpdate_u64 (const char *key, nvs_handle nvsHandle, uint64_t *value_N
 void uC__init (void);
 void uC__mainFunction (void *param);
 
+void uc__enableWatchdog (void);
+void uc__disableWatchdog (void);
+
 #endif /* UC_H_ */

@@ -24,7 +24,7 @@ void IRAM_ATTR IRMP__interrupt(void *para)
 {
 	irmp_ISR();
 	TIMERG0.int_clr_timers.t1 = 1;
-	TIMERG0.hw_timer[TIMER_1].config.alarm_en = 1;
+	TIMERG0.hw_timer[TIMER_1].config.alarm_en = TIMER_ALARM_EN;
 }
 
 
@@ -32,17 +32,17 @@ void IRMP__init (void)
 {
 	/* timer init */
 	timer_config_t config;
-	config.alarm_en = 1;
-	config.auto_reload = 1;
+	config.alarm_en = TIMER_ALARM_EN;
+	config.auto_reload = TIMER_AUTORELOAD_EN;
 	config.counter_dir = TIMER_COUNT_UP;
-	config.divider = 1;
+	config.divider = 2;
 	config.intr_type = TIMER_INTR_LEVEL;
 	config.counter_en = TIMER_PAUSE;
 	timer_init(TIMER_GROUP_0, TIMER_1, &config);
 	timer_set_counter_value(TIMER_GROUP_0, TIMER_1, 0x00000000ULL);
 	timer_enable_intr(TIMER_GROUP_0, TIMER_1);
 	timer_isr_register(TIMER_GROUP_0, TIMER_1, IRMP__interrupt, NULL, ESP_INTR_FLAG_IRAM, NULL);
-	timer_set_alarm_value(TIMER_GROUP_0, TIMER_1, (TIMER_BASE_CLK / (2 * F_INTERRUPTS))); /* divider = 1 --> not considered */
+	timer_set_alarm_value(TIMER_GROUP_0, TIMER_1, ((TIMER_BASE_CLK / config.divider) / F_INTERRUPTS));
 	timer_start(TIMER_GROUP_0, TIMER_1);
 
 
@@ -51,6 +51,8 @@ void IRMP__init (void)
 
 	/* callback to illuminate test LED */
 	irmp_set_callback_ptr(&IRMP__testLed);
+
+	printf("IRMP__init done\n");
 }
 
 

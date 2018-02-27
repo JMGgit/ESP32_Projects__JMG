@@ -9,6 +9,7 @@
 #include "MSGEQ7.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "esp_task_wdt.h"
 
 
 #if (EQUALIZER == EQUALIZER_MSGEQ7)
@@ -41,7 +42,7 @@ void MSGEQ7__readValues (uint16_t *adcValues)
 	{
 		gpio_set_level(MSGEQ7_STROBE_GPIO, 0);
 		ets_delay_us(50);
-		adcValues[it] = (uint16_t)adc1_get_voltage(MSGEQ7_ADC_CHANNEL);
+		adcValues[it] = (uint16_t)adc1_get_raw(MSGEQ7_ADC_CHANNEL);
 		gpio_set_level(MSGEQ7_STROBE_GPIO, 1);
 		ets_delay_us(50);
 	}
@@ -109,6 +110,9 @@ void MSGEQ7__mainFunction (void *param)
 #endif
 
 		vTaskDelay(10 / portTICK_PERIOD_MS);
+
+		/* reset watchdog */
+		esp_task_wdt_reset();
 	}
 }
 

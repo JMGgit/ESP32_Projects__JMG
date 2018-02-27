@@ -11,6 +11,7 @@
 #include "lwip/debug.h"
 #include "Wifi.h"
 #include "LedController.h"
+#include "esp_task_wdt.h"
 #include <string.h>
 
 #include "uC.h"
@@ -800,6 +801,9 @@ void ArtNet__mainFunction (void *param)
 		errorRateRecv = (float)(missedFrameCounterRecv * 100) / (float)frameCounterRecv;
 		errorRateMain = (float)(missedFrameCounterMain * 100) / (float)frameCounterMain;
 		missedFrameCounterRecv_prev = missedFrameCounterRecv;
+
+		/* reset watchdog */
+		esp_task_wdt_reset();
 	}
 }
 
@@ -818,5 +822,8 @@ void ArtNet__debug (void *param)
 		}
 #endif
 		vTaskDelay(10000 / portTICK_PERIOD_MS);
+
+		/* reset watchdog */
+		esp_task_wdt_reset();
 	}
 }

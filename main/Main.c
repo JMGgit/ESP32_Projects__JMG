@@ -1,6 +1,8 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "esp_freertos_hooks.h"
 #include "esp_event_loop.h"
+#include "esp_task_wdt.h"
 #include "driver/gpio.h"
 #include "driver/uart.h"
 #include "ArtNet.h"
@@ -40,7 +42,6 @@ void Main__init (void)
 	LEDMatrix__init();
 	LedController__init();
 	Modes__init();
-	APA102__x10();
 }
 
 
@@ -71,44 +72,56 @@ void LedTable__mainFunction (void *param)
 				gpio_set_level(TEST_LED_LEDCTRL_GPIO, 0);
 			}
 		}
+
+		/* reset watchdog */
+		esp_task_wdt_reset();
 	}
 }
 
 
 void Main__createTasks (void)
 {
-	if (pdPASS == xTaskCreate(LedTable__mainFunction, "LedTable__mainFunction", 4096, NULL, 1, NULL))
+	TaskHandle_t currentTask;
+
+	if (pdPASS == xTaskCreate(LedTable__mainFunction, "LedTable__mainFunction", 4096, NULL, 1, &currentTask))
 	{
+		esp_task_wdt_add(currentTask);
 		printf("Task LedTable__mainFunction created\n");
 	}
 
-	if (pdPASS == xTaskCreate(ArtNet__mainFunction, "ArtNet__mainFunction", 4096, NULL, 1, NULL))
+	if (pdPASS == xTaskCreate(ArtNet__mainFunction, "ArtNet__mainFunction", 4096, NULL, 1, &currentTask))
 	{
+		esp_task_wdt_add(currentTask);
 		printf("Task ArtNet__mainFunction created\n");
 	}
 
-	if (pdPASS == xTaskCreate(ArtNet__debug, "ArtNet__debug", 4096, NULL, 10 , NULL))
+	if (pdPASS == xTaskCreate(ArtNet__debug, "ArtNet__debug", 4096, NULL, 10 , &currentTask))
 	{
+		esp_task_wdt_add(currentTask);
 		printf("Task ArtNet__debug created\n");
 	}
 
-	if (pdPASS == xTaskCreate(LedController__mainFunction, "LedController__mainFunction", 4096, NULL, 1, NULL))
+	if (pdPASS == xTaskCreate(LedController__mainFunction, "LedController__mainFunction", 4096, NULL, 1, &currentTask))
 	{
+		esp_task_wdt_add(currentTask);
 		printf("Task LedController__mainFunction created\n");
 	}
 
-	if (pdPASS == xTaskCreate(Clock__mainFunction, "Clock__mainFunction", 4096, NULL, 2, NULL))
+	if (pdPASS == xTaskCreate(Clock__mainFunction, "Clock__mainFunction", 4096, NULL, 2, &currentTask))
 	{
+		esp_task_wdt_add(currentTask);
 		printf("Task Clock__mainFunction created\n");
 	}
 
-	if (pdPASS == xTaskCreate(MSGEQ7__mainFunction, "MSGEQ7__mainFunction", 4096, NULL, 3, NULL))
+	if (pdPASS == xTaskCreate(MSGEQ7__mainFunction, "MSGEQ7__mainFunction", 4096, NULL, 3, &currentTask))
 	{
+		esp_task_wdt_add(currentTask);
 		printf("Task MSGEQ7__mainFunction created\n");
 	}
 
-	if (pdPASS == xTaskCreate(uC__mainFunction, "uC__mainFunction", 4096, NULL, 1, NULL))
+	if (pdPASS == xTaskCreate(uC__mainFunction, "uC__mainFunction", 4096, NULL, 1, &currentTask))
 	{
+		esp_task_wdt_add(currentTask);
 		printf("Task uC__mainFunction created\n");
 	}
 }

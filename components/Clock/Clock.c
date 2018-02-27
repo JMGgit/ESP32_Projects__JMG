@@ -10,6 +10,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include "apps/sntp/sntp.h"
+#include "esp_task_wdt.h"
 
 
 #if (CLOCK_TYPE != CLOCK_TYPE_OFF)
@@ -442,6 +443,8 @@ void Clock__init (void)
 	setOutput(CLOCK_LED_DDR, CLOCK_LED_PIN);
 	Clock__x10(); /* update time */
 #endif
+
+	printf("Clock__init done\n");
 }
 
 
@@ -474,6 +477,9 @@ void Clock__mainFunction (void *param)
 		}
 
 		vTaskDelay(5000 / portTICK_PERIOD_MS);
+
+		/* reset watchdog */
+		esp_task_wdt_reset();
 	}
 #endif
 }

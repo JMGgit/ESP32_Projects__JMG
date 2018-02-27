@@ -7,21 +7,8 @@
 
 
 #include "LedController.h"
-#include "freertos/FreeRTOS.h"
-#include <stdio.h>
-#include "freertos/FreeRTOS.h"
-#include "esp_wifi.h"
-#include "esp_system.h"
-#include "esp_event.h"
-#include "esp_event_loop.h"
+#include "freertos/task.h"
 #include "esp_task_wdt.h"
-#include "nvs_flash.h"
-#include "driver/uart.h"
-#include "Main_Config.h"
-#include "ArtNet.h"
-#include "driver/timer.h"
-#include <string.h>
-#include "Drivers.h"
 
 
 uint8_t ledData[LEDS_CHANNELS];
@@ -64,6 +51,8 @@ esp_err_t LedController__outputLedData (void)
 void LedController__init (void)
 {
     gpio_set_direction(TEST_LED_LEDCTRL_GPIO, GPIO_MODE_OUTPUT);
+
+    printf("LedController__init done\n");
 }
 
 
@@ -92,6 +81,9 @@ void LedController__mainFunction (void *param)
 		}
 
 		vTaskDelay(1 / portTICK_PERIOD_MS);
+
+		/* reset watchdog */
+		esp_task_wdt_reset();
 	}
 }
 
