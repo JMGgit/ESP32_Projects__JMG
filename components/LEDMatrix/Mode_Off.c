@@ -43,7 +43,14 @@ void Off__x10 (void)
 
 		switch (otaState)
 		{
-			case OTA_STATE_DOWNLOAD_IN_PROGRESS:
+			case OTA_STATE_ERROR:
+			{
+				LEDMatrix__enableUpdate();
+				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(100, 0 , 0));
+				break;
+			}
+
+			case OTA_STATE_CONNECTION_IN_PROGRESS:
 			{
 				LEDMatrix__enableUpdate();
 				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(0, 0 , 100));
@@ -53,7 +60,7 @@ void Off__x10 (void)
 			case OTA_STATE_UPDATE_IN_PROGRESS:
 			{
 				LEDMatrix__enableUpdate();
-				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(100, 0 , 0));
+				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(100, 65 , 0));
 				break;
 			}
 

@@ -231,7 +231,7 @@ void APA102__init (void)
 			&& 	(RGBLedOrder != RGB_LED_ORDER__RED_GREEN_BLUE)
 	)
 	{
-		RGBLedOrder = RGB_LED_ORDER__RED_GREEN_BLUE;
+		RGBLedOrder = RGB_LED_ORDER__BLUE_GREEN_RED;
 		uC__nvsUpdate_u8("RGBLedOrder", nvsHandle_RGBLedOrder, &RGBLedOrder_NVS, RGBLedOrder);
 	}
 

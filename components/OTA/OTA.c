@@ -38,9 +38,11 @@ void OTA__setCurrentSwVersion (uint64_t newSwVersion)
 
 void OTA__init (void)
 {
+
 	uC__nvsInitStorage("otaSwVersion", &nvsHandle_otaSwVersion);
 	uC__nvsInitStorage("otaTrigSwUpdate", &nvsHandle_otaTrigSwUpdate);
 
+#if 0
 	ota_config.current_software_version = uC__nvsRead_u64("otaSwVersion", nvsHandle_otaSwVersion, &otaSwVersion_NVS);
 	ota_config.trigger_software_update = uC__nvsRead_u8("otaTrigSwUpdate", nvsHandle_otaTrigSwUpdate, &otaTrigSwUpdate_NVS);
 	uC__nvsUpdate_u8("otaTrigSwUpdate", nvsHandle_otaTrigSwUpdate, &otaTrigSwUpdate_NVS, FALSE);
@@ -55,8 +57,14 @@ void OTA__init (void)
 	ota_config.auto_reboot = OTA_AUTO_REBOOT;
 
 	iap_https_init(&ota_config);
+#endif
 
 	printf("OTA__init done\n");
+
+	/* display current SW version and compile time */
+	printf("\nCurrent SW version: %llu\n", OTA__getCurrentSwVersion());
+	printf("Compile Date: %s\n", __DATE__);
+	printf("Compile Time: %s\n\n", __TIME__);
 }
 
 extern void ota_example_task(void *pvParameter);
@@ -76,7 +84,7 @@ void OTA__disable (void)
 	//iap_https_stopTask();
 }
 
-
+#if 0
 OTA_State_t OTA__getCurrentState (void)
 {
 	OTA_State_t otaState;
@@ -100,7 +108,7 @@ OTA_State_t OTA__getCurrentState (void)
 
 	return otaState;
 }
-
+#endif
 
 void OTA__runBeforeSwUpdate (void)
 {
