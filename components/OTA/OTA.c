@@ -7,6 +7,7 @@
 
 
 #include "OTA.h"
+#include "freertos/task.h"
 #include "IRMP_Appl.h"
 
 
@@ -58,17 +59,21 @@ void OTA__init (void)
 	printf("OTA__init done\n");
 }
 
+extern void ota_example_task(void *pvParameter);
 
 void OTA__enable (void)
 {
-	iap_https_startTask();
-	iap_https_check_now();
+	OTA__runBeforeSwUpdate();
+	xTaskCreate(&ota_example_task, "ota_example_task", 8192, NULL, 5, NULL);
+	//iap_https_startTask();
+	//iap_https_check_now();
 }
 
 
 void OTA__disable (void)
 {
-	iap_https_stopTask();
+	OTA__runAfterSwUpdate();
+	//iap_https_stopTask();
 }
 
 
