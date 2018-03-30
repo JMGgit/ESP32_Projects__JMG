@@ -8,7 +8,7 @@
 
 #define LOG_LOCAL_LEVEL ESP_LOG_VERBOSE
 
-#include "OTA.h"
+#include "FOTA.h"
 #include "freertos/task.h"
 #include "IRMP_Appl.h"
 #include "Wifi.h"
@@ -54,10 +54,10 @@ static uint8_t otaTrigSwUpdate_NVS;
 static nvs_handle nvsHandle_otaTrigSwUpdate;
 
 
-static OTA_State_t fotaState = FOTA_STATE_IDLE;
+static FOTA_State_t fotaState = FOTA_STATE_IDLE;
 
 
-OTA_State_t FOTA__getCurrentState (void)
+FOTA_State_t FOTA__getCurrentState (void)
 {
 	return fotaState;
 }
@@ -215,7 +215,7 @@ static bool read_past_http_header(char text[], int total_len, esp_ota_handle_t u
 
 static bool connect_to_http_server()
 {
-	ESP_LOGI(TAG, "Server IP: %s Server Port:%s", FOTA_SERVER_HOST_NAME, EXAMPLE_SERVER_PORT);
+	ESP_LOGI(TAG, "Server IP: %s Server Port:%s", FOTA_SERVER_HOST_NAME, FOTA_SERVER_PORT);
 
 	int http_connect_flag = -1;
 	struct sockaddr_in sock_info;

@@ -1,20 +1,20 @@
 /*
- * Ota.h
+ * FOTA.h
  *
  *  Created on: 09.11.2015
  *      Author: Jean-Martin George
  */
 
 
-#ifndef OTA_H_
-#define OTA_H_
+#ifndef FOTA_H_
+#define VOTA_H_
 
 
 #include "Main_Types.h"
 #include "Main_Config.h"
 #include "uC.h"
 #include "iap_https.h"
-#include "OTA_Cfg.h"
+#include "FOTA_Cfg.h"
 
 
 #define OTA_POLLING_INTERVAL_S    1
@@ -40,7 +40,7 @@ typedef enum
 	FOTA_STATE_CONNECTION_IN_PROGRESS,
 	FOTA_STATE_UPDATE_IN_PROGRESS,
 	FOTA_STATE_UPDADE_FINISHED
-} OTA_State_t;
+} FOTA_State_t;
 
 
 void FOTA__init (void);
@@ -48,7 +48,7 @@ void FOTA__init (void);
 void FOTA__enable (void);
 void FOTA__disable (void);
 
-OTA_State_t FOTA__getCurrentState (void);
+FOTA_State_t FOTA__getCurrentState (void);
 
 uint64_t FOTA__getCurrentSwVersion (void);
 void FOTA__setCurrentSwVersion (uint64_t newSwVersion);
@@ -60,4 +60,4 @@ void FOTA__triggerSwUpdate (void);
 uint8_t FOTA__isSwUpdateTriggered (void);
 
 
-#endif /* OTA_H_ */
+#endif /* FOTA_H_ */

@@ -23,7 +23,7 @@ void Off__x10 (void)
 	static uint8_t langTimer = 255;
 #endif
 #if (OTA_SW_UPDATE == OTA_SW_UPDATE_ON)
-	OTA_State_t otaState;
+	FOTA_State_t otaState;
 #endif
 
 	if (firstCall)

@@ -36,7 +36,7 @@
 #include "iap.h"
 #include "iap_https.h"
 
-#include "OTA.h"
+#include "FOTA.h"
 
 #define TAG "fwup_wifi"
 
