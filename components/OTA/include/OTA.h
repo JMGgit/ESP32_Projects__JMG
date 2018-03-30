@@ -31,33 +31,33 @@ typedef struct
     // Force SW update
     uint8_t trigger_software_update;
 
-} OTA_config_t;
+} FOTA_config_t;
 
 typedef enum
 {
-	OTA_STATE_IDLE = 0,
-	OTA_STATE_ERROR,
-	OTA_STATE_CONNECTION_IN_PROGRESS,
-	OTA_STATE_UPDATE_IN_PROGRESS,
-	OTA_STATE_UPDADE_FINISHED
+	FOTA_STATE_IDLE = 0,
+	FOTA_STATE_ERROR,
+	FOTA_STATE_CONNECTION_IN_PROGRESS,
+	FOTA_STATE_UPDATE_IN_PROGRESS,
+	FOTA_STATE_UPDADE_FINISHED
 } OTA_State_t;
 
 
-void OTA__init (void);
+void FOTA__init (void);
 
-void OTA__enable (void);
-void OTA__disable (void);
+void FOTA__enable (void);
+void FOTA__disable (void);
 
-OTA_State_t OTA__getCurrentState (void);
+OTA_State_t FOTA__getCurrentState (void);
 
-uint64_t OTA__getCurrentSwVersion (void);
-void OTA__setCurrentSwVersion (uint64_t newSwVersion);
+uint64_t FOTA__getCurrentSwVersion (void);
+void FOTA__setCurrentSwVersion (uint64_t newSwVersion);
 
-void OTA__runBeforeSwUpdate (void);
-void OTA__runAfterSwUpdate (void);
+void FOTA__runBeforeSwUpdate (void);
+void FOTA__runAfterSwUpdate (void);
 
-void OTA__triggerSwUpdate (void);
-uint8_t OTA__isSwUpdateTriggered (void);
+void FOTA__triggerSwUpdate (void);
+uint8_t FOTA__isSwUpdateTriggered (void);
 
 
 #endif /* OTA_H_ */

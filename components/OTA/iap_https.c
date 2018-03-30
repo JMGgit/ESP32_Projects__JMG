@@ -219,7 +219,7 @@ static void iap_https_task(void *pvParameter)
 				ESP_LOGI(TAG, "Firmware updater task will now download the new firmware image.");
 
 				printf("\n\nNEW SW DETECTED --> WILL BE DOWNLOADED AND FLASHED\n\n");
-				OTA__runBeforeSwUpdate();
+				FOTA__runBeforeSwUpdate();
 
 				iap_https_download_image();
 				download_in_progress = 0;
@@ -358,7 +358,7 @@ http_continue_receiving_t iap_https_metadata_body_callback(struct http_request_ 
 
 	fwupdater_config->server_software_version = version;
 
-	if ((!OTA__isSwUpdateTriggered()) && (version == fwupdater_config->current_software_version)) {
+	if ((!FOTA__isSwUpdateTriggered()) && (version == fwupdater_config->current_software_version)) {
 		ESP_LOGD(TAG, "iap_https_metadata_body_callback: we're up-to-date!");
 		return HTTP_STOP_RECEIVING;
 	}
@@ -419,12 +419,12 @@ http_continue_receiving_t iap_https_firmware_body_callback(struct http_request_ 
 
 		has_new_firmware = 1;
 
-		OTA__setCurrentSwVersion(fwupdater_config->server_software_version);
+		FOTA__setCurrentSwVersion(fwupdater_config->server_software_version);
 		printf("\n\nSW REVISION %llu SUCCESSFULLY FLASHED\n\n", fwupdater_config->server_software_version);
-		OTA__runAfterSwUpdate();
+		FOTA__runAfterSwUpdate();
 
 		/* reboot if configured or if SW update has been forced */
-		if ((fwupdater_config->auto_reboot) || OTA__isSwUpdateTriggered()) {
+		if ((fwupdater_config->auto_reboot) || FOTA__isSwUpdateTriggered()) {
 			ESP_LOGI(TAG, "Automatic re-boot in 2 seconds - goodbye!...");
 			vTaskDelay(2000 / portTICK_RATE_MS);
 			esp_restart();

@@ -170,7 +170,7 @@ void uC__mainFunction (void *param)
 
 			if (gpio_interrupt_num == BUTTON__BOARD_GPIO)
 			{
-				OTA__triggerSwUpdate();
+				FOTA__triggerSwUpdate();
 			}
 
 			gpio_interrupt_num = 255;

@@ -31,11 +31,6 @@
 #include "nvs_flash.h"
 
 
-#define EXAMPLE_WIFI_SSID CONFIG_WIFI_SSID
-#define EXAMPLE_WIFI_PASS CONFIG_WIFI_PASSWORD
-#define EXAMPLE_SERVER_IP   "192.168.1.109"
-#define EXAMPLE_SERVER_PORT "80"
-#define EXAMPLE_FILENAME "/esp32/ESP32.bin"
 #define BUFFSIZE 2048
 #define TEXT_BUFFSIZE 2048
 
@@ -59,29 +54,29 @@ static uint8_t otaTrigSwUpdate_NVS;
 static nvs_handle nvsHandle_otaTrigSwUpdate;
 
 
-static OTA_State_t otaState = OTA_STATE_IDLE;
+static OTA_State_t fotaState = FOTA_STATE_IDLE;
 
 
-OTA_State_t OTA__getCurrentState (void)
+OTA_State_t FOTA__getCurrentState (void)
 {
-	return otaState;
+	return fotaState;
 }
 
 
-uint64_t OTA__getCurrentSwVersion (void)
+uint64_t FOTA__getCurrentSwVersion (void)
 {
 	return ota_config.current_software_version;
 }
 
 
-void OTA__setCurrentSwVersion (uint64_t newSwVersion)
+void FOTA__setCurrentSwVersion (uint64_t newSwVersion)
 {
 	ota_config.current_software_version = newSwVersion;
 	uC__nvsUpdate_u64("otaSwVersion", nvsHandle_otaSwVersion, &otaSwVersion_NVS, newSwVersion);
 }
 
 
-void OTA__init (void)
+void FOTA__init (void)
 {
 
 	uC__nvsInitStorage("otaSwVersion", &nvsHandle_otaSwVersion);
@@ -107,7 +102,7 @@ void OTA__init (void)
 	printf("OTA__init done\n");
 
 	/* display current SW version and compile time */
-	printf("\nCurrent SW version: %llu\n", OTA__getCurrentSwVersion());
+	printf("\nCurrent SW version: %llu\n", FOTA__getCurrentSwVersion());
 	printf("Compile Date: %s\n", __DATE__);
 	printf("Compile Time: %s\n\n", __TIME__);
 }
@@ -115,48 +110,46 @@ void OTA__init (void)
 extern void ota_example_task(void *pvParameter);
 
 
-void OTA__enable (void)
+void FOTA__enable (void)
 {
 	if (Wifi__isConnected())
 	{
-		OTA__runBeforeSwUpdate();
+		FOTA__runBeforeSwUpdate();
 		xTaskCreate(&ota_example_task, "ota_example_task", 8192, NULL, 5, NULL);
 	}
 }
 
 
-void OTA__disable (void)
+void FOTA__disable (void)
 {
-	OTA__runAfterSwUpdate();
+	FOTA__runAfterSwUpdate();
 	//iap_https_stopTask();
 }
 
 
-void OTA__runBeforeSwUpdate (void)
+void FOTA__runBeforeSwUpdate (void)
 {
 	IRMP__disable();
 }
 
 
-void OTA__runAfterSwUpdate (void)
+void FOTA__runAfterSwUpdate (void)
 {
 	IRMP__enable();
 }
 
 
-void OTA__triggerSwUpdate (void)
+void FOTA__triggerSwUpdate (void)
 {
 	uC__nvsUpdate_u8("otaTrigSwUpdate", nvsHandle_otaTrigSwUpdate, &otaTrigSwUpdate_NVS, TRUE);
 	uC__triggerSwReset();
 }
 
 
-uint8_t OTA__isSwUpdateTriggered (void)
+uint8_t FOTA__isSwUpdateTriggered (void)
 {
 	return ota_config.trigger_software_update;
 }
-
-
 
 
 /*read buffer by byte still delim ,return read bytes counts*/
@@ -222,7 +215,7 @@ static bool read_past_http_header(char text[], int total_len, esp_ota_handle_t u
 
 static bool connect_to_http_server()
 {
-	ESP_LOGI(TAG, "Server IP: %s Server Port:%s", EXAMPLE_SERVER_IP, EXAMPLE_SERVER_PORT);
+	ESP_LOGI(TAG, "Server IP: %s Server Port:%s", FOTA_SERVER_HOST_NAME, EXAMPLE_SERVER_PORT);
 
 	int http_connect_flag = -1;
 	struct sockaddr_in sock_info;
@@ -238,8 +231,8 @@ static bool connect_to_http_server()
 	// set connect info
 	memset(&sock_info, 0, sizeof(struct sockaddr_in));
 	sock_info.sin_family = AF_INET;
-	sock_info.sin_addr.s_addr = inet_addr(EXAMPLE_SERVER_IP);
-	sock_info.sin_port = htons(atoi(EXAMPLE_SERVER_PORT));
+	sock_info.sin_addr.s_addr = inet_addr(FOTA_SERVER_HOST_NAME);
+	sock_info.sin_port = htons(atoi(FOTA_SERVER_PORT));
 
 	// connect to http server
 	http_connect_flag = connect(socket_id, (struct sockaddr *) &sock_info, sizeof(sock_info));
@@ -266,7 +259,7 @@ static void task_fatal_error (void)
 	close(socket_id);
 	(void) vTaskDelete(NULL);
 
-	otaState = OTA_STATE_ERROR;
+	fotaState = FOTA_STATE_ERROR;
 }
 
 
@@ -296,7 +289,7 @@ void ota_example_task(void *pvParameter)
 
 	ESP_LOGI(TAG, "Running partition type %d subtype %d (offset 0x%08x)", running->type, running->subtype, running->address);
 
-	otaState = OTA_STATE_CONNECTION_IN_PROGRESS;
+	fotaState = FOTA_STATE_CONNECTION_IN_PROGRESS;
 
 	if (connect_to_http_server())
 	{
@@ -314,7 +307,7 @@ void ota_example_task(void *pvParameter)
 			"User-Agent: esp-idf/1.0 esp32\r\n\r\n";
 
 	char *http_request = NULL;
-	int get_len = asprintf(&http_request, GET_FORMAT, EXAMPLE_FILENAME, EXAMPLE_SERVER_IP, EXAMPLE_SERVER_PORT);
+	int get_len = asprintf(&http_request, GET_FORMAT, FOTA_BINARY_FILE_NAME, FOTA_SERVER_HOST_NAME, FOTA_SERVER_PORT);
 
 	if (get_len < 0)
 	{
@@ -335,7 +328,7 @@ void ota_example_task(void *pvParameter)
 		ESP_LOGI(TAG, "Send GET request to server succeeded");
 	}
 
-	otaState = OTA_STATE_UPDATE_IN_PROGRESS;
+	fotaState = FOTA_STATE_UPDATE_IN_PROGRESS;
 
 	update_partition = esp_ota_get_next_update_partition(NULL);
 	ESP_LOGI(TAG, "Writing to partition subtype %d at offset 0x%x",	update_partition->subtype, update_partition->address);
@@ -419,8 +412,8 @@ void ota_example_task(void *pvParameter)
 	}
 
 	ESP_LOGI(TAG, "SW updated successfully!");
-	OTA__runAfterSwUpdate();
-	otaState = OTA_STATE_UPDADE_FINISHED;
+	FOTA__runAfterSwUpdate();
+	fotaState = FOTA_STATE_UPDADE_FINISHED;
 	task_delete();
 
 	return;

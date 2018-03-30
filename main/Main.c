@@ -34,7 +34,7 @@ void Main__init (void)
 
 	uC__init();
 	Wifi__init();
-	OTA__init();
+	FOTA__init();
 	Drivers__init();
 	IRMP__init();
 	Buttons__init();
@@ -131,9 +131,9 @@ void app_main (void)
 {
 	Main__init();
 
-	if (OTA__isSwUpdateTriggered())
+	if (FOTA__isSwUpdateTriggered())
 	{
-		OTA__enable();
+		FOTA__enable();
 	}
 	else
 	{

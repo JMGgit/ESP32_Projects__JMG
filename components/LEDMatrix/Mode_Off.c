@@ -30,7 +30,7 @@ void Off__x10 (void)
 	{
 		LEDMatrix__clearMatrix();
 #if (OTA_SW_UPDATE == OTA_SW_UPDATE_ON)
-		OTA__enable();
+		FOTA__enable();
 #endif
 		firstCall = FALSE;
 	}
@@ -39,32 +39,32 @@ void Off__x10 (void)
 		LEDMatrix__disableUpdate();
 
 #if (OTA_SW_UPDATE == OTA_SW_UPDATE_ON)
-		otaState = OTA__getCurrentState();
+		otaState = FOTA__getCurrentState();
 
 		switch (otaState)
 		{
-			case OTA_STATE_ERROR:
+			case FOTA_STATE_ERROR:
 			{
 				LEDMatrix__enableUpdate();
 				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(100, 0 , 0));
 				break;
 			}
 
-			case OTA_STATE_CONNECTION_IN_PROGRESS:
+			case FOTA_STATE_CONNECTION_IN_PROGRESS:
 			{
 				LEDMatrix__enableUpdate();
 				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(0, 0 , 100));
 				break;
 			}
 
-			case OTA_STATE_UPDATE_IN_PROGRESS:
+			case FOTA_STATE_UPDATE_IN_PROGRESS:
 			{
 				LEDMatrix__enableUpdate();
 				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(100, 65 , 0));
 				break;
 			}
 
-			case OTA_STATE_UPDADE_FINISHED:
+			case FOTA_STATE_UPDADE_FINISHED:
 			{
 				LEDMatrix__enableUpdate();
 				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(0, 100 , 0));
@@ -81,13 +81,13 @@ void Off__x10 (void)
 		if (Buttons__isPressedOnce(&buttonOff))
 		{
 #if (OTA_SW_UPDATE == OTA_SW_UPDATE_ON)
-			if (otaState == OTA_STATE_UPDADE_FINISHED)
+			if (otaState == FOTA_STATE_UPDADE_FINISHED)
 			{
 				uC__triggerSwReset();
 			}
 			else
 			{
-				OTA__disable();
+				FOTA__disable();
 			}
 #endif
 			Modes__Start();
