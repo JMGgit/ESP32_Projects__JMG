@@ -31,8 +31,8 @@
 #include "nvs_flash.h"
 
 
-#define BUFFSIZE 2048
-#define TEXT_BUFFSIZE 2048
+#define BUFFSIZE 1024
+#define TEXT_BUFFSIZE 1024
 
 static const char *TAG = "ota";
 /*an ota data write buffer ready to write to the flash*/
@@ -45,13 +45,13 @@ static int binary_file_length = 0;
 static int socket_id = -1;
 
 
-static iap_https_config_t ota_config;
+static uint64_t fotaSwVersion;
+static uint64_t fotaSwVersion_NVS;
+static nvs_handle nvsHandle_fotaSwVersion;
 
-static uint64_t otaSwVersion_NVS;
-static nvs_handle nvsHandle_otaSwVersion;
-
-static uint8_t otaTrigSwUpdate_NVS;
-static nvs_handle nvsHandle_otaTrigSwUpdate;
+static uint8_t fotaTrigSwUpdate;
+static uint8_t fotaTrigSwUpdate_NVS;
+static nvs_handle nvsHandle_fotaTrigSwUpdate;
 
 
 static FOTA_State_t fotaState = FOTA_STATE_IDLE;
@@ -65,49 +65,36 @@ FOTA_State_t FOTA__getCurrentState (void)
 
 uint64_t FOTA__getCurrentSwVersion (void)
 {
-	return ota_config.current_software_version;
+	return fotaSwVersion;
 }
 
 
 void FOTA__setCurrentSwVersion (uint64_t newSwVersion)
 {
-	ota_config.current_software_version = newSwVersion;
-	uC__nvsUpdate_u64("otaSwVersion", nvsHandle_otaSwVersion, &otaSwVersion_NVS, newSwVersion);
+	fotaSwVersion = newSwVersion;
+	uC__nvsUpdate_u64("fotaSwVersion", nvsHandle_fotaSwVersion, &fotaSwVersion_NVS, newSwVersion);
 }
 
 
 void FOTA__init (void)
 {
 
-	uC__nvsInitStorage("otaSwVersion", &nvsHandle_otaSwVersion);
-	uC__nvsInitStorage("otaTrigSwUpdate", &nvsHandle_otaTrigSwUpdate);
+	uC__nvsInitStorage("fotaSwVersion", &nvsHandle_fotaSwVersion);
+	uC__nvsInitStorage("fotaTrigSwUpdate", &nvsHandle_fotaTrigSwUpdate);
 
-#if 0
-	ota_config.current_software_version = uC__nvsRead_u64("otaSwVersion", nvsHandle_otaSwVersion, &otaSwVersion_NVS);
-	ota_config.trigger_software_update = uC__nvsRead_u8("otaTrigSwUpdate", nvsHandle_otaTrigSwUpdate, &otaTrigSwUpdate_NVS);
-	uC__nvsUpdate_u8("otaTrigSwUpdate", nvsHandle_otaTrigSwUpdate, &otaTrigSwUpdate_NVS, FALSE);
-
-	ota_config.server_host_name = OTA_SERVER_HOST_NAME;
-	ota_config.server_port = "443";
-	strncpy(ota_config.server_metadata_path, OTA_SERVER_METADATA_PATH, sizeof(ota_config.server_metadata_path) / sizeof(char));
-	bzero(ota_config.server_firmware_path, sizeof(ota_config.server_firmware_path) / sizeof(char));
-	ota_config.server_root_ca_public_key_pem = server_root_ca_public_key_pem;
-	ota_config.peer_public_key_pem = peer_public_key_pem;
-	ota_config.polling_interval_s = OTA_POLLING_INTERVAL_S;
-	ota_config.auto_reboot = OTA_AUTO_REBOOT;
-
-	iap_https_init(&ota_config);
-#endif
-
-	printf("OTA__init done\n");
+	fotaSwVersion = uC__nvsRead_u64("fotaSwVersion", nvsHandle_fotaSwVersion, &fotaSwVersion_NVS);
+	fotaTrigSwUpdate = uC__nvsRead_u8("fotaTrigSwUpdate", nvsHandle_fotaTrigSwUpdate, &fotaTrigSwUpdate_NVS);
+	uC__nvsUpdate_u8("fotaTrigSwUpdate", nvsHandle_fotaTrigSwUpdate, &fotaTrigSwUpdate_NVS, FALSE);
 
 	/* display current SW version and compile time */
 	printf("\nCurrent SW version: %llu\n", FOTA__getCurrentSwVersion());
 	printf("Compile Date: %s\n", __DATE__);
 	printf("Compile Time: %s\n\n", __TIME__);
+
+	printf("OTA__init done\n");
 }
 
-extern void ota_example_task(void *pvParameter);
+extern void FOTA__mainFunction(void *pvParameter);
 
 
 void FOTA__enable (void)
@@ -115,7 +102,7 @@ void FOTA__enable (void)
 	if (Wifi__isConnected())
 	{
 		FOTA__runBeforeSwUpdate();
-		xTaskCreate(&ota_example_task, "ota_example_task", 8192, NULL, 5, NULL);
+		xTaskCreate(&FOTA__mainFunction, "FOTA__mainFunction", 8192, NULL, 5, NULL);
 	}
 }
 
@@ -123,7 +110,6 @@ void FOTA__enable (void)
 void FOTA__disable (void)
 {
 	FOTA__runAfterSwUpdate();
-	//iap_https_stopTask();
 }
 
 
@@ -141,21 +127,21 @@ void FOTA__runAfterSwUpdate (void)
 
 void FOTA__triggerSwUpdate (void)
 {
-	uC__nvsUpdate_u8("otaTrigSwUpdate", nvsHandle_otaTrigSwUpdate, &otaTrigSwUpdate_NVS, TRUE);
+	uC__nvsUpdate_u8("fotaTrigSwUpdate", nvsHandle_fotaTrigSwUpdate, &fotaTrigSwUpdate_NVS, TRUE);
 	uC__triggerSwReset();
 }
 
 
 uint8_t FOTA__isSwUpdateTriggered (void)
 {
-	return ota_config.trigger_software_update;
+	return fotaTrigSwUpdate;
 }
 
 
 /*read buffer by byte still delim ,return read bytes counts*/
-static int read_until(char *buffer, char delim, int len)
+static int FOTA__readUntilDelimiter(char *buffer, char delim, int len)
 {
-	//  /*TODO: delim check,buffer check,further: do an buffer length limited*/
+	 /* TODO: delim check,buffer check,further: do an buffer length limited */
 	int i = 0;
 
 	while (buffer[i] != delim && i < len)
@@ -178,7 +164,7 @@ static bool read_past_http_header(char text[], int total_len, esp_ota_handle_t u
 
 	while (text[i] != 0 && i < total_len)
 	{
-		i_read_len = read_until(&text[i], '\n', total_len);
+		i_read_len = FOTA__readUntilDelimiter(&text[i], '\n', total_len);
 		// if we resolve \r\n line,we think packet header is finished
 
 		if (i_read_len == 2)
@@ -253,31 +239,36 @@ static bool connect_to_http_server()
 }
 
 
-static void task_fatal_error (void)
+static void FOTA__abortOnError (void)
 {
 	ESP_LOGE(TAG, "Exiting task due to fatal error...");
 	close(socket_id);
-	(void) vTaskDelete(NULL);
+	vTaskDelete(NULL);
 
 	fotaState = FOTA_STATE_ERROR;
 }
 
 
-static void task_delete (void)
+static void FOTA__completeSwUpdate (void)
 {
-	ESP_LOGE(TAG, "Delete task...");
+	ESP_LOGI(TAG, "SW updated successfully!");
 	close(socket_id);
-	(void) vTaskDelete(NULL);
+	vTaskDelete(NULL);
+
+	fotaState = FOTA_STATE_UPDADE_FINISHED;
+
+	FOTA__runAfterSwUpdate();
 }
 
 
-void ota_example_task(void *pvParameter)
+void FOTA__mainFunction(void *pvParameter)
 {
 	esp_err_t err;
-	/* update handle : set by esp_ota_begin(), must be freed via esp_ota_end() */
-	esp_ota_handle_t update_handle = 0;
-	const esp_partition_t *update_partition = NULL;
 
+	 /* update handle : set by esp_ota_begin(), must be freed via esp_ota_end() */
+	esp_ota_handle_t update_handle = 0;
+
+	const esp_partition_t *update_partition = NULL;
 	const esp_partition_t *configured = esp_ota_get_boot_partition();
 	const esp_partition_t *running = esp_ota_get_running_partition();
 
@@ -298,13 +289,11 @@ void ota_example_task(void *pvParameter)
 	else
 	{
 		ESP_LOGE(TAG, "Connect to http server failed!");
-		task_fatal_error();
+		FOTA__abortOnError();
 	}
 
 	/*send GET request to http server*/
-	const char *GET_FORMAT = "GET %s HTTP/1.0\r\n"
-			"Host: %s:%s\r\n"
-			"User-Agent: esp-idf/1.0 esp32\r\n\r\n";
+	const char *GET_FORMAT = "GET %s HTTP/1.0\r\n" "Host: %s:%s\r\n" "User-Agent: esp-idf/1.0 esp32\r\n\r\n";
 
 	char *http_request = NULL;
 	int get_len = asprintf(&http_request, GET_FORMAT, FOTA_BINARY_FILE_NAME, FOTA_SERVER_HOST_NAME, FOTA_SERVER_PORT);
@@ -312,7 +301,7 @@ void ota_example_task(void *pvParameter)
 	if (get_len < 0)
 	{
 		ESP_LOGE(TAG, "Failed to allocate memory for GET request buffer");
-		task_fatal_error();
+		FOTA__abortOnError();
 	}
 
 	int res = send(socket_id, http_request, get_len, 0);
@@ -321,7 +310,7 @@ void ota_example_task(void *pvParameter)
 	if (res < 0)
 	{
 		ESP_LOGE(TAG, "Send GET request to server failed");
-		task_fatal_error();
+		FOTA__abortOnError();
 	}
 	else
 	{
@@ -339,7 +328,7 @@ void ota_example_task(void *pvParameter)
 	if (err != ESP_OK)
 	{
 		ESP_LOGE(TAG, "esp_ota_begin failed, error=%d", err);
-		task_fatal_error();
+		FOTA__abortOnError();
 	}
 
 	ESP_LOGI(TAG, "esp_ota_begin succeeded");
@@ -358,7 +347,7 @@ void ota_example_task(void *pvParameter)
 		{
 			/* receive error */
 			ESP_LOGE(TAG, "Error: receive data error! errno=%d", errno);
-			task_fatal_error();
+			FOTA__abortOnError();
 		}
 		else if ((buff_len > 0) && (!resp_body_start))
 		{
@@ -375,7 +364,7 @@ void ota_example_task(void *pvParameter)
 			if (err != ESP_OK)
 			{
 				ESP_LOGE(TAG, "Error: esp_ota_write failed! err=0x%x", err);
-				task_fatal_error();
+				FOTA__abortOnError();
 			}
 
 			binary_file_length += buff_len;
@@ -400,7 +389,7 @@ void ota_example_task(void *pvParameter)
 	if (esp_ota_end(update_handle) != ESP_OK)
 	{
 		ESP_LOGE(TAG, "esp_ota_end failed!");
-		task_fatal_error();
+		FOTA__abortOnError();
 	}
 
 	err = esp_ota_set_boot_partition(update_partition);
@@ -408,14 +397,10 @@ void ota_example_task(void *pvParameter)
 	if (err != ESP_OK)
 	{
 		ESP_LOGE(TAG, "esp_ota_set_boot_partition failed! err=0x%x", err);
-		task_fatal_error();
+		FOTA__abortOnError();
 	}
 
-	ESP_LOGI(TAG, "SW updated successfully!");
-	FOTA__runAfterSwUpdate();
-	fotaState = FOTA_STATE_UPDADE_FINISHED;
-	task_delete();
+	FOTA__completeSwUpdate();
 
 	return;
 }
-

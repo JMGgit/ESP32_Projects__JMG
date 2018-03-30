@@ -29,9 +29,6 @@ void Off__x10 (void)
 	if (firstCall)
 	{
 		LEDMatrix__clearMatrix();
-#if (OTA_SW_UPDATE == OTA_SW_UPDATE_ON)
-		FOTA__enable();
-#endif
 		firstCall = FALSE;
 	}
 	else
@@ -39,6 +36,11 @@ void Off__x10 (void)
 		LEDMatrix__disableUpdate();
 
 #if (OTA_SW_UPDATE == OTA_SW_UPDATE_ON)
+		if (Buttons__isPressedOnce(&buttonUp))
+		{
+			FOTA__enable();
+		}
+
 		otaState = FOTA__getCurrentState();
 
 		switch (otaState)

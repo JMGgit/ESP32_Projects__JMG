@@ -7,7 +7,7 @@
 
 
 #ifndef FOTA_H_
-#define VOTA_H_
+#define FOTA_H_
 
 
 #include "Main_Types.h"
