@@ -12,26 +12,8 @@
 
 #include "Main_Types.h"
 #include "Main_Config.h"
-#include "uC.h"
-#include "iap_https.h"
 #include "FOTA_Cfg.h"
 
-
-#define OTA_POLLING_INTERVAL_S    1
-#define OTA_AUTO_REBOOT           0
-
-typedef struct
-{
-    // Version number of the running firmware image.
-    uint64_t current_software_version;
-
-    // Version number of the server firmware image.
-    uint64_t server_software_version;
-
-    // Force SW update
-    uint8_t trigger_software_update;
-
-} FOTA_config_t;
 
 typedef enum
 {
