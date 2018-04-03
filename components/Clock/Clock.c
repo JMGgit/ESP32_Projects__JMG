@@ -536,6 +536,14 @@ void Clock__x10 (void)
 }
 
 
+void Clock__shutdown (void)
+{
+#if ((CLOCK_TYPE == CLOCK_TYPE_ESP32) && (CLOCK_SYNC == CLOCK_SYNC_NTP))
+	sntp_stop();
+#endif
+}
+
+
 void Clock__getHourString (char* buffer)
 {
 	uint8_t hours;

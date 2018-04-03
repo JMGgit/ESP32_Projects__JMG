@@ -13,7 +13,7 @@
 #define OTA_SERVER_HOST_NAME      "ds216jmg.ddns.net"
 #define OTA_SERVER_METADATA_PATH  "/esp32/ota_cfg.txt"
 
-#define FOTA_SERVER_HOST_NAME		"ds216jmg.ddns.net"
+#define FOTA_SERVER_HOST_NAME		"192.168.1.109"
 #define FOTA_SERVER_PORT      		"80"
 #define FOTA_BINARY_FILE_NAME		"/esp32/ESP32.bin"
 

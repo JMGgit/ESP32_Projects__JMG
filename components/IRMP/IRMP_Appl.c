@@ -59,12 +59,14 @@ void IRMP__init (void)
 void IRMP__disable (void)
 {
 	timer_pause(TIMER_GROUP_0, TIMER_1);
+	printf("IRMP disabled\n");
 }
 
 
 void IRMP__enable (void)
 {
 	timer_start(TIMER_GROUP_0, TIMER_1);
+	printf("IRMP enabled\n");
 }
 
 uint8_t IRMP__readData (uint16_t address, uint8_t *data, uint8_t dataLength, uint8_t *repeat)

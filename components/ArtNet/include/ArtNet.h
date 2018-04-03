@@ -59,6 +59,7 @@ typedef enum
 esp_err_t ArtNet__init (void);
 void ArtNet__mainFunction (void *param);
 void ArtNet__debug (void *param);
+void ArtNet__shutdown (void);
 
 extern artNetState_t artNetState;
 

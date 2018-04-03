@@ -44,6 +44,7 @@ typedef enum
 
 
 void FOTA__init (void);
+void FOTA__mainFunction(void *param);
 
 void FOTA__enable (void);
 void FOTA__disable (void);

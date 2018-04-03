@@ -186,11 +186,13 @@ void uC__mainFunction (void *param)
 
 void uc__enableWatchdog (void)
 {
+	printf("Watchdog enabled\n");
 	esp_task_wdt_init(WATCHDOG_PERIOD_SECONDS, TRUE);
 }
 
 
 void uc__disableWatchdog (void)
 {
+	printf("Watchdog disabled\n");
 	esp_task_wdt_deinit();
 }

@@ -160,7 +160,7 @@ void LEDMatrix__init (void)
 		&& 	(ledOrder != LED_ORDER__STRAIGHT_FORWARD)
 		)
 	{
-		ledOrder = LED_ORDER__LEFT_2_RIGHT;
+		ledOrder = LED_ORDER__STRAIGHT_FORWARD;
 		uC__nvsUpdate_u8("ledOrder", nvsHandle_ledOrder, &ledOrder_NVS, ledOrder);
 	}
 #endif

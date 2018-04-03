@@ -827,3 +827,9 @@ void ArtNet__debug (void *param)
 		esp_task_wdt_reset();
 	}
 }
+
+
+void ArtNet__shutdown (void)
+{
+	udp_remove(pcb);
+}

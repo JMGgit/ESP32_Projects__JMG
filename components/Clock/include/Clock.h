@@ -31,6 +31,7 @@ typedef struct
 void Clock__init (void);
 void Clock__x10 (void);
 void Clock__mainFunction (void *param);
+void Clock__shutdown (void);
 
 uint8_t Clock__getSeconds (void);
 uint8_t Clock__getMinutes (void);
