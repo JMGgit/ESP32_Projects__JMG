@@ -273,8 +273,6 @@ static void FOTA__abortOnError (void)
 static void FOTA__completeSwUpdate (void)
 {
 	ESP_LOGI(TAG, "SW updated successfully!");
-	fotaState = FOTA_STATE_UPDADE_FINISHED;
-	fotaTrigSwUpdate = FALSE;
 	FOTA__runAfterSwUpdate();
 	vTaskDelete(NULL);
 }
@@ -519,7 +517,16 @@ void FOTA__mainFunction(void *param)
 						FOTA__abortOnError();
 					}
 
+					FOTA__setCurrentSwVersion(newSwversion);
+					fotaState = FOTA_STATE_UPDADE_FINISHED;
+					fotaTrigSwUpdate = FALSE;
 					FOTA__completeSwUpdate();
+				}
+				else
+				{
+					ESP_LOGI(TAG, "Same SW version -> nothing to update");
+					close(socketId);
+					FOTA__abortOnError();
 				}
 			}
 			else
