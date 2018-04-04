@@ -32,13 +32,7 @@ void FOTA__enable (void);
 void FOTA__disable (void);
 
 FOTA_State_t FOTA__getCurrentState (void);
-
 uint64_t FOTA__getCurrentSwVersion (void);
-void FOTA__setCurrentSwVersion (uint64_t newSwVersion);
-
-void FOTA__runBeforeSwUpdate (void);
-void FOTA__runAfterSwUpdate (void);
-
 void FOTA__triggerSwUpdate (void);
 uint8_t FOTA__isSwUpdateTriggered (void);
 
