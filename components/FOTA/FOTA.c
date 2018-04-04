@@ -213,51 +213,51 @@ static bool FOTA__connectToServerHTTP (const char *serverHostName, const char *s
 
 static int FOTA__parseKeyValueUint64 (const char *buffer, const char *key, uint64_t *value)
 {
-    const char *locKey = strstr(buffer, key);
-    uint8_t retVal;
+	const char *locKey = strstr(buffer, key);
+	uint8_t retVal;
 
-    if (!locKey)
-    {
-        retVal = -1;
-    }
-    else
-    {
-        *value = atoll(&locKey[strlen(key)]);
-        retVal = 0;
-    }
+	if (!locKey)
+	{
+		retVal = -1;
+	}
+	else
+	{
+		*value = atoll(&locKey[strlen(key)]);
+		retVal = 0;
+	}
 
-    return retVal;
+	return retVal;
 }
 
 
 static int FOTA__parseKeyValueString (const char *buffer, const char *key, char *str, int strLen)
 {
-    const char *locKey = strstr(buffer, key);
-    uint8_t retVal;
+	const char *locKey = strstr(buffer, key);
+	uint8_t retVal;
 
-    if (!locKey)
-    {
-    	retVal = -1;
-    }
-    else
-    {
-        const char *src = &locKey[strlen(key)];
+	if (!locKey)
+	{
+		retVal = -1;
+	}
+	else
+	{
+		const char *src = &locKey[strlen(key)];
 
-        for (int i = 0; i < strLen - 1; i++)
-        {
-            if (*src == 0x00 || *src == '\r' || *src == '\n')
-            {
-                break;
-            }
+		for (int i = 0; i < strLen - 1; i++)
+		{
+			if (*src == 0x00 || *src == '\r' || *src == '\n')
+			{
+				break;
+			}
 
-            *str++ = *src++;
-        }
+			*str++ = *src++;
+		}
 
-        *str++ = 0x00;
-    	retVal = 0;
-    }
+		*str++ = 0x00;
+		retVal = 0;
+	}
 
-    return retVal;
+	return retVal;
 }
 
 
