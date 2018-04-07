@@ -25,6 +25,18 @@ typedef enum
 } FOTA_State_t;
 
 
+typedef enum
+{
+	FOTA_INTERNAL_STATE_IDLE = 0,
+	FOTA_INTERNAL_STATE_CHECK_PARTITION,
+	FOTA_INTERNAL_STATE_GET_SW_INFO,
+	FOTA_INTERNAL_STATE_CHECK_SW_INFO,
+	FOTA_INTERNAL_STATE_GET_BINARY,
+	FOTA_INTERNAL_STATE_ERROR,
+	FOTA_INTERNAL_STATE_SUCCESS,
+} FOTA_InternalState_t;
+
+
 void FOTA__init (void);
 void FOTA__mainFunction(void *param);
 
@@ -34,7 +46,6 @@ void FOTA__disable (void);
 FOTA_State_t FOTA__getCurrentState (void);
 uint64_t FOTA__getCurrentSwVersion (void);
 void FOTA__triggerSwUpdate (void);
-uint8_t FOTA__isSwUpdateTriggered (void);
 
 
 #endif /* FOTA_H_ */

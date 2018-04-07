@@ -151,13 +151,5 @@ void Main__deleteTask (TaskHandle_t taskHandle)
 void app_main (void)
 {
 	Main__init();
-
-	if (FOTA__isSwUpdateTriggered())
-	{
-		FOTA__enable();
-	}
-	else
-	{
-		Main__createTasks();
-	}
+	Main__createTasks();
 }
