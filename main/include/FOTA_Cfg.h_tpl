@@ -1,5 +1,5 @@
 /*
- * FOTA_Cfg.h
+ * OTA_Cfg.h
  *
  *  Created on: 26.09.2017
  *      Author: Jean-Martin George
@@ -10,45 +10,10 @@
 
 
 /******* SERVER CONFIG *********/
-#define OTA_SERVER_HOST_NAME      "yourServerAdress.com"
-#define OTA_SERVER_METADATA_PATH  "/esp32/ota_cfg.txt"
+#define FOTA_SERVER_HOST_NAME				"yourServerAdress.com"
+#define FOTA_SERVER_PORT      				"80"
+#define FOTA_SW_INFO_FILE_NAME				"/esp32/SW_Info.txt"
+#define FOTA_CHECK_UPDATE_INTERVAL_SECS		5
 
+#endif /* FOTA_CFG_H_ */
 
-
-/******* CERTIFICATE *********/
-
-/* chain.pem */
-#define OTA_PEER_PEM \
-		"-----BEGIN CERTIFICATE-----\n" \
-		"MIIFEzCCA/ugAwIBAgISA4D1dNbjATMAkB9L2pN3qBvPMA0GCSqGSIb3DQEBCwUA\n" \
-		"MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD\n" \
-		"ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xNzA5MjYxNTU2MDBaFw0x\n" \
-		"NzEyMjUxNTU2MDBaMCMxITAfBgNVBAMTGGRzMjE2ai1qbWcudHBsaW5rZG5zLmNv\n" \
-		"bTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALuze8gcfM+UArifnQWR\n" \
-		"FD5sXixqWTa/YuGMHQnlRYFwmu+Qp6zvuCHFPVpUSYYmeR4p3kMqjTNmUOoPUwfH\n" \
-		"u3MvKC1ZsruEOu3AxtaFhD7uB00KmehqeY8TC6Qvz37g1EeDSINjvECxBHl5PryT\n" \
-		"xYrX7l9wmDmVR821jGSyO037WMh67s/glEDg/JiCUz0YBSltlq0feV5iDUQ42KNV\n" \
-		"Q6ot4zDbTsJrOekudCJbRI8KaPQ7RZC5Z827QNsx8fO/KjZelnH4POPPKuPByKw/\n" \
-		"3SqFzapSOQ==\n" \
-		"-----END CERTIFICATE-----\n"
-
-
-/* cert.pem */
-#define OTA_SERVER_ROOT_CA_PEM \
-		"-----BEGIN CERTIFICATE-----\n" \
-		"MIIEkjCCA3qgAwIBAgIQCgFBQgAAAVOFc2oLheynCDANBgkqhkiG9w0BAQsFADA/\n" \
-		"MSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT\n" \
-		"DkRTVCBSb290IENBIFgzMB4XDTE2MDMxNzE2NDA0NloXDTIxMDMxNzE2NDA0Nlow\n" \
-		"SjELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUxldCdzIEVuY3J5cHQxIzAhBgNVBAMT\n" \
-		"GkxldCdzIEVuY3J5cHQgQXV0aG9yaXR5IFgzMIIBIjANBgkqhkiG9w0BAQEFAAOC\n" \
-		"AQ8AMIIBCgKCAQEAnNMM8FrlLke3cl03g7NoYzDq1zUmGSXhvb418XCSL7e4S0EF\n" \
-		"q6meNQhY7LEqxGiHC6PjdeTm86dicbp5gWAf15Gan/PQeGdxyGkOlZHP/uaZ6WA8\n" \
-		"SMx+yk13EiSdRxta67nsHjcAHJyse6cF6s5K671B5TaYucv9bTyWaN8jKkKQDIZ0\n" \
-		"Z8h/pZq4UmEUEz9l6YKHy9v6Dlb2honzhT+Xhq+w3Brvaw2VFn3EK6BlspkENnWA\n" \
-		"a6xK8xuQSXgvopZPKiAlKQTGdMDQMc2PMTiVFrqoM7hD8bEfwzB/onkxEz0tNvjj\n" \
-		"/PIzark5McWvxI0NHWQWM6r6hCm21AvA2H3DkwIDAQABo4IBfTCCAXkwEgYDVR0T\n" \
-		"KOqkqm57TH2H3eDJAkSnh6/DNFu0Qg==\n" \
-		"-----END CERTIFICATE-----\n"
-
-
-#endif /* OTA_CFG_H_ */

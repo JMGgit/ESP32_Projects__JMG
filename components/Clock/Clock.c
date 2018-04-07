@@ -18,6 +18,7 @@
 #if (CLOCK_TYPE == CLOCK_TYPE_ESP32)
 
 struct tm currentTime;
+uint8_t debugInfoEnabled;
 
 uint8_t Clock__getSeconds (void)		{return currentTime.tm_sec;}
 uint8_t Clock__getMinutes (void)		{return currentTime.tm_min;}
@@ -439,6 +440,8 @@ void Clock__init (void)
 	setenv("TZ", "CET-1CEST,M3.5.0,M10.5.0", 1);
 	tzset();
 
+	debugInfoEnabled = TRUE;
+
 #else
 	setOutput(CLOCK_LED_DDR, CLOCK_LED_PIN);
 	Clock__x10(); /* update time */
@@ -454,14 +457,13 @@ void Clock__mainFunction (void *param)
 	time_t currentNTPTime;
 	char buffer1[9];
 	char buffer2[9];
-	uint8_t debugInfoDisabled = FALSE;
 
 	while (1)
 	{
 		time(&currentNTPTime);
 		localtime_r(&currentNTPTime, &currentTime);
 
-		if (!debugInfoDisabled)
+		if (debugInfoEnabled)
 		{
 			if (currentTime.tm_year < (2017 - 1900))
 			{
@@ -472,7 +474,7 @@ void Clock__mainFunction (void *param)
 				Clock__getCompleteDateWithYearString(&buffer1[0]);
 				Clock__getTimeWithSecondsString(&buffer2[0]);
 				printf("Current Time: %s %s\n", buffer2, buffer1);
-				debugInfoDisabled = TRUE;
+				debugInfoEnabled = FALSE;
 			}
 		}
 
@@ -540,6 +542,7 @@ void Clock__shutdown (void)
 {
 #if ((CLOCK_TYPE == CLOCK_TYPE_ESP32) && (CLOCK_SYNC == CLOCK_SYNC_NTP))
 	sntp_stop();
+	debugInfoEnabled = FALSE;
 #endif
 }
 
