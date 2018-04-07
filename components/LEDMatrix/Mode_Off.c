@@ -45,38 +45,45 @@ void Off__x10 (void)
 
 		switch (otaState)
 		{
-			case FOTA_STATE_ERROR:
-			{
-				LEDMatrix__enableUpdate();
-				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(100, 0 , 0));
-				break;
-			}
+		case FOTA_STATE_NO_UPDATE:
+		{
+			LEDMatrix__enableUpdate();
+			LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(10, 10 , 10));
+			break;
+		}
 
-			case FOTA_STATE_CONNECTION_IN_PROGRESS:
-			{
-				LEDMatrix__enableUpdate();
-				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(0, 0 , 100));
-				break;
-			}
+		case FOTA_STATE_ERROR:
+		{
+			LEDMatrix__enableUpdate();
+			LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(100, 0 , 0));
+			break;
+		}
 
-			case FOTA_STATE_UPDATE_IN_PROGRESS:
-			{
-				LEDMatrix__enableUpdate();
-				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(100, 65 , 0));
-				break;
-			}
+		case FOTA_STATE_CONNECTION_IN_PROGRESS:
+		{
+			LEDMatrix__enableUpdate();
+			LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(0, 0 , 100));
+			break;
+		}
 
-			case FOTA_STATE_UPDADE_FINISHED:
-			{
-				LEDMatrix__enableUpdate();
-				LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(0, 100 , 0));
-				break;
-			}
+		case FOTA_STATE_UPDATE_IN_PROGRESS:
+		{
+			LEDMatrix__enableUpdate();
+			LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(100, 65 , 0));
+			break;
+		}
 
-			default:
-			{
-				break;
-			}
+		case FOTA_STATE_UPDADE_FINISHED:
+		{
+			LEDMatrix__enableUpdate();
+			LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(0, 100 , 0));
+			break;
+		}
+
+		default:
+		{
+			break;
+		}
 		}
 #endif
 

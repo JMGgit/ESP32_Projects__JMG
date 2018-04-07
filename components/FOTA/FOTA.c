@@ -113,7 +113,7 @@ static void FOTA__runAfterSwUpdate (void)
 	Clock__init();
 	ArtNet__init();
 	IRMP__enable();
-	vTaskDelete(NULL);
+	//vTaskDelete(NULL);
 }
 
 
@@ -413,7 +413,7 @@ void FOTA__mainFunction(void *param)
 
 		case FOTA_INTERNAL_STATE_CHECK_SW_INFO:
 		{
-			fotaState = FOTA_STATE_CONNECTION_IN_PROGRESS;
+			fotaState = FOTA_STATE_IDLE;
 
 			if (swVersionReceived && swPathReceived)
 			{
@@ -424,8 +424,9 @@ void FOTA__mainFunction(void *param)
 				else
 				{
 					ESP_LOGI(TAG, "Same SW version -> nothing to update");
-					FOTA__runAfterSwUpdate();
 					fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
+					fotaState = FOTA_STATE_NO_UPDATE;
+					FOTA__runAfterSwUpdate();
 				}
 			}
 			else
@@ -575,8 +576,8 @@ void FOTA__mainFunction(void *param)
 			fotaState = FOTA_STATE_ERROR;
 
 			ESP_LOGE(TAG, "SW update aborted due to fatal error");
-			FOTA__runAfterSwUpdate();
 			fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
+			FOTA__runAfterSwUpdate();
 
 			break;
 		}
@@ -586,8 +587,8 @@ void FOTA__mainFunction(void *param)
 			fotaState = FOTA_STATE_UPDADE_FINISHED;
 
 			ESP_LOGI(TAG, "SW updated successfully!");
-			FOTA__runAfterSwUpdate();
 			fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
+			FOTA__runAfterSwUpdate();
 
 			break;
 		}
