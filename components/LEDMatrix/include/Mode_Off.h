@@ -13,7 +13,7 @@
 #include "Main_Config.h"
 #include "Buttons.h"
 #include "LEDMatrix.h"
-#if (OTA_SW_UPDATE == OTA_SW_UPDATE_ON)
+#if (FOTA_SW_UPDATE == FOTA_SW_UPDATE_ON)
 #include "FOTA.h"
 #endif
 

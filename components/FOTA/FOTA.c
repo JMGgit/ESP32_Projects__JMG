@@ -82,20 +82,12 @@ void FOTA__init (void)
 void FOTA__enable (void)
 {
 	fotaEnabled = TRUE;
-
-//	Clock__shutdown();
-//	ArtNet__shutdown();
-//	IRMP__disable();
 }
 
 
 void FOTA__disable (void)
 {
 	fotaEnabled = FALSE;
-
-	//Clock__init();
-	//ArtNet__init();
-	//IRMP__enable();
 }
 
 
@@ -323,7 +315,6 @@ void FOTA__mainFunction(void *param)
 			else
 			{
 				ESP_LOGD(TAG, "Running partition type %d subtype %d (offset 0x%08x)", runningPartition->type, runningPartition->subtype, runningPartition->address);
-				FOTA__runBeforeSwUpdate();
 				fotaInternalState = FOTA_INTERNAL_STATE_GET_SW_INFO;
 			}
 
@@ -426,7 +417,6 @@ void FOTA__mainFunction(void *param)
 					ESP_LOGI(TAG, "Same SW version -> nothing to update");
 					fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
 					fotaState = FOTA_STATE_NO_UPDATE;
-					FOTA__runAfterSwUpdate();
 				}
 			}
 			else
@@ -489,6 +479,8 @@ void FOTA__mainFunction(void *param)
 					binary_file_length = 0;
 				}
 
+				FOTA__runBeforeSwUpdate();
+
 				while (waitForData)
 				{
 					memset(text, 0, TEXT_BUFFSIZE);
@@ -536,6 +528,8 @@ void FOTA__mainFunction(void *param)
 					}
 				}
 
+
+				FOTA__runAfterSwUpdate();
 				close(socketId);
 
 				ESP_LOGI(TAG, "Total Write binary data length : %d", binary_file_length);
@@ -577,7 +571,6 @@ void FOTA__mainFunction(void *param)
 
 			ESP_LOGE(TAG, "SW update aborted due to fatal error");
 			fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
-			FOTA__runAfterSwUpdate();
 
 			break;
 		}
@@ -588,7 +581,6 @@ void FOTA__mainFunction(void *param)
 
 			ESP_LOGI(TAG, "SW updated successfully!");
 			fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
-			FOTA__runAfterSwUpdate();
 
 			break;
 		}

@@ -18,12 +18,14 @@
 #include "Mode_Off.h"
 #include "Mode_LEDScreen.h"
 #include "Mode_Equalizer.h"
+#include "Mode_FOTA.h"
 
 
 typedef enum
 {
 	MODE__STARTUP = 0,
 	MODE__FAILUREMEMORY,
+	MODE__FOTA,
 	MODE__OFF,
 	MODE__ALL_ON,
 	MODE__BLENDING_SLOW,

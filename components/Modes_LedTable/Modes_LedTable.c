@@ -219,6 +219,12 @@ static void Modes__updateMatrix (void)
 			break;
 		}
 
+		case MODE__FOTA:
+		{
+			ModeFOTA__x10();
+			break;
+		}
+
 		default:
 		{
 			break;

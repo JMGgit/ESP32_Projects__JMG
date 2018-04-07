@@ -47,7 +47,7 @@
 
 #define EQUALIZER						EQUALIZER_MSGEQ7
 
-#define OTA_SW_UPDATE					OTA_SW_UPDATE_ON
+#define FOTA_SW_UPDATE					FOTA_SW_UPDATE_ON
 
 #endif
 

@@ -832,4 +832,5 @@ void ArtNet__debug (void *param)
 void ArtNet__shutdown (void)
 {
 	udp_remove(pcb);
+	printf("ArtNet__shutdown done\n");
 }

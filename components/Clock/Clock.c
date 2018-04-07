@@ -544,6 +544,8 @@ void Clock__shutdown (void)
 	sntp_stop();
 	debugInfoEnabled = FALSE;
 #endif
+
+	printf("Clock__shutdown done\n");
 }
 
 
