@@ -68,7 +68,7 @@ void FOTA__init (void)
 {
 	uC__nvsInitStorage("fotaSwVersion", &nvsHandle_currentSwVersion);
 	uC__nvsInitStorage("fotaTrigSwUpd", &nvsHandle_fotaTrigSwUpdate);
-	uC__nvsInitStorage("fotaCyclicCheck", &nvsHandle_fotaTrigSwUpdate);
+	uC__nvsInitStorage("fotaCyclicCheck", &nvsHandle_fotaCyclicCheck);
 
 	currentSwVersion = uC__nvsRead_u64("fotaSwVersion", nvsHandle_currentSwVersion, &currentSwVersion_NVS);
 	fotaTrigSwUpdate = uC__nvsRead_u8("fotaTrigSwUpd", nvsHandle_fotaTrigSwUpdate, &fotaTrigSwUpdate_NVS);
