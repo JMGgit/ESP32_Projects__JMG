@@ -13,14 +13,14 @@
 
 void ModeFOTA__x10 (void)
 {
-	FOTA_State_t otaState;
+	FOTA_State_t fotaState;
 
-	otaState = FOTA__getCurrentState();
-	FOTA__enable();
+	fotaState = FOTA__getCurrentState();
+	FOTA__enableCheck();
 
 	/* LED matrix handling */
 
-	switch (otaState)
+	switch (fotaState)
 	{
 	case FOTA_STATE_NO_UPDATE:
 	{
@@ -63,13 +63,13 @@ void ModeFOTA__x10 (void)
 
 	if (Buttons__isPressedOnce(&buttonOff))
 	{
-		if (otaState == FOTA_STATE_UPDADE_FINISHED)
+		if (fotaState == FOTA_STATE_UPDADE_FINISHED)
 		{
 			uC__triggerSwReset();
 		}
 		else
 		{
-			FOTA__disable();
+			FOTA__disableCheck();
 			Modes__Start();
 		}
 	}

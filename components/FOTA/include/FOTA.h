@@ -41,8 +41,8 @@ typedef enum
 void FOTA__init (void);
 void FOTA__mainFunction(void *param);
 
-void FOTA__enable (void);
-void FOTA__disable (void);
+void FOTA__enableCheck (void);
+void FOTA__disableCheck (void);
 
 FOTA_State_t FOTA__getCurrentState (void);
 uint64_t FOTA__getCurrentSwVersion (void);

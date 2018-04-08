@@ -4,7 +4,7 @@
 #include "esp_event_loop.h"
 #include "esp_task_wdt.h"
 #include "driver/gpio.h"
-#include "driver/uart.h"
+#include "Main_Tasks.h"
 #include "ArtNet.h"
 #include "LedController.h"
 #include "Wifi.h"
@@ -18,17 +18,7 @@
 #include "Buttons.h"
 
 
-#define STARTUP_TIME	250
-
-TaskHandle_t taskHandle_LedTable__mainFunction;
-TaskHandle_t taskHandle_ArtNet__mainFunction;
-TaskHandle_t taskHandle_ArtNet__debug;
-TaskHandle_t taskHandle_LedController__mainFunction;
-TaskHandle_t taskHandle_Clock__mainFunction;
-TaskHandle_t taskHandle_MSGEQ7__mainFunction;
-TaskHandle_t taskHandle_uC__mainFunction;
-TaskHandle_t taskHandle_FOTA__mainFunction;
-
+#define STARTUP_TIME	200
 
 static esp_err_t Main__eventHandler(void *ctx, system_event_t *event)
 {
@@ -89,67 +79,8 @@ void LedTable__mainFunction (void *param)
 }
 
 
-void Main__createTasks (void)
-{
-	if (pdPASS == xTaskCreate(LedTable__mainFunction, "LedTable__mainFunction", 4096, NULL, 1, &taskHandle_LedTable__mainFunction))
-	{
-		esp_task_wdt_add(taskHandle_LedTable__mainFunction);
-		printf("Task LedTable__mainFunction created\n");
-	}
-
-	if (pdPASS == xTaskCreate(ArtNet__mainFunction, "ArtNet__mainFunction", 4096, NULL, 1, &taskHandle_ArtNet__mainFunction))
-	{
-		esp_task_wdt_add(taskHandle_ArtNet__mainFunction);
-		printf("Task ArtNet__mainFunction created\n");
-	}
-
-	if (pdPASS == xTaskCreate(ArtNet__debug, "ArtNet__debug", 4096, NULL, 10 , &taskHandle_ArtNet__debug))
-	{
-		esp_task_wdt_add(taskHandle_ArtNet__debug);
-		printf("Task ArtNet__debug created\n");
-	}
-
-	if (pdPASS == xTaskCreate(LedController__mainFunction, "LedController__mainFunction", 4096, NULL, 1, &taskHandle_LedController__mainFunction))
-	{
-		esp_task_wdt_add(taskHandle_LedController__mainFunction);
-		printf("Task LedController__mainFunction created\n");
-	}
-
-	if (pdPASS == xTaskCreate(Clock__mainFunction, "Clock__mainFunction", 4096, NULL, 2, &taskHandle_Clock__mainFunction))
-	{
-		esp_task_wdt_add(taskHandle_Clock__mainFunction);
-		printf("Task Clock__mainFunction created\n");
-	}
-
-	if (pdPASS == xTaskCreate(MSGEQ7__mainFunction, "MSGEQ7__mainFunction", 4096, NULL, 3, &taskHandle_MSGEQ7__mainFunction))
-	{
-		esp_task_wdt_add(taskHandle_MSGEQ7__mainFunction);
-		printf("Task MSGEQ7__mainFunction created\n");
-	}
-
-	if (pdPASS == xTaskCreate(uC__mainFunction, "uC__mainFunction", 4096, NULL, 1, &taskHandle_uC__mainFunction))
-	{
-		esp_task_wdt_add(taskHandle_uC__mainFunction);
-		printf("Task uC__mainFunction created\n");
-	}
-
-	if (pdPASS == xTaskCreate(FOTA__mainFunction, "FOTA__mainFunction", 8192, NULL, 1, &taskHandle_FOTA__mainFunction))
-	{
-		/* no watchdog for FOTA */
-		printf("Task FOTA__mainFunction created\n");
-	}
-}
-
-
-void Main__deleteTask (TaskHandle_t taskHandle)
-{
-	esp_task_wdt_delete(taskHandle);
-	vTaskDelete(taskHandle);
-}
-
-
 void app_main (void)
 {
 	Main__init();
-	Main__createTasks();
+	Main__createAllTasks();
 }

@@ -22,6 +22,7 @@ uint16_t timerModeChangeConf[MODE_NB] =
 {
 		0xFFFF,	/* MODE__STARTUP = 0 */
 		0xFFFF,	/* MODE__FAILUREMEMORY */
+		0xFFFF,	/* MODE__FOTA */
 		0xFFFF,	/* MODE__OFF */
 		0xFFFF,	/* MODE__ALL_ON */
 		0xFFFF,	/* MODE__BLENDING_SLOW */
@@ -82,9 +83,9 @@ void Modes__Start (void)
 	else
 #endif
 	{
-		if (uC__nvsRead_u8("mode", nvsHandle_mode, &mode_NVS) == MODE__FAILUREMEMORY)
+		if (uC__nvsRead_u8("mode", nvsHandle_mode, &mode_NVS) < MODE__INIT)
 		{
-			Modes__setMode(MODE_NB, TRUE);
+			Modes__setMode(MODE__INIT, TRUE);
 		}
 		else
 		{
@@ -231,9 +232,15 @@ static void Modes__updateMatrix (void)
 		}
 	}
 
-	if ((currentMode != MODE__STARTUP) && (currentMode != MODE__OFF))
+	if (currentMode >= MODE__INIT)
 	{
 		Mode__eepromStorage();
+	}
+
+	if ((FOTA__getCurrentState() == FOTA_STATE_ERROR) || (FOTA__getCurrentState() == FOTA_STATE_UPDADE_FINISHED))
+	{
+		/* display last FOTA result on led matrix */
+		Modes__setMode(MODE__FOTA, FALSE);
 	}
 }
 
@@ -296,7 +303,7 @@ void Modes__x10 (void)
 			/* nothing to do */
 		}
 
-		if (Buttons__isPressedOnce(&buttonOff))
+		if ((Buttons__isPressedOnce(&buttonOff)) && (currentMode >= MODE__INIT))
 		{
 			Modes__setMode(MODE__OFF, FALSE);
 		}

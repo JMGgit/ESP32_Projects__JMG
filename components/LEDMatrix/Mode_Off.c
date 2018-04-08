@@ -8,9 +8,6 @@
 
 #include "Mode_Off.h"
 #include "Modes.h"
-#if (PROJECT == PROJECT__QLOCKTWO)
-#include "Modes_Qlocktwo/Modes_Qlocktwo.h"
-#endif
 
 static uint8_t firstCall = TRUE;
 

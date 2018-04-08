@@ -21,12 +21,12 @@
 #include "esp_ota_ops.h"
 
 
-#define BUFFSIZE 1024
-#define TEXT_BUFFSIZE 1024
+#define OTA_WRITE_DATA_BUFSITE 1024
+#define HTTP_BUFFER_BUFSIZE 1024
 
 static const char *TAG = "FOTA";
-static char ota_write_data[BUFFSIZE + 1] = { 0 };
-static char text[BUFFSIZE + 1] = { 0 };
+static char otaWriteData[OTA_WRITE_DATA_BUFSITE + 1] = { 0 };
+static char httpBuffer[OTA_WRITE_DATA_BUFSITE + 1] = { 0 };
 static int binary_file_length = 0;
 
 static uint64_t currentSwVersion;
@@ -37,7 +37,7 @@ static uint8_t fotaTrigSwUpdate;
 static uint8_t fotaTrigSwUpdate_NVS;
 static nvs_handle nvsHandle_fotaTrigSwUpdate;
 
-static uint8_t fotaEnabled = FALSE;
+static uint8_t fotaCheckForNewVersion = FALSE;
 static FOTA_State_t fotaState = FOTA_STATE_IDLE;
 static FOTA_InternalState_t fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
 
@@ -71,23 +71,22 @@ void FOTA__init (void)
 	uC__nvsUpdate_u8("fotaTrigSwUpd", nvsHandle_fotaTrigSwUpdate, &fotaTrigSwUpdate_NVS, FALSE);
 
 	/* display current SW version and compile time */
-	printf("\nCurrent SW version: %llu\n", FOTA__getCurrentSwVersion());
-	printf("Compile Date: %s\n", __DATE__);
-	printf("Compile Time: %s\n\n", __TIME__);
-
-	printf("OTA__init done\n");
+	ESP_LOGI(TAG, "Current SW version: %llu\n", FOTA__getCurrentSwVersion());
+	ESP_LOGI(TAG, "Compile Date: %s\n", __DATE__);
+	ESP_LOGI(TAG, "Compile Time: %s\n\n", __TIME__);
+	ESP_LOGI(TAG, "FOTA__init done\n");
 }
 
 
-void FOTA__enable (void)
+void FOTA__enableCheck (void)
 {
-	fotaEnabled = TRUE;
+	fotaCheckForNewVersion = TRUE;
 }
 
 
-void FOTA__disable (void)
+void FOTA__disableCheck (void)
 {
-	fotaEnabled = FALSE;
+	fotaCheckForNewVersion = FALSE;
 }
 
 
@@ -105,7 +104,7 @@ static void FOTA__runAfterSwUpdate (void)
 	Clock__init();
 	ArtNet__init();
 	IRMP__enable();
-	//vTaskDelete(NULL);
+
 }
 
 
@@ -141,10 +140,10 @@ static uint8_t FOTA__readPastHttpHeader (char text[], int total_len, esp_ota_han
 		{
 			int i_write_len = total_len - (i + 2);
 
-			memset(ota_write_data, 0, BUFFSIZE);
-			memcpy(ota_write_data, &(text[i + 2]), i_write_len);
+			memset(otaWriteData, 0, OTA_WRITE_DATA_BUFSITE);
+			memcpy(otaWriteData, &(text[i + 2]), i_write_len);
 
-			esp_err_t err = esp_ota_write(update_handle, (const void *) ota_write_data, i_write_len);
+			esp_err_t err = esp_ota_write(update_handle, (const void *) otaWriteData, i_write_len);
 
 			if (err != ESP_OK)
 			{
@@ -290,7 +289,7 @@ void FOTA__mainFunction(void *param)
 		{
 			/* don't set fotaState to FOTA_STATE_IDLE to display last result with led matrix */
 
-			if (Wifi__isConnected() && (fotaEnabled) && (fotaTrigSwUpdate))
+			if ((Wifi__isConnected()) && (fotaCheckForNewVersion || fotaTrigSwUpdate))
 			{
 				fotaTrigSwUpdate = FALSE;
 				fotaInternalState = FOTA_INTERNAL_STATE_CHECK_PARTITION;
@@ -357,8 +356,8 @@ void FOTA__mainFunction(void *param)
 
 				while (waitForData)
 				{
-					memset(text, 0, TEXT_BUFFSIZE);
-					recvBufLength = recv(socketId, text, TEXT_BUFFSIZE, 0);
+					memset(httpBuffer, 0, HTTP_BUFFER_BUFSIZE);
+					recvBufLength = recv(socketId, httpBuffer, HTTP_BUFFER_BUFSIZE, 0);
 					ESP_LOGD(TAG, "Buffer left: %d", recvBufLength);
 
 					if (recvBufLength < 0)
@@ -369,14 +368,14 @@ void FOTA__mainFunction(void *param)
 					}
 					else if (recvBufLength > 0)
 					{
-						if (!FOTA__parseKeyValueUint64(text, "VERSION=", &newSwversion))
+						if (!FOTA__parseKeyValueUint64(httpBuffer, "VERSION=", &newSwversion))
 						{
 							ESP_LOGI(TAG, "SW Info: New SW version: '%llu'", newSwversion);
 							ESP_LOGI(TAG, "SW Info: Current SW version: '%llu'", currentSwVersion);
 							swVersionReceived = TRUE;
 						}
 
-						if (!FOTA__parseKeyValueString(text, "FILE=", swPath, sizeof(swPath) / sizeof(char)))
+						if (!FOTA__parseKeyValueString(httpBuffer, "FILE=", swPath, sizeof(swPath) / sizeof(char)))
 						{
 							ESP_LOGI(TAG, "SW Info: New SW Path '%s'", swPath);
 							swPathReceived = TRUE;
@@ -461,6 +460,8 @@ void FOTA__mainFunction(void *param)
 					free(httpRequest);
 				}
 
+				FOTA__runBeforeSwUpdate();
+
 				update_partition = esp_ota_get_next_update_partition(NULL);
 				ESP_LOGI(TAG, "Writing to partition subtype %d at offset 0x%x",	update_partition->subtype, update_partition->address);
 				assert(update_partition != NULL);
@@ -479,14 +480,12 @@ void FOTA__mainFunction(void *param)
 					binary_file_length = 0;
 				}
 
-				FOTA__runBeforeSwUpdate();
-
 				while (waitForData)
 				{
-					memset(text, 0, TEXT_BUFFSIZE);
-					memset(ota_write_data, 0, BUFFSIZE);
+					memset(httpBuffer, 0, HTTP_BUFFER_BUFSIZE);
+					memset(otaWriteData, 0, OTA_WRITE_DATA_BUFSITE);
 
-					recvBufLength = recv(socketId, text, TEXT_BUFFSIZE, 0);
+					recvBufLength = recv(socketId, httpBuffer, HTTP_BUFFER_BUFSIZE, 0);
 
 					if (recvBufLength < 0)
 					{
@@ -496,13 +495,13 @@ void FOTA__mainFunction(void *param)
 					}
 					else if ((recvBufLength > 0) && (!respBodyStart))
 					{
-						memcpy(ota_write_data, text, recvBufLength);
-						respBodyStart = FOTA__readPastHttpHeader(text, recvBufLength,	espOtaHandle);
+						memcpy(otaWriteData, httpBuffer, recvBufLength);
+						respBodyStart = FOTA__readPastHttpHeader(httpBuffer, recvBufLength,	espOtaHandle);
 					}
 					else if ((recvBufLength > 0) && (respBodyStart))
 					{
-						memcpy(ota_write_data, text, recvBufLength);
-						err = esp_ota_write(espOtaHandle, (const void *) ota_write_data, recvBufLength);
+						memcpy(otaWriteData, httpBuffer, recvBufLength);
+						err = esp_ota_write(espOtaHandle, (const void *) otaWriteData, recvBufLength);
 
 						if (err != ESP_OK)
 						{
@@ -582,6 +581,9 @@ void FOTA__mainFunction(void *param)
 			ESP_LOGI(TAG, "SW updated successfully!");
 			fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
 
+			/* set mode to FOTA to display result on led matrix */
+			Modes__setMode(MODE__FOTA, FALSE);
+
 			break;
 		}
 
@@ -592,6 +594,10 @@ void FOTA__mainFunction(void *param)
 		}
 
 		} /* switch case */
-	}
+
+		/* 10s delay */
+		vTaskDelay((FOTA_CHECK_UPDATE_INTERVAL_SECS * 1000) / portTICK_PERIOD_MS);
+
+	} /* while */
 }
 
