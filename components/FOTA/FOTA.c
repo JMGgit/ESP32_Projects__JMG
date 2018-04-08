@@ -92,7 +92,7 @@ void FOTA__disableCheck (void)
 
 static void FOTA__runBeforeSwUpdate (void)
 {
-	Modes__setMode(MODE__OFF, FALSE);
+	Modes__setMode(MODE__FOTA, FALSE);
 	Clock__shutdown();
 	ArtNet__shutdown();
 	IRMP__disable();
@@ -269,6 +269,7 @@ void FOTA__mainFunction(void *param)
 	int recvBufLength = 0;
 	uint8_t waitForData = FALSE;
 	uint8_t respBodyStart = FALSE;
+	uint8_t taskPause = FALSE;
 
 	uint8_t swVersionReceived = FALSE;
 	uint64_t newSwversion = 0;
@@ -282,320 +283,319 @@ void FOTA__mainFunction(void *param)
 
 	while (1)
 	{
-		switch (fotaInternalState)
+		while (!taskPause)
 		{
-
-		case FOTA_INTERNAL_STATE_IDLE:
-		{
-			/* don't set fotaState to FOTA_STATE_IDLE to display last result with led matrix */
-
-			if ((Wifi__isConnected()) && (fotaCheckForNewVersion || fotaTrigSwUpdate))
+			switch (fotaInternalState)
 			{
-				fotaTrigSwUpdate = FALSE;
-				fotaInternalState = FOTA_INTERNAL_STATE_CHECK_PARTITION;
-			}
 
-			break;
-		}
-
-		case FOTA_INTERNAL_STATE_CHECK_PARTITION:
-		{
-			fotaState = FOTA_STATE_IDLE;
-
-			configuredPartition =  esp_ota_get_boot_partition();
-			runningPartition = esp_ota_get_running_partition();
-
-			if (configuredPartition != runningPartition)
+			case FOTA_INTERNAL_STATE_IDLE:
 			{
-				ESP_LOGW(TAG, "Configured OTA boot partition at offset 0x%08x, but running from offset 0x%08x", configuredPartition->address, runningPartition->address);
-				ESP_LOGW(TAG, "(This can happen if either the OTA boot data or preferred boot image become corrupted somehow.)");
-				fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
-			}
-			else
-			{
-				ESP_LOGD(TAG, "Running partition type %d subtype %d (offset 0x%08x)", runningPartition->type, runningPartition->subtype, runningPartition->address);
-				fotaInternalState = FOTA_INTERNAL_STATE_GET_SW_INFO;
-			}
+				/* don't set fotaState to FOTA_STATE_IDLE to display last result with led matrix */
 
-			break;
-		}
-
-		case FOTA_INTERNAL_STATE_GET_SW_INFO:
-		{
-			fotaState = FOTA_STATE_CONNECTION_IN_PROGRESS;
-
-			if (FOTA__connectToServerHTTP(FOTA_SERVER_HOST_NAME, FOTA_SERVER_PORT, &socketId))
-			{
-				ESP_LOGI(TAG, "SW Info: Connected to http server");
-
-				httpRequestLength = asprintf(&httpRequest, httpGetRequest, FOTA_SW_INFO_FILE_NAME, FOTA_SERVER_HOST_NAME, FOTA_SERVER_PORT);
-
-				if (httpRequestLength < 0)
+				if ((Wifi__isConnected()) && (fotaCheckForNewVersion || fotaTrigSwUpdate))
 				{
-					ESP_LOGE(TAG, "SW Info: Failed to allocate memory for GET request buffer");
-					waitForData = FALSE;
-					fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
-				}
-				else
-				{
-					if (send(socketId, httpRequest, httpRequestLength, 0) < 0)
-					{
-						ESP_LOGE(TAG, "SW Info: Send GET request to server failed");
-						waitForData = FALSE;
-						fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
-					}
-					else
-					{
-						/* success */
-						ESP_LOGD(TAG, "SW Info: HTTP Request: %s", httpRequest);
-						waitForData = TRUE;
-					}
-
-					free(httpRequest);
+					fotaTrigSwUpdate = FALSE;
+					taskPause = FALSE;
+					fotaInternalState = FOTA_INTERNAL_STATE_CHECK_PARTITION;
 				}
 
-				while (waitForData)
-				{
-					memset(httpBuffer, 0, HTTP_BUFFER_BUFSIZE);
-					recvBufLength = recv(socketId, httpBuffer, HTTP_BUFFER_BUFSIZE, 0);
-					ESP_LOGD(TAG, "Buffer left: %d", recvBufLength);
-
-					if (recvBufLength < 0)
-					{
-						ESP_LOGE(TAG, "SW Info: Error: receive SW version error! errno=%d", errno);
-						waitForData = FALSE;
-						fotaState = FOTA_STATE_ERROR;
-					}
-					else if (recvBufLength > 0)
-					{
-						if (!FOTA__parseKeyValueUint64(httpBuffer, "VERSION=", &newSwversion))
-						{
-							ESP_LOGI(TAG, "SW Info: New SW version: '%llu'", newSwversion);
-							ESP_LOGI(TAG, "SW Info: Current SW version: '%llu'", currentSwVersion);
-							swVersionReceived = TRUE;
-						}
-
-						if (!FOTA__parseKeyValueString(httpBuffer, "FILE=", swPath, sizeof(swPath) / sizeof(char)))
-						{
-							ESP_LOGI(TAG, "SW Info: New SW Path '%s'", swPath);
-							swPathReceived = TRUE;
-						}
-					}
-					else /* recvBufLength == 0 */
-					{
-						ESP_LOGI(TAG, "SW Info: all data received");
-						waitForData = FALSE;
-					}
-				}
-
-				close(socketId);
-			}
-			else
-			{
-				ESP_LOGE(TAG, "Connect to http server failed!");
-				fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
+				break;
 			}
 
-			fotaInternalState = FOTA_INTERNAL_STATE_CHECK_SW_INFO;
-
-			break;
-		}
-
-		case FOTA_INTERNAL_STATE_CHECK_SW_INFO:
-		{
-			fotaState = FOTA_STATE_IDLE;
-
-			if (swVersionReceived && swPathReceived)
+			case FOTA_INTERNAL_STATE_CHECK_PARTITION:
 			{
-				if (newSwversion != currentSwVersion)
+				fotaState = FOTA_STATE_IDLE;
+
+				configuredPartition =  esp_ota_get_boot_partition();
+				runningPartition = esp_ota_get_running_partition();
+
+				if (configuredPartition != runningPartition)
 				{
-					fotaInternalState = FOTA_INTERNAL_STATE_GET_BINARY;
-				}
-				else
-				{
-					ESP_LOGI(TAG, "Same SW version -> nothing to update");
+					ESP_LOGW(TAG, "Configured OTA boot partition at offset 0x%08x, but running from offset 0x%08x", configuredPartition->address, runningPartition->address);
+					ESP_LOGW(TAG, "(This can happen if either the OTA boot data or preferred boot image become corrupted somehow.)");
 					fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
-					fotaState = FOTA_STATE_NO_UPDATE;
-				}
-			}
-			else
-			{
-				ESP_LOGE(TAG, "Error: not able to parse SW version");
-				fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
-			}
-
-			break;
-		}
-
-		case FOTA_INTERNAL_STATE_GET_BINARY:
-		{
-			fotaState = FOTA_STATE_UPDATE_IN_PROGRESS;
-
-			if (FOTA__connectToServerHTTP(FOTA_SERVER_HOST_NAME, FOTA_SERVER_PORT, &socketId))
-			{
-				ESP_LOGI(TAG, "Binary: Connected to http server");
-
-				httpRequestLength = asprintf(&httpRequest, httpGetRequest, swPath, FOTA_SERVER_HOST_NAME, FOTA_SERVER_PORT);
-
-				if (httpRequestLength < 0)
-				{
-					ESP_LOGE(TAG, "Binary: Failed to allocate memory for GET request buffer");
-					fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
 				}
 				else
 				{
-					if (send(socketId, httpRequest, httpRequestLength, 0) < 0)
-					{
-						ESP_LOGE(TAG, "Binary: Send GET request to server failed");
-						waitForData = FALSE;
-						fotaInternalState = FOTA_INTERNAL_STATE_ERROR;;
-					}
-					else
-					{
-						/* success */
-						ESP_LOGD(TAG, "Binary: HTTP Request: %s", httpRequest);
-						waitForData = TRUE;
-					}
-
-					free(httpRequest);
+					ESP_LOGD(TAG, "Running partition type %d subtype %d (offset 0x%08x)", runningPartition->type, runningPartition->subtype, runningPartition->address);
+					fotaInternalState = FOTA_INTERNAL_STATE_GET_SW_INFO;
 				}
 
-				FOTA__runBeforeSwUpdate();
+				break;
+			}
 
-				update_partition = esp_ota_get_next_update_partition(NULL);
-				ESP_LOGI(TAG, "Writing to partition subtype %d at offset 0x%x",	update_partition->subtype, update_partition->address);
-				assert(update_partition != NULL);
+			case FOTA_INTERNAL_STATE_GET_SW_INFO:
+			{
+				fotaState = FOTA_STATE_CONNECTION_IN_PROGRESS;
 
-				err = esp_ota_begin(update_partition, OTA_SIZE_UNKNOWN, &espOtaHandle);
-
-				if (err != ESP_OK)
+				if (FOTA__connectToServerHTTP(FOTA_SERVER_HOST_NAME, FOTA_SERVER_PORT, &socketId))
 				{
-					ESP_LOGE(TAG, "esp_ota_begin failed, error=%d", err);
-					waitForData = FALSE;
-					fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
-				}
-				else
-				{
-					waitForData = TRUE;
-					binary_file_length = 0;
-				}
+					ESP_LOGI(TAG, "SW Info: Connected to http server");
 
-				while (waitForData)
-				{
-					memset(httpBuffer, 0, HTTP_BUFFER_BUFSIZE);
-					memset(otaWriteData, 0, OTA_WRITE_DATA_BUFSITE);
+					httpRequestLength = asprintf(&httpRequest, httpGetRequest, FOTA_SW_INFO_FILE_NAME, FOTA_SERVER_HOST_NAME, FOTA_SERVER_PORT);
 
-					recvBufLength = recv(socketId, httpBuffer, HTTP_BUFFER_BUFSIZE, 0);
-
-					if (recvBufLength < 0)
+					if (httpRequestLength < 0)
 					{
-						ESP_LOGE(TAG, "Error: receive SW binary data error! errno=%d", errno);
+						ESP_LOGE(TAG, "SW Info: Failed to allocate memory for GET request buffer");
 						waitForData = FALSE;
 						fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
 					}
-					else if ((recvBufLength > 0) && (!respBodyStart))
+					else
 					{
-						memcpy(otaWriteData, httpBuffer, recvBufLength);
-						respBodyStart = FOTA__readPastHttpHeader(httpBuffer, recvBufLength,	espOtaHandle);
-					}
-					else if ((recvBufLength > 0) && (respBodyStart))
-					{
-						memcpy(otaWriteData, httpBuffer, recvBufLength);
-						err = esp_ota_write(espOtaHandle, (const void *) otaWriteData, recvBufLength);
-
-						if (err != ESP_OK)
+						if (send(socketId, httpRequest, httpRequestLength, 0) < 0)
 						{
-							ESP_LOGE(TAG, "Error: esp_ota_write failed! err=0x%x", err);
+							ESP_LOGE(TAG, "SW Info: Send GET request to server failed");
 							waitForData = FALSE;
 							fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
 						}
+						else
+						{
+							/* success */
+							ESP_LOGD(TAG, "SW Info: HTTP Request: %s", httpRequest);
+							waitForData = TRUE;
+						}
 
-						binary_file_length += recvBufLength;
-						ESP_LOGD(TAG, "Have written image length %d", binary_file_length);
-						ESP_LOGD(TAG, "Buffer left %d", recvBufLength);
+						free(httpRequest);
 					}
-					else if (recvBufLength == 0)
+
+					while (waitForData)
 					{
-						waitForData = FALSE;
-						ESP_LOGI(TAG, "Connection closed, all packets received");
+						memset(httpBuffer, 0, HTTP_BUFFER_BUFSIZE);
+						recvBufLength = recv(socketId, httpBuffer, HTTP_BUFFER_BUFSIZE, 0);
+						ESP_LOGD(TAG, "Buffer left: %d", recvBufLength);
+
+						if (recvBufLength < 0)
+						{
+							ESP_LOGE(TAG, "SW Info: Error: receive SW version error! errno=%d", errno);
+							waitForData = FALSE;
+							fotaState = FOTA_STATE_ERROR;
+						}
+						else if (recvBufLength > 0)
+						{
+							if (!FOTA__parseKeyValueUint64(httpBuffer, "VERSION=", &newSwversion))
+							{
+								ESP_LOGI(TAG, "SW Info: New SW version: '%llu'", newSwversion);
+								ESP_LOGI(TAG, "SW Info: Current SW version: '%llu'", currentSwVersion);
+								swVersionReceived = TRUE;
+							}
+
+							if (!FOTA__parseKeyValueString(httpBuffer, "FILE=", swPath, sizeof(swPath) / sizeof(char)))
+							{
+								ESP_LOGI(TAG, "SW Info: New SW Path '%s'", swPath);
+								swPathReceived = TRUE;
+							}
+						}
+						else /* recvBufLength == 0 */
+						{
+							ESP_LOGI(TAG, "SW Info: all data received");
+							waitForData = FALSE;
+						}
 					}
-					else
-					{
-						waitForData = FALSE;
-						fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
-						ESP_LOGE(TAG, "Unexpected recv result");
-					}
-				}
 
-
-				FOTA__runAfterSwUpdate();
-				close(socketId);
-
-				ESP_LOGI(TAG, "Total Write binary data length : %d", binary_file_length);
-
-				if (esp_ota_end(espOtaHandle) != ESP_OK)
-				{
-					ESP_LOGE(TAG, "esp_ota_end failed!");
-					fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
+					close(socketId);
 				}
 				else
 				{
-					/* success */
-					err = esp_ota_set_boot_partition(update_partition);
+					ESP_LOGE(TAG, "Connect to http server failed!");
+					fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
+				}
 
-					if (err != ESP_OK)
+				fotaInternalState = FOTA_INTERNAL_STATE_CHECK_SW_INFO;
+
+				break;
+			}
+
+			case FOTA_INTERNAL_STATE_CHECK_SW_INFO:
+			{
+				fotaState = FOTA_STATE_IDLE;
+
+				if (swVersionReceived && swPathReceived)
+				{
+					if (newSwversion != currentSwVersion)
 					{
-						ESP_LOGE(TAG, "esp_ota_set_boot_partition failed! err=0x%x", err);
+						fotaInternalState = FOTA_INTERNAL_STATE_GET_BINARY;
+					}
+					else
+					{
+						ESP_LOGI(TAG, "Same SW version -> nothing to update");
+						taskPause = TRUE;
+						fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
+						fotaState = FOTA_STATE_NO_UPDATE;
+					}
+				}
+				else
+				{
+					ESP_LOGE(TAG, "Error: not able to parse SW version");
+					fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
+				}
+
+				break;
+			}
+
+			case FOTA_INTERNAL_STATE_GET_BINARY:
+			{
+				fotaState = FOTA_STATE_UPDATE_IN_PROGRESS;
+
+				if (FOTA__connectToServerHTTP(FOTA_SERVER_HOST_NAME, FOTA_SERVER_PORT, &socketId))
+				{
+					ESP_LOGI(TAG, "Binary: Connected to http server");
+
+					httpRequestLength = asprintf(&httpRequest, httpGetRequest, swPath, FOTA_SERVER_HOST_NAME, FOTA_SERVER_PORT);
+
+					if (httpRequestLength < 0)
+					{
+						ESP_LOGE(TAG, "Binary: Failed to allocate memory for GET request buffer");
 						fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
 					}
 					else
 					{
-						FOTA__setCurrentSwVersion(newSwversion);
-						fotaInternalState = FOTA_INTERNAL_STATE_SUCCESS;
+						if (send(socketId, httpRequest, httpRequestLength, 0) < 0)
+						{
+							ESP_LOGE(TAG, "Binary: Send GET request to server failed");
+							waitForData = FALSE;
+							fotaInternalState = FOTA_INTERNAL_STATE_ERROR;;
+						}
+						else
+						{
+							/* success */
+							ESP_LOGD(TAG, "Binary: HTTP Request: %s", httpRequest);
+							waitForData = TRUE;
+						}
+
+						free(httpRequest);
+					}
+
+					FOTA__runBeforeSwUpdate();
+
+					update_partition = esp_ota_get_next_update_partition(NULL);
+					ESP_LOGI(TAG, "Writing to partition subtype %d at offset 0x%x",	update_partition->subtype, update_partition->address);
+					assert(update_partition != NULL);
+
+					err = esp_ota_begin(update_partition, OTA_SIZE_UNKNOWN, &espOtaHandle);
+
+					if (err != ESP_OK)
+					{
+						ESP_LOGE(TAG, "esp_ota_begin failed, error=%d", err);
+						waitForData = FALSE;
+						fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
+					}
+					else
+					{
+						waitForData = TRUE;
+						binary_file_length = 0;
+					}
+
+					while (waitForData)
+					{
+						memset(httpBuffer, 0, HTTP_BUFFER_BUFSIZE);
+						memset(otaWriteData, 0, OTA_WRITE_DATA_BUFSITE);
+
+						recvBufLength = recv(socketId, httpBuffer, HTTP_BUFFER_BUFSIZE, 0);
+
+						if (recvBufLength < 0)
+						{
+							ESP_LOGE(TAG, "Error: receive SW binary data error! errno=%d", errno);
+							waitForData = FALSE;
+							fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
+						}
+						else if ((recvBufLength > 0) && (!respBodyStart))
+						{
+							memcpy(otaWriteData, httpBuffer, recvBufLength);
+							respBodyStart = FOTA__readPastHttpHeader(httpBuffer, recvBufLength,	espOtaHandle);
+						}
+						else if ((recvBufLength > 0) && (respBodyStart))
+						{
+							memcpy(otaWriteData, httpBuffer, recvBufLength);
+							err = esp_ota_write(espOtaHandle, (const void *) otaWriteData, recvBufLength);
+
+							if (err != ESP_OK)
+							{
+								ESP_LOGE(TAG, "Error: esp_ota_write failed! err=0x%x", err);
+								waitForData = FALSE;
+								fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
+							}
+
+							binary_file_length += recvBufLength;
+							ESP_LOGD(TAG, "Have written image length %d", binary_file_length);
+							ESP_LOGD(TAG, "Buffer left %d", recvBufLength);
+						}
+						else if (recvBufLength == 0)
+						{
+							waitForData = FALSE;
+							ESP_LOGI(TAG, "Connection closed, all packets received");
+						}
+						else
+						{
+							waitForData = FALSE;
+							fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
+							ESP_LOGE(TAG, "Unexpected recv result");
+						}
+					}
+
+
+					FOTA__runAfterSwUpdate();
+					close(socketId);
+
+					ESP_LOGI(TAG, "Total Write binary data length : %d", binary_file_length);
+
+					if (esp_ota_end(espOtaHandle) != ESP_OK)
+					{
+						ESP_LOGE(TAG, "esp_ota_end failed!");
+						fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
+					}
+					else
+					{
+						/* success */
+						err = esp_ota_set_boot_partition(update_partition);
+
+						if (err != ESP_OK)
+						{
+							ESP_LOGE(TAG, "esp_ota_set_boot_partition failed! err=0x%x", err);
+							fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
+						}
+						else
+						{
+							ESP_LOGI(TAG, "SW updated successfully!");
+							FOTA__setCurrentSwVersion(newSwversion);
+							fotaInternalState = FOTA_INTERNAL_STATE_SUCCESS;
+						}
 					}
 				}
+				else
+				{
+					ESP_LOGE(TAG, "Binary: Connect to http server failed!");
+					fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
+				}
+
+				break;
 			}
-			else
+
+			case FOTA_INTERNAL_STATE_ERROR:
 			{
-				ESP_LOGE(TAG, "Binary: Connect to http server failed!");
-				fotaInternalState = FOTA_INTERNAL_STATE_ERROR;
+				fotaState = FOTA_STATE_ERROR;
+				taskPause = TRUE;
+				ESP_LOGE(TAG, "SW update aborted due to fatal error");
+				fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
+				break;
 			}
 
-			break;
+			case FOTA_INTERNAL_STATE_SUCCESS:
+			{
+				fotaState = FOTA_STATE_UPDADE_FINISHED;
+				taskPause = TRUE;
+				break;
+			}
+
+			default:
+			{
+				/* do nothing */
+				break;
+			}
+
+			} /* switch case */
 		}
 
-		case FOTA_INTERNAL_STATE_ERROR:
-		{
-			fotaState = FOTA_STATE_ERROR;
-
-			ESP_LOGE(TAG, "SW update aborted due to fatal error");
-			fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
-
-			break;
-		}
-
-		case FOTA_INTERNAL_STATE_SUCCESS:
-		{
-			fotaState = FOTA_STATE_UPDADE_FINISHED;
-
-			ESP_LOGI(TAG, "SW updated successfully!");
-			fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
-
-			/* set mode to FOTA to display result on led matrix */
-			Modes__setMode(MODE__FOTA, FALSE);
-
-			break;
-		}
-
-		default:
-		{
-			/* do nothing */
-			break;
-		}
-
-		} /* switch case */
-
-		/* 10s delay */
+		taskPause = FALSE;
 		vTaskDelay((FOTA_CHECK_UPDATE_INTERVAL_SECS * 1000) / portTICK_PERIOD_MS);
 
 	} /* while */
