@@ -6,8 +6,12 @@
  */
 
 
+#define LOG_LOCAL_LEVEL ESP_LOG_INFO
+#define LOG_TAG "MODE_OFF"
+
 #include "Mode_Off.h"
 #include "Modes.h"
+#include "esp_log.h"
 
 static uint8_t firstCall = TRUE;
 
@@ -117,6 +121,7 @@ void Off__x10 (void)
 
 		if (Buttons__isPressedOnce(&buttonLeft))
 		{
+			ESP_LOGI(LOG_TAG, "Switching to MODE__FOTA");
 			Modes__setMode(MODE__FOTA, FALSE);
 			LEDMatrix__enableUpdate();
 			firstCall = TRUE;

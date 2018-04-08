@@ -37,10 +37,10 @@ static uint8_t fotaTrigSwUpdate;
 static uint8_t fotaTrigSwUpdate_NVS;
 static nvs_handle nvsHandle_fotaTrigSwUpdate;
 
-static uint8_t fotaCyclicCheck;
-static uint8_t fotaCyclicCheck_NVS;
-static nvs_handle nvsHandle_fotaCyclicCheck;
-static uint8_t fotaCyclicCheckTemp;
+static uint8_t fotaCyclCheck;
+static uint8_t fotaCyclCheck_NVS;
+static nvs_handle nvsHandle_fotaCyclCheck;
+static uint8_t fotaCyclCheckTemp;
 static FOTA_State_t fotaState = FOTA_STATE_IDLE;
 static FOTA_InternalState_t fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
 
@@ -68,60 +68,60 @@ void FOTA__init (void)
 {
 	uC__nvsInitStorage("fotaSwVersion", &nvsHandle_currentSwVersion);
 	uC__nvsInitStorage("fotaTrigSwUpd", &nvsHandle_fotaTrigSwUpdate);
-	uC__nvsInitStorage("fotaCyclicCheck", &nvsHandle_fotaCyclicCheck);
+	uC__nvsInitStorage("fotaCyclCheck", &nvsHandle_fotaCyclCheck);
 
 	currentSwVersion = uC__nvsRead_u64("fotaSwVersion", nvsHandle_currentSwVersion, &currentSwVersion_NVS);
 	fotaTrigSwUpdate = uC__nvsRead_u8("fotaTrigSwUpd", nvsHandle_fotaTrigSwUpdate, &fotaTrigSwUpdate_NVS);
-	fotaCyclicCheck = uC__nvsRead_u8("fotaCyclicCheck", nvsHandle_fotaCyclicCheck, &fotaCyclicCheck_NVS);
+	fotaCyclCheck = uC__nvsRead_u8("fotaCyclCheck", nvsHandle_fotaCyclCheck, &fotaCyclCheck_NVS);
 	uC__nvsUpdate_u8("fotaTrigSwUpd", nvsHandle_fotaTrigSwUpdate, &fotaTrigSwUpdate_NVS, FALSE);
 
 	/* display current SW version and compile time */
 	ESP_LOGI(LOG_TAG, "Current SW version: %llu", FOTA__getCurrentSwVersion());
 	ESP_LOGI(LOG_TAG, "Compile Date: %s", __DATE__);
 	ESP_LOGI(LOG_TAG, "Compile Time: %s", __TIME__);
-	ESP_LOGI(LOG_TAG, "FOTA cyclic check state: %d", fotaCyclicCheck);
+	ESP_LOGI(LOG_TAG, "FOTA cyclic check state: %d", fotaCyclCheck);
 	ESP_LOGI(LOG_TAG, "FOTA__init done");
 }
 
 
 void FOTA__toggleCyclicCheck (void)
 {
-	if (fotaCyclicCheck)
+	if (fotaCyclCheck)
 	{
-		fotaCyclicCheck = FALSE;
+		fotaCyclCheck = FALSE;
 	}
 	else
 	{
-		fotaCyclicCheck = TRUE;
+		fotaCyclCheck = TRUE;
 	}
 
-	uC__nvsUpdate_u8("fotaCyclicCheck", nvsHandle_fotaCyclicCheck, &fotaCyclicCheck, TRUE);
+	uC__nvsUpdate_u8("fotaCyclCheck", nvsHandle_fotaCyclCheck, &fotaCyclCheck_NVS, fotaCyclCheck);
 }
 
 
 void FOTA__enableCyclicCheck (void)
 {
-	fotaCyclicCheck = FALSE;
-	uC__nvsUpdate_u8("fotaCyclicCheck", nvsHandle_fotaCyclicCheck, &fotaCyclicCheck, TRUE);
+	fotaCyclCheck = TRUE;
+	uC__nvsUpdate_u8("fotaCyclCheck", nvsHandle_fotaCyclCheck, &fotaCyclCheck_NVS, fotaCyclCheck);
 }
 
 
 void FOTA__enableCyclicCheckTemp (void)
 {
-	fotaCyclicCheckTemp = TRUE;
+	fotaCyclCheckTemp = TRUE;
 }
 
 
 void FOTA__disableCylicCheck (void)
 {
-	fotaCyclicCheck = FALSE;
-	uC__nvsUpdate_u8("fotaCyclicCheck", nvsHandle_fotaCyclicCheck, &fotaCyclicCheck, TRUE);
+	fotaCyclCheck = FALSE;
+	uC__nvsUpdate_u8("fotaCyclCheck", nvsHandle_fotaCyclCheck, &fotaCyclCheck_NVS, fotaCyclCheck);
 }
 
 
 void FOTA__disableCyclicCheckTemp (void)
 {
-	fotaCyclicCheckTemp = FALSE;
+	fotaCyclCheckTemp = FALSE;
 }
 
 
@@ -145,6 +145,7 @@ static void FOTA__runAfterSwUpdate (void)
 
 void FOTA__triggerSwUpdate (void)
 {
+	fotaTrigSwUpdate = TRUE;
 	uC__nvsUpdate_u8("fotaTrigSwUpd", nvsHandle_fotaTrigSwUpdate, &fotaTrigSwUpdate_NVS, TRUE);
 	uC__triggerSwReset();
 }
@@ -327,7 +328,7 @@ void FOTA__mainFunction(void *param)
 			{
 				/* don't set fotaState to FOTA_STATE_IDLE to display last result with led matrix */
 
-				if ((Wifi__isConnected()) && ((fotaCyclicCheck && fotaCyclicCheckTemp) || fotaTrigSwUpdate))
+				if ((Wifi__isConnected()) && ((fotaCyclCheck && fotaCyclCheckTemp) || fotaTrigSwUpdate))
 				{
 					fotaTrigSwUpdate = FALSE;
 					taskPause = FALSE;

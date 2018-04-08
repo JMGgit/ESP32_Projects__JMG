@@ -5,8 +5,14 @@
  *      Author: JMG
  */
 
+
+#define LOG_LOCAL_LEVEL ESP_LOG_INFO
+#define LOG_TAG "MODE_OFF"
+
+
 #include "Mode_FOTA.h"
 #include "Modes.h"
+#include "esp_log.h"
 
 
 #if (FOTA_SW_UPDATE == FOTA_SW_UPDATE_ON)
@@ -16,9 +22,11 @@ void ModeFOTA__x10 (void)
 	FOTA_State_t fotaState;
 
 	fotaState = FOTA__getCurrentState();
-	FOTA__enableCyclicCheckTemp();
 
-	/* LED matrix handling */
+	if (Buttons__isPressedOnce(&buttonUp))
+	{
+		FOTA__triggerSwUpdate();
+	}
 
 	switch (fotaState)
 	{
