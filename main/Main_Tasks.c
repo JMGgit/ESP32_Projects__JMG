@@ -48,7 +48,7 @@ void Main__createTask (freeRTOStasksIds_n taskId)
 	)
 	{
 		esp_task_wdt_add(taskHandle_LedTable__mainFunction);
-		printf("Task LedTable__mainFunction created\n");
+		printf("Task %s created\n", freeRTOStaskConfig[taskId].name);
 	}
 }
 
