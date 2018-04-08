@@ -6,8 +6,12 @@
  */
 
 
+#define LOG_LOCAL_LEVEL ESP_LOG_INFO
+#define LOG_TAG "WIFI"
+
 #include "Wifi.h"
 #include "esp_wifi.h"
+#include "esp_log.h"
 #include <string.h>
 #include "Main_Config.h"
 #include "Clock.h"
@@ -40,7 +44,7 @@ void Wifi__init (void)
 	esp_wifi_start();
 	esp_wifi_connect();
 
-	printf("Wifi__init done\n");
+	ESP_LOGI(LOG_TAG, "Wifi__init done\n");
 }
 
 
@@ -50,14 +54,14 @@ void Wifi__systemEvent (system_event_t *event)
 	{
 		case SYSTEM_EVENT_STA_GOT_IP:
 		{
-			printf("Event handler: SYSTEM_EVENT_STA_GOT_IP -> wifiConnected = TRUE\n");
+			ESP_LOGI(LOG_TAG, "Event handler: SYSTEM_EVENT_STA_GOT_IP -> wifiConnected = TRUE\n");
 			wifiConnected = TRUE;
 			break;
 		}
 
 		case SYSTEM_EVENT_STA_DISCONNECTED:
 		{
-			printf("Event handler: SYSTEM_EVENT_STA_DISCONNECTED -> wifiConnected = FALSE\n");
+			ESP_LOGI(LOG_TAG, "Event handler: SYSTEM_EVENT_STA_DISCONNECTED -> wifiConnected = FALSE\n");
 			wifiConnected = FALSE;
 			Wifi__init();
 			break;

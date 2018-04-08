@@ -16,6 +16,7 @@ void Off__x10 (void)
 	static uint8_t rgbConnectionTimer = 255;
 	static uint8_t ledConnectionTimer = 255;
 	static uint8_t startupTimer = 255;
+	static uint8_t fotaTimer = 255;
 #if (PROJECT == PROJECT__QLOCKTWO)
 	static uint8_t langTimer = 255;
 #endif
@@ -96,7 +97,25 @@ void Off__x10 (void)
 		}
 
 #if (FOTA_SW_UPDATE == FOTA_SW_UPDATE_ON)
-		if (Buttons__isPressedOnce(&buttonUp))
+		if (Buttons__isPressed(&buttonUp))
+		{
+			if (fotaTimer - uC__getTaskIncrement() > 0)
+			{
+				fotaTimer = fotaTimer - uC__getTaskIncrement();
+			}
+			else
+			{
+				fotaTimer = 255;
+				FOTA__toggleCyclicCheck();
+				uC__triggerSwReset();
+			}
+		}
+		else
+		{
+			fotaTimer = 255;
+		}
+
+		if (Buttons__isPressedOnce(&buttonLeft))
 		{
 			Modes__setMode(MODE__FOTA, FALSE);
 			LEDMatrix__enableUpdate();

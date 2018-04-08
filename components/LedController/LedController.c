@@ -6,10 +6,13 @@
  */
 
 
+#define LOG_LOCAL_LEVEL ESP_LOG_INFO
+#define LOG_TAG "LEDCONTROLLER"
+
 #include "LedController.h"
 #include "freertos/task.h"
 #include "esp_task_wdt.h"
-
+#include "esp_log.h"
 
 uint8_t ledData[LEDS_CHANNELS];
 uint8_t newDataTrigger;
@@ -52,7 +55,7 @@ void LedController__init (void)
 {
     gpio_set_direction(TEST_LED_LEDCTRL_GPIO, GPIO_MODE_OUTPUT);
 
-    printf("LedController__init done\n");
+    ESP_LOGI(LOG_TAG, "LedController__init done");
 }
 
 

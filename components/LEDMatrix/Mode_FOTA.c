@@ -16,7 +16,7 @@ void ModeFOTA__x10 (void)
 	FOTA_State_t fotaState;
 
 	fotaState = FOTA__getCurrentState();
-	FOTA__enableCheck();
+	FOTA__enableCyclicCheckTemp();
 
 	/* LED matrix handling */
 
@@ -69,7 +69,7 @@ void ModeFOTA__x10 (void)
 		}
 		else
 		{
-			FOTA__disableCheck();
+			FOTA__disableCyclicCheckTemp();
 			Modes__Start();
 		}
 	}

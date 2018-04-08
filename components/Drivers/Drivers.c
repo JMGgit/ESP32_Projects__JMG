@@ -6,8 +6,11 @@
  */
 
 
-#include "Drivers.h"
+#define LOG_LOCAL_LEVEL ESP_LOG_INFO
+#define LOG_TAG "DRIVERS"
 
+#include "Drivers.h"
+#include "esp_log.h"
 
 void Drivers__init(void)
 {
@@ -16,5 +19,5 @@ void Drivers__init(void)
 #endif
 	APA102__init();
 
-	printf("Drivers__init done\n");
+	ESP_LOGI(LOG_TAG, "Drivers__init done");
 }

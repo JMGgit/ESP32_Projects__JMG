@@ -6,7 +6,11 @@
  */
 
 
+#define LOG_LOCAL_LEVEL ESP_LOG_INFO
+#define LOG_TAG "MODES"
+
 #include "Modes_LedTable.h"
+#include "esp_log.h"
 
 
 static Mode_t currentMode;
@@ -266,7 +270,7 @@ void Modes__init (void)
 
 	ModeClock__init();
 
-    printf("Modes__init done\n");
+    ESP_LOGI(LOG_TAG, "Modes__init done");
 }
 
 

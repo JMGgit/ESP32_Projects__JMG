@@ -41,8 +41,11 @@ typedef enum
 void FOTA__init (void);
 void FOTA__mainFunction(void *param);
 
-void FOTA__enableCheck (void);
-void FOTA__disableCheck (void);
+void FOTA__toggleCyclicCheck (void);
+void FOTA__enableCyclicCheck (void);
+void FOTA__enableCyclicCheckTemp (void);
+void FOTA__disableCylicCheck (void);
+void FOTA__disableCyclicCheckTemp (void);
 
 FOTA_State_t FOTA__getCurrentState (void);
 uint64_t FOTA__getCurrentSwVersion (void);

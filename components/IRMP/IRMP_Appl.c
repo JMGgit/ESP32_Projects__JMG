@@ -6,11 +6,14 @@
  */
 
 
+#define LOG_LOCAL_LEVEL ESP_LOG_INFO
+#define LOG_TAG "IRMP"
+
 #include "IRMP_Appl.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "driver/timer.h"
-
+#include "esp_log.h"
 
 #if (BUTTONS_IRMP != BUTTONS_IRMP_OFF)
 
@@ -52,21 +55,21 @@ void IRMP__init (void)
 	/* callback to illuminate test LED */
 	irmp_set_callback_ptr(&IRMP__testLed);
 
-	printf("IRMP__init done\n");
+	ESP_LOGI(LOG_TAG, "IRMP__init done");
 }
 
 
 void IRMP__disable (void)
 {
 	timer_pause(TIMER_GROUP_0, TIMER_1);
-	printf("IRMP disabled\n");
+	ESP_LOGI(LOG_TAG, "IRMP disabled");
 }
 
 
 void IRMP__enable (void)
 {
 	timer_start(TIMER_GROUP_0, TIMER_1);
-	printf("IRMP enabled\n");
+	ESP_LOGI(LOG_TAG, "IRMP enabled");
 }
 
 uint8_t IRMP__readData (uint16_t address, uint8_t *data, uint8_t dataLength, uint8_t *repeat)
@@ -117,7 +120,7 @@ void IRMP__mainFunction (void *param)
 	{
 		if (irmp_get_data(&irmp_data) != 0)
 		{
-			printf("\nIRMP %10s(%2d): addr=0x%04x cmd=0x%04x, f=%d ",
+			ESP_LOGI(LOG_TAG, "\nIRMP %10s(%2d): addr=0x%04x cmd=0x%04x, f=%d ",
 					irmp_protocol_names[ irmp_data.protocol],
 					irmp_data.protocol,
 					irmp_data.address,

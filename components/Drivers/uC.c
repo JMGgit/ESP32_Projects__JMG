@@ -5,11 +5,15 @@
  *      Author: Jean-Martin George
  */
 
+#define LOG_LOCAL_LEVEL ESP_LOG_INFO
+#define LOG_TAG "UC"
+
 #include "uC.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "FOTA.h"
 #include "esp_task_wdt.h"
+#include "esp_log.h"
 
 
 static uint8_t gpio_interrupt_num = 255;
@@ -25,7 +29,7 @@ void uC__nvsInitStorage (const char *key, nvs_handle *nvsHandle)
 {
 	if (ESP_OK != nvs_open(key, NVS_READWRITE, nvsHandle))
 	{
-		printf("Error opening NVS key: %s\n", key);
+		ESP_LOGE(LOG_TAG, "Error opening NVS key: %s", key);
 	}
 }
 
@@ -35,10 +39,10 @@ uint8_t uC__nvsRead_u8 (const char *key, nvs_handle nvsHandle, uint8_t *value)
 	if (ESP_OK != nvs_get_u8(nvsHandle, key, value))
 	{
 		*value = 0xFF;
-		printf("Error reading NVS key: %s, handle: %d\n", key, nvsHandle);
+		ESP_LOGE(LOG_TAG, "Error reading NVS key: %s, handle: %d", key, nvsHandle);
 	}
 
-	printf("NVS key: %s, handle: %d, read value: %d\n", key, nvsHandle, *value);
+	ESP_LOGI(LOG_TAG, "NVS key: %s, handle: %d, read value: %d", key, nvsHandle, *value);
 
 	return *value;
 }
@@ -49,10 +53,10 @@ uint64_t uC__nvsRead_u64 (const char *key, nvs_handle nvsHandle, uint64_t *value
 	if (ESP_OK != nvs_get_u64(nvsHandle, key, value))
 	{
 		*value = 0xFFFFFFFFFFFFFFFF;
-		printf("Error reading NVS key: %s, handle: %d\n", key, nvsHandle);
+		ESP_LOGE(LOG_TAG, "Error reading NVS key: %s, handle: %d", key, nvsHandle);
 	}
 
-	printf("NVS key: %s, handle: %d, read value: %llu\n", key, nvsHandle, *value);
+	ESP_LOGI(LOG_TAG, "NVS key: %s, handle: %d, read value: %llu", key, nvsHandle, *value);
 
 	return *value;
 }
@@ -64,18 +68,18 @@ void uC__nvsUpdate_u8 (const char *key, nvs_handle nvsHandle, uint8_t *value_NVS
 	{
 		if (ESP_OK != nvs_set_u8(nvsHandle, key, value))
 		{
-			printf("Error writing NVS key: %s, handle: %d, write value: %d\n", key, nvsHandle, value);
+			ESP_LOGE(LOG_TAG, "Error writing NVS key: %s, handle: %d, write value: %d", key, nvsHandle, value);
 		}
 
 		if (ESP_OK != nvs_commit(nvsHandle))
 		{
-			printf("Error committing NVS key: %s, handle: %d, write value: %d\n", key, nvsHandle, value);
+			ESP_LOGE(LOG_TAG, "Error committing NVS key: %s, handle: %d, write value: %d", key, nvsHandle, value);
 		}
 
 		/* assume storage was successful */
 		*value_NVS = value;
 
-		printf("NVS key: %s, handle: %d, write value: %d\n", key, nvsHandle, value);
+		ESP_LOGI(LOG_TAG, "NVS key: %s, handle: %d, write value: %d", key, nvsHandle, value);
 	}
 }
 
@@ -86,18 +90,18 @@ void uC__nvsUpdate_u64 (const char *key, nvs_handle nvsHandle, uint64_t *value_N
 	{
 		if (ESP_OK != nvs_set_u64(nvsHandle, key, value))
 		{
-			printf("Error writing NVS key: %s, handle: %d, write value: %llu\n", key, nvsHandle, value);
+			ESP_LOGE(LOG_TAG, "Error writing NVS key: %s, handle: %d, write value: %llu", key, nvsHandle, value);
 		}
 
 		if (ESP_OK != nvs_commit(nvsHandle))
 		{
-			printf("Error committing NVS key: %s, handle: %d, write value: %llu\n", key, nvsHandle, value);
+			ESP_LOGE(LOG_TAG, "Error committing NVS key: %s, handle: %d, write value: %llu", key, nvsHandle, value);
 		}
 
 		/* assume storage was successful */
 		*value_NVS = value;
 
-		printf("NVS key: %s, handle: %d, write value: %llu\n", key, nvsHandle, value);
+		ESP_LOGI(LOG_TAG, "NVS key: %s, handle: %d, write value: %llu", key, nvsHandle, value);
 	}
 }
 
@@ -156,7 +160,7 @@ void uC__init (void)
 	/* initialize watchdog */
 	uc__enableWatchdog();
 
-	printf("uC__init done\n");
+	ESP_LOGI(LOG_TAG, "uC__init done");
 }
 
 
@@ -166,7 +170,7 @@ void uC__mainFunction (void *param)
 	{
 		if (gpio_interrupt_num < 255)
 		{
-			printf("\nGPIO interrupt for GPIO: %d\n\n", gpio_interrupt_num);
+			ESP_LOGI(LOG_TAG, "GPIO interrupt for GPIO: %d", gpio_interrupt_num);
 
 			if (gpio_interrupt_num == BUTTON__BOARD_GPIO)
 			{
@@ -186,13 +190,13 @@ void uC__mainFunction (void *param)
 
 void uc__enableWatchdog (void)
 {
-	printf("Watchdog enabled\n");
+	ESP_LOGI(LOG_TAG, "Watchdog enabled");
 	esp_task_wdt_init(WATCHDOG_PERIOD_SECONDS, TRUE);
 }
 
 
 void uc__disableWatchdog (void)
 {
-	printf("Watchdog disabled\n");
+	ESP_LOGI(LOG_TAG, "Watchdog disabled");
 	esp_task_wdt_deinit();
 }

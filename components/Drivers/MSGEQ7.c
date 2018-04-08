@@ -5,12 +5,14 @@
  *      Author: Jean-Martin George
  */
 
+#define LOG_LOCAL_LEVEL ESP_LOG_INFO
+#define LOG_TAG "MSGEQ7"
 
 #include "MSGEQ7.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_task_wdt.h"
-
+#include "esp_log.h"
 
 #if (EQUALIZER == EQUALIZER_MSGEQ7)
 
@@ -97,14 +99,14 @@ void MSGEQ7__mainFunction (void *param)
 		}
 		else
 		{
-			printf("ADC values: ");
+			ESP_LOGI(LOG_TAG, "ADC values: ");
 
 			for (it = 0; it < ADCVALUES_NB; it++)
 			{
-				printf("%d ", adcValues[it]);
+				ESP_LOGI(LOG_TAG, "%d ", adcValues[it]);
 			}
 
-			printf("\n");
+			ESP_LOGI(LOG_TAG, "\n");
 			debugIt = 100;
 		}
 #endif

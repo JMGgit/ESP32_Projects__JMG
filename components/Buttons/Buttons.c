@@ -8,6 +8,12 @@
 
 #include "Buttons.h"
 
+#define LOG_LOCAL_LEVEL ESP_LOG_INFO
+#define LOG_TAG "BUTTONS"
+
+
+#include "esp_log.h"
+
 
 Button_t buttonOff;
 Button_t buttonMode;
@@ -51,7 +57,7 @@ void Buttons__init (void)
 	TWI__slaveInit (twiTxBuffer, 2);
 #endif
 
-	printf("Buttons__init done\n");
+	ESP_LOGI(LOG_TAG, "Buttons__init done");
 }
 
 

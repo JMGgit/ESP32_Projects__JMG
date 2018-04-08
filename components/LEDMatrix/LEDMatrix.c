@@ -5,7 +5,12 @@
  *      Author: Jean-Martin George
  */
 
+#define LOG_LOCAL_LEVEL ESP_LOG_INFO
+#define LOG_TAG "LEDMATRIX"
+
 #include "LEDMatrix.h"
+#include "esp_log.h"
+
 
 #ifdef LED_MATRIX_SIZE_LIN
 #ifdef LED_MATRIX_SIZE_COL
@@ -165,7 +170,7 @@ void LEDMatrix__init (void)
 	}
 #endif
 
-	printf("LEDMatrix__init done\n");
+	ESP_LOGI(LOG_TAG, "LEDMatrix__init done");
 }
 
 #endif

@@ -5,12 +5,16 @@
  *      Author: Jean-Martin George
  */
 
+#define LOG_LOCAL_LEVEL ESP_LOG_INFO
+#define LOG_TAG "ARTNET"
+
 #include "Main_Config.h"
 #include "ArtNet.h"
 #include "lwip/udp.h"
 #include "lwip/debug.h"
 #include "Wifi.h"
 #include "LedController.h"
+#include "esp_log.h"
 #include "esp_task_wdt.h"
 #include <string.h>
 
@@ -92,7 +96,7 @@ esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t *frameNb, uint8_t **l
 				}
 				else
 				{
-					printf("Artnet: wrong data length: max value is %d or %d for last universe\n", ARTNET_CFG_CHANNELS_PER_UNIVERSE, LEDS_CHANNELS % ARTNET_CFG_CHANNELS_PER_UNIVERSE);
+					ESP_LOGE(LOG_TAG, "Artnet: wrong data length: max value is %d or %d for last universe", ARTNET_CFG_CHANNELS_PER_UNIVERSE, LEDS_CHANNELS % ARTNET_CFG_CHANNELS_PER_UNIVERSE);
 					error = TRUE;
 					artNetState = ARTNET_STATE_IDLE;
 				}
@@ -101,33 +105,33 @@ esp_err_t ArtNet__decodeDmxFrame (uint8_t *buffer, uint8_t *frameNb, uint8_t **l
 			}
 			else
 			{
-				printf("Artnet: wrong universe: should be less than %d\n", ARTNET_UNIVERSE_NB);
+				ESP_LOGE(LOG_TAG, "Artnet: wrong universe: should be less than %d", ARTNET_UNIVERSE_NB);
 				error = TRUE;
 				artNetState = ARTNET_STATE_IDLE;
 			}
 		}
 		else
 		{
-			printf("Artnet: wrong subnet: should be 0\n");
+			ESP_LOGE(LOG_TAG, "Artnet: wrong subnet: should be 0");
 			error = TRUE;
 			artNetState = ARTNET_STATE_IDLE;
 		}
 	}
 	else
 	{
-		printf("Artnet: wrong net: should be 0\n");
+		ESP_LOGE(LOG_TAG, "Artnet: wrong net: should be 0");
 		error = TRUE;
 		artNetState = ARTNET_STATE_IDLE;
 	}
 
 	if (error || ARTNET_DEBUG_FRAME_INFO)
 	{
-		printf("Frame sequence number: %u\n", seqNum);
-		printf("Physical input: %u\n", physInput);
-		printf("Subnet: %u\n", subnet);
-		printf("Universe: %u\n", universe);
-		printf("Net: %u\n", net);
-		printf("Length: %d\n", length);
+		ESP_LOGI(LOG_TAG, "Frame sequence number: %u", seqNum);
+		ESP_LOGI(LOG_TAG, "Physical input: %u", physInput);
+		ESP_LOGI(LOG_TAG, "Subnet: %u", subnet);
+		ESP_LOGI(LOG_TAG, "Universe: %u", universe);
+		ESP_LOGI(LOG_TAG, "Net: %u", net);
+		ESP_LOGI(LOG_TAG, "Length: %d", length);
 	}
 
 	return retVal;
@@ -426,14 +430,14 @@ esp_err_t ArtNet__sendPollReply (struct udp_pcb *pcb, uint8_t *data, uint8_t dat
 	pbuf_free(udpBuffer);
 
 	/* debug infos */
-	printf("ArtNet poll reply: %d bytes sent\n", dataLength);
+	ESP_LOGI(LOG_TAG, "ArtNet poll reply: %d bytes sent", dataLength);
 
 	for (int i = 0; i < dataLength; i++)
 	{
-		printf("%d ", data[i]);
+		ESP_LOGI(LOG_TAG, "%d ", data[i]);
 	}
 
-	printf("\n");
+	ESP_LOGI(LOG_TAG, " ");
 
 	retVal  = ESP_OK;
 
@@ -514,21 +518,21 @@ void ArtNet__recvUdpFrame (void *arg, struct udp_pcb *pcb, struct pbuf *udpBuffe
 
 
 #if ARTNET_DEBUG_FRAME_INFO
-			printf("New UDP data - buffer length: %d\n", length);
-			printf("Buffer data:");
+			ESP_LOGI(LOG_TAG, "New UDP data - buffer length: %d", length);
+			ESP_LOGI(LOG_TAG, "Buffer data:");
 
 			for (uint16_t it = 0; it < 20; it++)
 			{
-				printf(" {%u,%u}", it, udpDataRxFifo1[it]);
+				ESP_LOGI(LOG_TAG, " {%u,%u}", it, udpDataRxFifo1[it]);
 			}
 
-			printf("\n");
+			ESP_LOGI(LOG_TAG, " ");
 #endif
 
 		}
 		else
 		{
-			printf("UDP frame size exceed ArtNet buffer length\n");
+			ESP_LOGE(LOG_TAG, "UDP frame size exceed ArtNet buffer length");
 		}
 
 		pbuf_free(udpBuffer);
@@ -559,17 +563,17 @@ esp_err_t ArtNet__init (void)
             if (udp_bind(pcb, &ip_addr_any, ARTNET_PORT) == ERR_OK)
             {
                 udp_recv(pcb, ArtNet__recvUdpFrame, NULL);
-                printf("ArtNet__init OK\n");
+                ESP_LOGI(LOG_TAG, "ArtNet__init OK");
                 retVal = ESP_OK;
             }
             else
             {
-                printf("ArtNet__init failed: udp_bind\n");
+                ESP_LOGE(LOG_TAG, "ArtNet__init failed: udp_bind");
             }
         }
         else
         {
-            printf("ArtNet__init failed: udp_new\n");
+            ESP_LOGE(LOG_TAG, "ArtNet__init failed: udp_new");
         }
 
         gpio_set_direction(TEST_LED_ARTNET_GPIO, GPIO_MODE_OUTPUT);
@@ -625,7 +629,7 @@ void ArtNet__mainFunction (void *param)
 				if (stateTransition)
 				{
 					udpFrameIterator = udpFrameCounter;
-					printf("ArtNet DMX mode\n\n");
+					ESP_LOGI(LOG_TAG, "ArtNet DMX mode");
 				}
 				else if (udpFrameIterator == udpFrameCounter)
 				{
@@ -657,8 +661,8 @@ void ArtNet__mainFunction (void *param)
 						&&	udpDataRx[7] == 0)
 					{
 #if ARTNET_DEBUG_FRAME_INFO
-						printf("ArtNet protocol version: %d\n", protVersion);
-						printf("Operation Code: 0x%x\n", opCode);
+						ESP_LOGI(LOG_TAG, "ArtNet protocol version: %d", protVersion);
+						ESP_LOGI(LOG_TAG, "Operation Code: 0x%x", opCode);
 #endif
 
 						if (protVersion == ARTNET_PROTOCOL_VERSION)
@@ -708,30 +712,30 @@ void ArtNet__mainFunction (void *param)
 							{
 								if (ArtNet__decodePollFrame(udpDataRx) == ESP_OK)
 								{
-									printf("Artnet: decode poll ok\n");
+									ESP_LOGI(LOG_TAG, "Artnet: decode poll ok");
 									artNetState = ARTNET_STATE_POLL_REPLY;
 								}
 								else
 								{
-									printf("Artnet: decode poll failed\n");
+									ESP_LOGE(LOG_TAG, "Artnet: decode poll failed");
 									artNetState = ARTNET_STATE_IDLE;
 								}
 							}
 							else
 							{
-								printf("Artnet: wrong opcode\n");
+								ESP_LOGE(LOG_TAG, "Artnet: wrong opcode");
 								artNetState = ARTNET_STATE_IDLE;
 							}
 						}
 						else
 						{
-							printf("Artnet: wrong protocol version: should be %d. Detected: %d\n", ARTNET_PROTOCOL_VERSION, protVersion);
+							ESP_LOGE(LOG_TAG, "Artnet: wrong protocol version: should be %d. Detected: %d", ARTNET_PROTOCOL_VERSION, protVersion);
 							artNetState = ARTNET_STATE_IDLE;
 						}
 					}
 					else
 					{
-						printf("Artnet: wrong ID\n");
+						ESP_LOGE(LOG_TAG, "Artnet: wrong ID");
 						artNetState = ARTNET_STATE_IDLE;
 					}
 
@@ -751,7 +755,7 @@ void ArtNet__mainFunction (void *param)
 
 						if ((tickNoUdpFrameCurrent - tickNoUdpFrameTransition) > ARTNET_MAX_IDLE_TIME_MS)
 						{
-							printf("ArtNet set to inactive after ARTNET_MAX_IDLE_TIME_MS\n\n");
+							ESP_LOGI(LOG_TAG, "ArtNet set to inactive after ARTNET_MAX_IDLE_TIME_MS");
 							artNetState = ARTNET_STATE_IDLE;
 						}
 					}
@@ -783,7 +787,7 @@ void ArtNet__mainFunction (void *param)
 					artPollReply_portOffset = artPollReply_portOffset + 4;
 				}
 
-				printf("ArtPollReply: %d message(s) sent\n\n", artPollReply_portOffset / 4);
+				ESP_LOGI(LOG_TAG, "ArtPollReply: %d message(s) sent", artPollReply_portOffset / 4);
 
 				artPollReply_portOffset = 0;
 				artNetState = ARTNET_STATE_IDLE;
@@ -815,10 +819,10 @@ void ArtNet__debug (void *param)
 #if ARTNET_DEBUG_ERROR_INFO
 		if (ArtNet__isActive())
 		{
-			printf("\n");
-			printf("Missed frames counter (Interrupt): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterRecv, frameCounterRecv, errorRateRecv, oldFrameCounterRecv);
-			printf("Missed frames counter (MainFunction): %d - total frames: %d - Error rate: %f %% - old frames: %d\n", missedFrameCounterMain, frameCounterMain, errorRateMain, oldFrameCounterMain);
-			printf("Frame delay: %d (max: %d)\n", frameDelay, maxFrameDelay);
+			ESP_LOGI(LOG_TAG, "");
+			ESP_LOGI(LOG_TAG, "Missed frames counter (Interrupt): %d - total frames: %d - Error rate: %f %% - old frames: %d", missedFrameCounterRecv, frameCounterRecv, errorRateRecv, oldFrameCounterRecv);
+			ESP_LOGI(LOG_TAG, "Missed frames counter (MainFunction): %d - total frames: %d - Error rate: %f %% - old frames: %d", missedFrameCounterMain, frameCounterMain, errorRateMain, oldFrameCounterMain);
+			ESP_LOGI(LOG_TAG, "Frame delay: %d (max: %d)", frameDelay, maxFrameDelay);
 		}
 #endif
 		vTaskDelay(10000 / portTICK_PERIOD_MS);
@@ -832,5 +836,5 @@ void ArtNet__debug (void *param)
 void ArtNet__shutdown (void)
 {
 	udp_remove(pcb);
-	printf("ArtNet__shutdown done\n");
+	ESP_LOGI(LOG_TAG, "ArtNet__shutdown done");
 }

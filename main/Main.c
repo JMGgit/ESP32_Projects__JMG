@@ -66,7 +66,7 @@ void LedTable__mainFunction (void *param)
 			if (!ArtNet__isActive())
 			{
 				gpio_set_level(TEST_LED_LEDCTRL_GPIO, 1);
-				FOTA__enableCheck();
+				FOTA__enableCyclicCheckTemp();
 				Buttons__x10();
 				Modes__x10();
 				APA102__x10();
@@ -74,7 +74,7 @@ void LedTable__mainFunction (void *param)
 			}
 			else
 			{
-				FOTA__disableCheck();
+				FOTA__disableCyclicCheckTemp();
 			}
 		}
 

@@ -6,8 +6,11 @@
  */
 
 
-#include "Main_Tasks.h"
+#define LOG_LOCAL_LEVEL ESP_LOG_INFO
+#define LOG_TAG "TASKS"
 
+#include "Main_Tasks.h"
+#include "esp_log.h"
 
 TaskHandle_t taskHandle_LedTable__mainFunction;
 TaskHandle_t taskHandle_ArtNet__mainFunction;
@@ -48,7 +51,7 @@ void Main__createTask (freeRTOStasksIds_n taskId)
 	)
 	{
 		esp_task_wdt_add(taskHandle_LedTable__mainFunction);
-		printf("Task %s created\n", freeRTOStaskConfig[taskId].name);
+		ESP_LOGI(LOG_TAG, "Task %s created", freeRTOStaskConfig[taskId].name);
 	}
 }
 

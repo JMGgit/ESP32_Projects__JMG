@@ -5,12 +5,16 @@
  *      Author: Jean-Martin George
  */
 
+#define LOG_LOCAL_LEVEL ESP_LOG_INFO
+#define LOG_TAG "CLOCK"
+
 
 #include "Clock.h"
 #include <time.h>
 #include <sys/time.h>
 #include "apps/sntp/sntp.h"
 #include "esp_task_wdt.h"
+#include "esp_log.h"
 
 
 #if (CLOCK_TYPE != CLOCK_TYPE_OFF)
@@ -447,7 +451,7 @@ void Clock__init (void)
 	Clock__x10(); /* update time */
 #endif
 
-	printf("Clock__init done\n");
+	ESP_LOGI(LOG_TAG, "Clock__init done");
 }
 
 
@@ -467,13 +471,13 @@ void Clock__mainFunction (void *param)
 		{
 			if (currentTime.tm_year < (2017 - 1900))
 			{
-				printf("Waiting for system time to be set...\n");
+				ESP_LOGI(LOG_TAG, "Waiting for system time to be set...");
 			}
 			else
 			{
 				Clock__getCompleteDateWithYearString(&buffer1[0]);
 				Clock__getTimeWithSecondsString(&buffer2[0]);
-				printf("Current Time: %s %s\n", buffer2, buffer1);
+				ESP_LOGI(LOG_TAG, "Current Time: %s %s", buffer2, buffer1);
 				debugInfoEnabled = FALSE;
 			}
 		}
@@ -545,7 +549,7 @@ void Clock__shutdown (void)
 	debugInfoEnabled = FALSE;
 #endif
 
-	printf("Clock__shutdown done\n");
+	ESP_LOGI(LOG_TAG, "Clock__shutdown done");
 }
 
 
