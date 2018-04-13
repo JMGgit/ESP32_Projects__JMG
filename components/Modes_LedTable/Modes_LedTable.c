@@ -241,7 +241,8 @@ static void Modes__updateMatrix (void)
 		Mode__eepromStorage();
 	}
 
-	if ((FOTA__getCurrentState() == FOTA_STATE_ERROR) || (FOTA__getCurrentState() == FOTA_STATE_UPDADE_FINISHED))
+
+	if (FOTA__getCurrentState() == FOTA_STATE_UPDADE_FINISHED)
 	{
 		/* display last FOTA result on led matrix */
 		Modes__setMode(MODE__FOTA, FALSE);

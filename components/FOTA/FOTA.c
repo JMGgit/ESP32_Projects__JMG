@@ -43,6 +43,7 @@ static nvs_handle nvsHandle_fotaCyclCheck;
 static uint8_t fotaCyclCheckTemp;
 static FOTA_State_t fotaState = FOTA_STATE_IDLE;
 static FOTA_InternalState_t fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
+static uint32_t fotaErrorsCount = 0;
 
 
 FOTA_State_t FOTA__getCurrentState (void)
@@ -609,8 +610,9 @@ void FOTA__mainFunction(void *param)
 			case FOTA_INTERNAL_STATE_ERROR:
 			{
 				fotaState = FOTA_STATE_ERROR;
+				fotaErrorsCount++;
 				taskPause = TRUE;
-				ESP_LOGE(LOG_TAG, "SW update aborted due to fatal error");
+				ESP_LOGE(LOG_TAG, "SW update aborted due to fatal error. Error count: %d", fotaErrorsCount);
 				fotaInternalState = FOTA_INTERNAL_STATE_IDLE;
 				break;
 			}

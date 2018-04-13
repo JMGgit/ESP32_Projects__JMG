@@ -1,4 +1,2 @@
 build/
 sdkconfig.old
-main/include/Wifi_SSID_Cfg.h
-main/include/OTA_Cfg.h
