@@ -74,6 +74,13 @@ void FOTA__init (void)
 	currentSwVersion = uC__nvsRead_u64("fotaSwVersion", nvsHandle_currentSwVersion, &currentSwVersion_NVS);
 	fotaTrigSwUpdate = uC__nvsRead_u8("fotaTrigSwUpd", nvsHandle_fotaTrigSwUpdate, &fotaTrigSwUpdate_NVS);
 	fotaCyclCheck = uC__nvsRead_u8("fotaCyclCheck", nvsHandle_fotaCyclCheck, &fotaCyclCheck_NVS);
+
+	if (fotaCyclCheck == 255)
+	{
+		fotaCyclCheck = TRUE;
+		uC__nvsUpdate_u8("fotaCyclCheck", nvsHandle_fotaCyclCheck, &fotaCyclCheck_NVS, fotaCyclCheck);
+	}
+
 	uC__nvsUpdate_u8("fotaTrigSwUpd", nvsHandle_fotaTrigSwUpdate, &fotaTrigSwUpdate_NVS, FALSE);
 
 	/* display current SW version and compile time */
