@@ -19,6 +19,7 @@
 
 #include "esp_log.h"
 #include "sys/socket.h"
+#include "netdb.h"
 #include "esp_ota_ops.h"
 
 
@@ -213,37 +214,47 @@ static uint8_t FOTA__readPastHttpHeader (char text[], int total_len, esp_ota_han
 static bool FOTA__connectToServerHTTP (const char *serverHostName, const char *serverPort, int *socketId)
 {
 	int http_connect_flag = -1;
-	struct sockaddr_in sock_info;
+	struct in_addr *serverIpAddress;
+	struct addrinfo *addrinfoRes;
+	int addrError;
 	uint8_t retVal;
 
-	*socketId = socket(AF_INET, SOCK_STREAM, 0);
+	const struct addrinfo addrinfoHints = {.ai_family = AF_INET, .ai_socktype = SOCK_STREAM};
 
-	if (*socketId == -1)
+	ESP_LOGI(LOG_TAG, "Will connect to server IP: %s, server Port:%s", serverHostName, serverPort);
+	addrError = getaddrinfo(FOTA_SERVER_HOST_NAME, FOTA_SERVER_PORT, &addrinfoHints, &addrinfoRes);
+
+	if (addrError != 0 || addrinfoRes == NULL)
 	{
-		ESP_LOGE(LOG_TAG, "Create socket failed!");
+		ESP_LOGE(LOG_TAG, "DNS lookup failed err=%d res=%p", addrError, addrinfoRes);
 		retVal = false;
 	}
 	else
 	{
-		memset(&sock_info, 0, sizeof(struct sockaddr_in));
-		sock_info.sin_family = AF_INET;
-		sock_info.sin_addr.s_addr = inet_addr(serverHostName);
-		sock_info.sin_port = htons(atoi(serverPort));
+		serverIpAddress = &((struct sockaddr_in *)addrinfoRes->ai_addr)->sin_addr;
+		ESP_LOGI(LOG_TAG, "DNS lookup succeeded. IP=%s", inet_ntoa(*serverIpAddress));
+		*socketId = socket(addrinfoRes->ai_family, addrinfoRes->ai_socktype, 0);
 
-		ESP_LOGI(LOG_TAG, "Connect to server IP: %s, server Port:%s", serverHostName, serverPort);
-
-		http_connect_flag = connect(*socketId, (struct sockaddr *) &sock_info, sizeof(sock_info));
-
-		if (http_connect_flag == -1)
+		if (*socketId == -1)
 		{
-			ESP_LOGE(LOG_TAG, "Connect to server failed! errno=%d", errno);
-			close(*socketId);
-			retVal =  false;
+			ESP_LOGE(LOG_TAG, "Create socket failed!");
+			retVal = false;
 		}
 		else
 		{
-			ESP_LOGD(LOG_TAG, "Connected to server");
-			retVal =  true;
+			http_connect_flag = connect(*socketId,  addrinfoRes->ai_addr, addrinfoRes->ai_addrlen);
+
+			if (http_connect_flag == -1)
+			{
+				ESP_LOGE(LOG_TAG, "Connect to server failed! errno=%d", errno);
+				close(*socketId);
+				retVal =  false;
+			}
+			else
+			{
+				ESP_LOGD(LOG_TAG, "Connected to server");
+				retVal =  true;
+			}
 		}
 	}
 
