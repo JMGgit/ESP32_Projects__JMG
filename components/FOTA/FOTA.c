@@ -221,7 +221,7 @@ static bool FOTA__connectToServerHTTP (const char *serverHostName, const char *s
 
 	const struct addrinfo addrinfoHints = {.ai_family = AF_INET, .ai_socktype = SOCK_STREAM};
 
-	ESP_LOGI(LOG_TAG, "Will connect to server IP: %s, server Port:%s", serverHostName, serverPort);
+	ESP_LOGI(LOG_TAG, "Will connect to server: %s, server Port:%s", serverHostName, serverPort);
 	addrError = getaddrinfo(FOTA_SERVER_HOST_NAME, FOTA_SERVER_PORT, &addrinfoHints, &addrinfoRes);
 
 	if (addrError != 0 || addrinfoRes == NULL)
