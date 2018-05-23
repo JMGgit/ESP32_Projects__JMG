@@ -54,6 +54,10 @@ void LEDMatrix__setRGBColor (uint8_t line, uint8_t column, RGB_Color_t color)
 
 void LEDMatrix__setRGBColorForMatrix (RGB_Color_t color)
 {
+	uint16_t linIt, colIt;
+	uint16_t ledPosition = 0;
+	RGB_Color_t colorCorrected;
+
 #if (LED_TYPE == LED_TYPE_WS2801)
 	WS2801__setRGBForAllLEDs(color);
 #endif
@@ -61,7 +65,17 @@ void LEDMatrix__setRGBColorForMatrix (RGB_Color_t color)
 	WS2812__setRGBForAllLEDs(color);
 #endif
 #if (LED_TYPE == LED_TYPE_APA102)
-	APA102__setRGBForAllLEDs(color);
+
+	for (colIt = 1; colIt <= LED_MATRIX_SIZE_COL; colIt++)
+	{
+		for (linIt = 1; linIt <= LED_MATRIX_SIZE_LIN; linIt++)
+		{
+			colorCorrected = color;
+			LEDMatrix__applyDotCorrection(&colorCorrected, linIt, colIt);
+			APA102__setRGBForLED(colorCorrected, ledPosition);
+			ledPosition++;
+		}
+	}
 #endif
 }
 
