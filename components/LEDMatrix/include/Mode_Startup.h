@@ -2,7 +2,7 @@
  * Mode_Startup.h
  *
  *  Created on: 25.01.2014
- *      Author: JMG
+ *      Author: Jean-Martin George
  */
 
 #ifndef MODE_STARTUP_H_

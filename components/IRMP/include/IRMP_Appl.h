@@ -2,7 +2,7 @@
  * IRMP.h
  *
  *  Created on: 23.12.2014
- *      Author: JMG
+ *      Author: Jean-Martin George
  */
 
 #ifndef SRC_DRIVERS_IRMP_IRMP_APPL_H_

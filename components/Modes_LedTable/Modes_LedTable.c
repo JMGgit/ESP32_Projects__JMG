@@ -27,6 +27,7 @@ uint16_t timerModeChangeConf[MODE_NB] =
 		0xFFFF,	/* MODE__STARTUP = 0 */
 		0xFFFF,	/* MODE__FAILUREMEMORY */
 		0xFFFF,	/* MODE__FOTA */
+		0xFFFF,	/* MODE__COLORCALIBRATION */
 		0xFFFF,	/* MODE__OFF */
 		0xFFFF,	/* MODE__ALL_ON */
 		0xFFFF,	/* MODE__BLENDING_SLOW */
@@ -227,6 +228,12 @@ static void Modes__updateMatrix (void)
 		case MODE__FOTA:
 		{
 			ModeFOTA__x10();
+			break;
+		}
+
+		case MODE__COLORCALIBRATION:
+		{
+			ColorCalibration__x10();
 			break;
 		}
 

@@ -21,6 +21,7 @@ void Off__x10 (void)
 	static uint8_t ledConnectionTimer = 255;
 	static uint8_t startupTimer = 255;
 	static uint8_t fotaTimer = 255;
+	static uint8_t colorCalibrationTimer = 255;
 #if (PROJECT == PROJECT__QLOCKTWO)
 	static uint8_t langTimer = 255;
 #endif
@@ -127,6 +128,25 @@ void Off__x10 (void)
 			firstCall = TRUE;
 		}
 #endif
+		if (Buttons__isPressed(&buttonRight))
+		{
+			if (colorCalibrationTimer - uC__getTaskIncrement() > 0)
+			{
+				colorCalibrationTimer = colorCalibrationTimer - uC__getTaskIncrement();
+			}
+			else
+			{
+				colorCalibrationTimer = 255;
+				ESP_LOGI(LOG_TAG, "Switching to MODE__COLORCALIBRATION");
+				Modes__setMode(MODE__COLORCALIBRATION, FALSE);
+				LEDMatrix__enableUpdate();
+				firstCall = TRUE;
+			}
+		}
+		else
+		{
+			colorCalibrationTimer = 255;
+		}
 
 #if (DEBUG_MODE == DEBUG_MODE_ON)
 		if (Buttons__isPressedOnce(&buttonLeft))

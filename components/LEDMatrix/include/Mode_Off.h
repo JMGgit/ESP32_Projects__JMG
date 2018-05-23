@@ -2,7 +2,7 @@
  * Mode_Off.h
  *
  *  Created on: 07.04.2016
- *      Author: JMG
+ *      Author: Jean-Martin George
  */
 
 #ifndef MODE_OFF_H_

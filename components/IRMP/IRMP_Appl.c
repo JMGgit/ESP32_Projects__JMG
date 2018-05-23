@@ -2,7 +2,7 @@
  * IRMP.c
  *
  *  Created on: 23.12.2014
- *      Author: JMG
+ *      Author: Jean-Martin George
  */
 
 

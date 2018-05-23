@@ -5,3 +5,4 @@ In mode OFF:
 - Button up pressed 3s: disable / enable FOTA cyclic check (Flash Over The Air)
 - Button left pressed: display FOTA state
 - Button down pressed: SW reset
+- Button right pressed: LED color calibration
