@@ -49,7 +49,6 @@ typedef enum
 
 #define MODE__INIT (MODE__OFF + 1)
 
-#define MAX_FOTA_ERRORS_TO_DISPLAY	5
 
 void Modes__toggleStartupMode (void);
 

@@ -66,7 +66,17 @@ void LedTable__mainFunction (void *param)
 			if (!ArtNet__isActive())
 			{
 				gpio_set_level(TEST_LED_LEDCTRL_GPIO, 1);
-				FOTA__enableCyclicCheckTemp();
+
+				if (Modes__getMode() != MODE__COLORCALIBRATION)
+				{
+					FOTA__enableCyclicCheckTemp();
+				}
+				else
+				{
+					/* avoid FOTA console output during calibration */
+					FOTA__disableCyclicCheckTemp();
+				}
+
 				Buttons__x10();
 				Modes__x10();
 				APA102__x10();
@@ -74,6 +84,7 @@ void LedTable__mainFunction (void *param)
 			}
 			else
 			{
+				/* disable everything related to LEDs and to NET controller during ArtNet */
 				FOTA__disableCyclicCheckTemp();
 			}
 		}

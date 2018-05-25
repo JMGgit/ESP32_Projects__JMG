@@ -57,6 +57,11 @@ uint16_t timerModeChangeConf[MODE_NB] =
 	{
 		Equalizer__init();
 	}
+
+	if (currentMode == MODE__COLORCALIBRATION)
+	{
+		ColorCalibration__init();
+	}
 }
 
 

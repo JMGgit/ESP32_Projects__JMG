@@ -12,6 +12,9 @@
 #include "Main_Config.h"
 #include "RGB_Tables.h"
 
+
+uint8_t LEDMatrixDotCorrectionArray[3 * LEDS_CHANNELS];
+
 void LEDMatrix__applyDotCorrection (RGB_Color_t* color, uint8_t line, uint8_t column);
 
 #endif /* LEDMATRIX_DOTCORRECTION_H_ */
