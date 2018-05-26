@@ -41,6 +41,12 @@ void ColorCalibration__init (void)
 }
 
 
+void ColorCalibration__shutDown (void)
+{
+	/* storage of non-volatile data */
+}
+
+
 void ColorCalibration__x10 (void)
 {
 	LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(	LED_PWM_LEVEL_FOR_CALIBRATION,

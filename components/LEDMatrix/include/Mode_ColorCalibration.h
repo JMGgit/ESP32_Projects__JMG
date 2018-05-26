@@ -15,6 +15,7 @@
 
 
 void ColorCalibration__init (void);
+void ColorCalibration__shutDown (void);
 void ColorCalibration__x10 (void);
 
 

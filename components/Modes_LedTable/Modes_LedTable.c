@@ -22,7 +22,7 @@ static uint8_t startupOn_NVS;
 static nvs_handle nvsHandle_startupOn;
 
 
-uint16_t timerModeChangeConf[MODE_NB] =
+static uint16_t timerModeChangeConf[MODE_NB] =
 {
 		0xFFFF,	/* MODE__STARTUP = 0 */
 		0xFFFF,	/* MODE__FAILUREMEMORY */
@@ -46,7 +46,16 @@ uint16_t timerModeChangeConf[MODE_NB] =
 };
 
 
- void Modes__transition (void)
+static void Modes__transitionBeforeModeChange (void)
+{
+	if (currentMode == MODE__COLORCALIBRATION)
+	{
+		ColorCalibration__shutDown();
+	}
+}
+
+
+static void Modes__transitionAfterModeChange (void)
 {
 	if (currentMode == MODE__SNAKE)
 	{
@@ -65,8 +74,13 @@ uint16_t timerModeChangeConf[MODE_NB] =
 }
 
 
- void Modes__setMode (Mode_t mode, uint8_t transition)
+void Modes__setMode (Mode_t mode, uint8_t transition)
 {
+	if (transition)
+	{
+		Modes__transitionBeforeModeChange();
+	}
+
 	if (mode < MODE_NB)
 	{
 		currentMode = mode;
@@ -78,7 +92,7 @@ uint16_t timerModeChangeConf[MODE_NB] =
 
 	if (transition)
 	{
-		Modes__transition();
+		Modes__transitionAfterModeChange();
 	}
 }
 
