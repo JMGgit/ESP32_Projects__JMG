@@ -13,7 +13,7 @@
 #include "RGB_Tables.h"
 
 
-uint8_t LEDMatrixDotCorrectionArray[3 * LEDS_CHANNELS];
+uint8_t LEDMatrixDotCorrectionArray[LEDS_CHANNELS];
 
 
 static inline void LEDMatrix__setDotCorrectionForLed (uint8_t line, uint8_t column, uint8_t valueRed, uint8_t valueGreen, uint8_t valueBlue)
