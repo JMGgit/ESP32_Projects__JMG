@@ -18,6 +18,4 @@ void ColorCalibration__init (void);
 void ColorCalibration__x10 (void);
 
 
-#define COLOR_CALIBRATION_STEP	5
-
 #endif /* MODE_COLORCALIBRATION_H_ */

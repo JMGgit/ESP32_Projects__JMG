@@ -14,7 +14,9 @@
 #include "Buttons.h"
 
 
-#define TIMER_COLOR_SELECT	100
+#define COLOR_CALIBRATION_STEP_PERCENT	5
+#define TIMER_COLOR_SELECT				100
+#define LED_PWM_LEVEL_FOR_CALIBRATION	255
 
 typedef enum
 {
@@ -41,9 +43,10 @@ void ColorCalibration__init (void)
 
 void ColorCalibration__x10 (void)
 {
-	static uint8_t dummyValue = 255;
-
-	LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(255, 255, 255));
+	LEDMatrix__setRGBColorForMatrix(LEDMatrix__getRGBColorFromComponents(	LED_PWM_LEVEL_FOR_CALIBRATION,
+																			LED_PWM_LEVEL_FOR_CALIBRATION,
+																			LED_PWM_LEVEL_FOR_CALIBRATION)
+	);
 
 	switch (state)
 	{
@@ -101,23 +104,50 @@ void ColorCalibration__x10 (void)
 		if (timerColorSelect > 0)
 		{
 			timerColorSelect--;
-			LEDMatrix__setRGBColor(currentLedLine, currentLedCol, LEDMatrix__getRGBColorFromComponents(255, 0, 0));
+
+			LEDMatrix__setRGBColor(	currentLedLine,
+									currentLedCol,
+									LEDMatrix__getRGBColorFromComponents(	LED_PWM_LEVEL_FOR_CALIBRATION,
+																			0,
+																			0)
+			);
 		}
 		else
 		{
-			LEDMatrix__setRGBColor(currentLedLine, currentLedCol, LEDMatrix__getRGBColorFromComponents(255, 255, 255));
+			LEDMatrix__setRGBColor(	currentLedLine,
+									currentLedCol,
+									LEDMatrix__getRGBColorFromComponents(	LED_PWM_LEVEL_FOR_CALIBRATION,
+																			LED_PWM_LEVEL_FOR_CALIBRATION,
+																			LED_PWM_LEVEL_FOR_CALIBRATION)
+			);
 		}
 
-		if ((Buttons__isPressedOnce(&buttonUp)) && ((dummyValue <= (255 - COLOR_CALIBRATION_STEP))))
+		if ((Buttons__isPressedOnce(&buttonUp)) && ((LEDMatrix__getDotCorrectionForLed_Red(currentLedLine, currentLedCol) <= (100 - COLOR_CALIBRATION_STEP_PERCENT))))
 		{
-			dummyValue = dummyValue + COLOR_CALIBRATION_STEP;
-			ESP_LOGI(LOG_TAG, "Current values: red %d, green %d, blue %d)", dummyValue, 255, 255);
+			LEDMatrix__setDotCorrectionForLed_Red(	currentLedLine,
+													currentLedCol,
+													LEDMatrix__getDotCorrectionForLed_Red(currentLedLine, currentLedCol) + COLOR_CALIBRATION_STEP_PERCENT
+			);
+
+			ESP_LOGI(	LOG_TAG, "Current values: red %d, green %d, blue %d)",
+						LEDMatrix__getDotCorrectionForLed_Red(currentLedLine, currentLedCol),
+						LEDMatrix__getDotCorrectionForLed_Green(currentLedLine, currentLedCol),
+						LEDMatrix__getDotCorrectionForLed_Blue(currentLedLine, currentLedCol)
+			);
 		}
 
-		if ((Buttons__isPressedOnce(&buttonDown)) && (dummyValue >= COLOR_CALIBRATION_STEP))
+		if ((Buttons__isPressedOnce(&buttonDown)) && (LEDMatrix__getDotCorrectionForLed_Red(currentLedLine, currentLedCol) >= COLOR_CALIBRATION_STEP_PERCENT))
 		{
-			dummyValue = dummyValue - COLOR_CALIBRATION_STEP;
-			ESP_LOGI(LOG_TAG, "Current values: red %d, green %d, blue %d)", dummyValue, 255, 255);
+			LEDMatrix__setDotCorrectionForLed_Red(	currentLedLine,
+													currentLedCol,
+													LEDMatrix__getDotCorrectionForLed_Red(currentLedLine, currentLedCol) - COLOR_CALIBRATION_STEP_PERCENT
+			);
+
+			ESP_LOGI(	LOG_TAG, "Current values: red %d, green %d, blue %d)",
+						LEDMatrix__getDotCorrectionForLed_Red(currentLedLine, currentLedCol),
+						LEDMatrix__getDotCorrectionForLed_Green(currentLedLine, currentLedCol),
+						LEDMatrix__getDotCorrectionForLed_Blue(currentLedLine, currentLedCol)
+			);
 		}
 
 		if (Buttons__isPressedOnce(&buttonFunc1))
@@ -146,23 +176,50 @@ void ColorCalibration__x10 (void)
 		if (timerColorSelect > 0)
 		{
 			timerColorSelect--;
-			LEDMatrix__setRGBColor(currentLedLine, currentLedCol, LEDMatrix__getRGBColorFromComponents(0, 255, 0));
+
+			LEDMatrix__setRGBColor(	currentLedLine,
+									currentLedCol,
+									LEDMatrix__getRGBColorFromComponents(	0,
+																			LED_PWM_LEVEL_FOR_CALIBRATION,
+																			0)
+			);
 		}
 		else
 		{
-			LEDMatrix__setRGBColor(currentLedLine, currentLedCol, LEDMatrix__getRGBColorFromComponents(255, 255, 255));
+			LEDMatrix__setRGBColor(	currentLedLine,
+									currentLedCol,
+									LEDMatrix__getRGBColorFromComponents(	LED_PWM_LEVEL_FOR_CALIBRATION,
+																			LED_PWM_LEVEL_FOR_CALIBRATION,
+																			LED_PWM_LEVEL_FOR_CALIBRATION)
+			);
 		}
 
-		if ((Buttons__isPressedOnce(&buttonUp)) && ((dummyValue <= (255 - COLOR_CALIBRATION_STEP))))
+		if ((Buttons__isPressedOnce(&buttonUp)) && ((LEDMatrix__getDotCorrectionForLed_Green(currentLedLine, currentLedCol) <= (100 - COLOR_CALIBRATION_STEP_PERCENT))))
 		{
-			dummyValue = dummyValue + COLOR_CALIBRATION_STEP;
-			ESP_LOGI(LOG_TAG, "Current values: red %d, green %d, blue %d)", 255, dummyValue, 255);
+			LEDMatrix__setDotCorrectionForLed_Green(	currentLedLine,
+														currentLedCol,
+														LEDMatrix__getDotCorrectionForLed_Green(currentLedLine, currentLedCol) + COLOR_CALIBRATION_STEP_PERCENT
+			);
+
+			ESP_LOGI(	LOG_TAG, "Current values: red %d, green %d, blue %d)",
+						LEDMatrix__getDotCorrectionForLed_Red(currentLedLine, currentLedCol),
+						LEDMatrix__getDotCorrectionForLed_Green(currentLedLine, currentLedCol),
+						LEDMatrix__getDotCorrectionForLed_Blue(currentLedLine, currentLedCol)
+			);
 		}
 
-		if ((Buttons__isPressedOnce(&buttonDown)) && (dummyValue >= COLOR_CALIBRATION_STEP))
+		if ((Buttons__isPressedOnce(&buttonDown)) && (LEDMatrix__getDotCorrectionForLed_Green(currentLedLine, currentLedCol) >= COLOR_CALIBRATION_STEP_PERCENT))
 		{
-			dummyValue = dummyValue - COLOR_CALIBRATION_STEP;
-			ESP_LOGI(LOG_TAG, "Current values: red %d, green %d, blue %d)", 255, dummyValue, 255);
+			LEDMatrix__setDotCorrectionForLed_Green(	currentLedLine,
+														currentLedCol,
+														LEDMatrix__getDotCorrectionForLed_Green(currentLedLine, currentLedCol) - COLOR_CALIBRATION_STEP_PERCENT
+			);
+
+			ESP_LOGI(	LOG_TAG, "Current values: red %d, green %d, blue %d)",
+						LEDMatrix__getDotCorrectionForLed_Red(currentLedLine, currentLedCol),
+						LEDMatrix__getDotCorrectionForLed_Green(currentLedLine, currentLedCol),
+						LEDMatrix__getDotCorrectionForLed_Blue(currentLedLine, currentLedCol)
+			);
 		}
 
 		if (Buttons__isPressedOnce(&buttonFunc1))
@@ -191,23 +248,49 @@ void ColorCalibration__x10 (void)
 		if (timerColorSelect > 0)
 		{
 			timerColorSelect--;
-			LEDMatrix__setRGBColor(currentLedLine, currentLedCol, LEDMatrix__getRGBColorFromComponents(0, 0, 255));
+
+			LEDMatrix__setRGBColor(	currentLedLine,
+									currentLedCol,
+									LEDMatrix__getRGBColorFromComponents(	0,
+																			0,
+																			LED_PWM_LEVEL_FOR_CALIBRATION)
+			);
 		}
 		else
 		{
-			LEDMatrix__setRGBColor(currentLedLine, currentLedCol, LEDMatrix__getRGBColorFromComponents(255, 255, 255));
+			LEDMatrix__setRGBColor(	currentLedLine,
+									currentLedCol,
+									LEDMatrix__getRGBColorFromComponents(	LED_PWM_LEVEL_FOR_CALIBRATION,
+																			LED_PWM_LEVEL_FOR_CALIBRATION,
+																			LED_PWM_LEVEL_FOR_CALIBRATION)
+			);
 		}
 
-		if ((Buttons__isPressedOnce(&buttonUp)) && ((dummyValue <= (255 - COLOR_CALIBRATION_STEP))))
+		if ((Buttons__isPressedOnce(&buttonUp)) && ((LEDMatrix__getDotCorrectionForLed_Blue(currentLedLine, currentLedCol) <= (100 - COLOR_CALIBRATION_STEP_PERCENT))))
 		{
-			dummyValue = dummyValue + COLOR_CALIBRATION_STEP;
-			ESP_LOGI(LOG_TAG, "Current values: red %d, green %d, blue %d)", 255, 255, dummyValue);
+			LEDMatrix__setDotCorrectionForLed_Blue(	currentLedLine,
+													currentLedCol,
+													LEDMatrix__getDotCorrectionForLed_Blue(currentLedLine, currentLedCol) + COLOR_CALIBRATION_STEP_PERCENT
+			);
+
+			ESP_LOGI(	LOG_TAG, "Current values: red %d, green %d, blue %d)",
+						LEDMatrix__getDotCorrectionForLed_Red(currentLedLine, currentLedCol),
+						LEDMatrix__getDotCorrectionForLed_Green(currentLedLine, currentLedCol),
+						LEDMatrix__getDotCorrectionForLed_Blue(currentLedLine, currentLedCol)
+			);
 		}
 
-		if ((Buttons__isPressedOnce(&buttonDown)) && (dummyValue >= COLOR_CALIBRATION_STEP))
+		if ((Buttons__isPressedOnce(&buttonDown)) && (LEDMatrix__getDotCorrectionForLed_Blue(currentLedLine, currentLedCol) >= COLOR_CALIBRATION_STEP_PERCENT))
 		{
-			dummyValue = dummyValue - COLOR_CALIBRATION_STEP;
-			ESP_LOGI(LOG_TAG, "Current values: red %d, green %d, blue %d)", 255, 255, dummyValue);
+			LEDMatrix__setDotCorrectionForLed_Blue(	currentLedLine, currentLedCol,
+													LEDMatrix__getDotCorrectionForLed_Blue(currentLedLine, currentLedCol) - COLOR_CALIBRATION_STEP_PERCENT
+			);
+
+			ESP_LOGI(	LOG_TAG, "Current values: red %d, green %d, blue %d)",
+						LEDMatrix__getDotCorrectionForLed_Red(currentLedLine, currentLedCol),
+						LEDMatrix__getDotCorrectionForLed_Green(currentLedLine, currentLedCol),
+						LEDMatrix__getDotCorrectionForLed_Blue(currentLedLine, currentLedCol)
+			);
 		}
 
 		if (Buttons__isPressedOnce(&buttonFunc1))
