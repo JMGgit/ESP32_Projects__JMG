@@ -2,7 +2,7 @@
  * Moe_FOTA.c
  *
  *  Created on: 07.04.2018
- *      Author: JMG
+ *      Author: Jean-Martin George
  */
 
 

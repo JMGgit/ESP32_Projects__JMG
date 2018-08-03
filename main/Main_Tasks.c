@@ -2,7 +2,7 @@
  * Main_Tasks.c
  *
  *  Created on: 08.04.2018
- *      Author: JMG
+ *      Author: Jean-Martin George
  */
 
 

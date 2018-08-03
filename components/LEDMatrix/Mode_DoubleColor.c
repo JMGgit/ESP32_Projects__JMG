@@ -2,7 +2,7 @@
  * Mode_DoubleColor.c
  *
  *  Created on: 17.10.2015
- *      Author: JMG
+ *      Author: Jean-Martin George
  */
 
 

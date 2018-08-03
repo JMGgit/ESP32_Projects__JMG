@@ -62,6 +62,7 @@ void LedController__init (void)
 void LedController__mainFunction (void *param)
 {
 	uint16_t idxLed;
+	RGB_Color_t color;
 
 	while (1)
 	{
@@ -72,7 +73,9 @@ void LedController__mainFunction (void *param)
 #if (LED_TYPE == LED_TYPE_APA102)
 			for (idxLed = 0; idxLed < LEDS_NB; idxLed++)
 			{
-				APA102__setRGBForLED(LEDMatrix__getRGBColorFromComponents(ledData[(3 * idxLed) + 2], ledData[(3 * idxLed) + 1], ledData[3 * idxLed]), idxLed);
+				color = LEDMatrix__getRGBColorFromComponents(ledData[(3 * idxLed) + 2], ledData[(3 * idxLed) + 1], ledData[3 * idxLed]);
+				LEDMatrix__applyDotCorrection(&color, 0, 0);
+				APA102__setRGBForLED(color, idxLed);
 			}
 
 			APA102__x10();

@@ -55,6 +55,7 @@ void LEDMatrix__setRGBColor (uint8_t line, uint8_t column, RGB_Color_t color)
 void LEDMatrix__setRGBColorForMatrix (RGB_Color_t color)
 {
 	uint16_t linIt, colIt;
+	uint16_t newColumn;
 	uint16_t ledPosition = 0;
 	RGB_Color_t colorCorrected;
 
@@ -72,8 +73,25 @@ void LEDMatrix__setRGBColorForMatrix (RGB_Color_t color)
 		{
 			colorCorrected = color;
 			LEDMatrix__applyDotCorrection(&colorCorrected, linIt, colIt);
+
+			if (LEDMatrix__getLedOrder() == LED_ORDER__STRAIGHT_FORWARD)
+			{
+				if ((linIt % 2) == 0)
+				{
+					newColumn = (LED_MATRIX_SIZE_COL + 1) - colIt;
+				}
+				else
+				{
+					newColumn = colIt;
+				}
+			}
+			else
+			{
+				newColumn = colIt;
+			}
+
+			ledPosition = LED_MATRIX_SIZE_COL * (linIt - 1) + (newColumn - 1);
 			APA102__setRGBForLED(colorCorrected, ledPosition);
-			ledPosition++;
 		}
 	}
 #endif

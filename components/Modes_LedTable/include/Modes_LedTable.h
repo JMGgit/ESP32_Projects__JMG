@@ -19,6 +19,7 @@
 #include "Mode_LEDScreen.h"
 #include "Mode_Equalizer.h"
 #include "Mode_FOTA.h"
+#include "Mode_ColorCalibration.h"
 
 
 typedef enum
@@ -26,6 +27,7 @@ typedef enum
 	MODE__STARTUP = 0,
 	MODE__FAILUREMEMORY,
 	MODE__FOTA,
+	MODE__COLORCALIBRATION,
 	MODE__OFF,
 	MODE__ALL_ON,
 	MODE__BLENDING_SLOW,
@@ -47,7 +49,6 @@ typedef enum
 
 #define MODE__INIT (MODE__OFF + 1)
 
-#define MAX_FOTA_ERRORS_TO_DISPLAY	5
 
 void Modes__toggleStartupMode (void);
 

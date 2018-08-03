@@ -2,7 +2,7 @@
  * Mode_FOTA.h
  *
  *  Created on: 07.04.2018
- *      Author: JMG
+ *      Author: Jean-Martin George
  */
 
 #ifndef MODE_FOTA_H_
