@@ -33,9 +33,9 @@ void LEDMatrix__applyDotCorrection (RGB_Color_t* color, uint8_t line, uint8_t co
 
 	if ((line != 0) && (column != 0))
 	{
-		color->red = (color->red * LEDMatrix__getDotCorrectionForLed_Red(line, column)) / 100;
-		color->green = (color->green * LEDMatrix__getDotCorrectionForLed_Green(line, column)) / 100;
-		color->blue = (color->blue * LEDMatrix__getDotCorrectionForLed_Blue(line, column)) / 100;
+		//color->red = (color->red * LEDMatrix__getDotCorrectionForLed_Red(line, column)) / 100;
+		//color->green = (color->green * LEDMatrix__getDotCorrectionForLed_Green(line, column)) / 100;
+		//color->blue = (color->blue * LEDMatrix__getDotCorrectionForLed_Blue(line, column)) / 100;
 	}
 }
 

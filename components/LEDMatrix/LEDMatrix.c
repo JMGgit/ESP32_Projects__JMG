@@ -29,7 +29,7 @@ void LEDMatrix__setRGBColor (uint8_t line, uint8_t column, RGB_Color_t color)
 
 	LEDMatrix__applyDotCorrection(&color, line, column);
 
-	if (LEDMatrix__getLedOrder() == LED_ORDER__STRAIGHT_FORWARD)
+	if (LEDMatrix__getLedOrder() == LED_ORDER__ZIG_ZAG)
 	{
 		if (((line % 2) == 0) && (column <= LED_MATRIX_SIZE_COL))
 		{
@@ -74,7 +74,7 @@ void LEDMatrix__setRGBColorForMatrix (RGB_Color_t color)
 			colorCorrected = color;
 			LEDMatrix__applyDotCorrection(&colorCorrected, linIt, colIt);
 
-			if (LEDMatrix__getLedOrder() == LED_ORDER__STRAIGHT_FORWARD)
+			if (LEDMatrix__getLedOrder() == LED_ORDER__ZIG_ZAG)
 			{
 				if ((linIt % 2) == 0)
 				{
@@ -161,7 +161,7 @@ void LEDMatrix__toggleLedOrder (void)
 #if (LED_ORDER == LED_ORDER__CONFIGURABLE)
 	if (ledOrder == LED_ORDER__LEFT_2_RIGHT)
 	{
-		ledOrder = LED_ORDER__STRAIGHT_FORWARD;
+		ledOrder = LED_ORDER__ZIG_ZAG;
 	}
 	else
 	{
@@ -178,7 +178,7 @@ uint8_t LEDMatrix__getLedOrder (void)
 #if (LED_ORDER == LED_ORDER__LEFT_2_RIGHT)
 	return LED_ORDER__LEFT_2_RIGHT;
 #elif (LED_ORDER == LED_ORDER__STRAIGHT_FORWARD)
-	return LED_ORDER__STRAIGHT_FORWARD;
+	return LED_ORDER__ZIG_ZAG;
 #else
 	return ledOrder;
 #endif
@@ -194,10 +194,10 @@ void LEDMatrix__init (void)
 	ledOrder = uC__nvsRead_u8("ledOrder", nvsHandle_ledOrder, &ledOrder_NVS);
 
 	if (	(ledOrder != LED_ORDER__LEFT_2_RIGHT)
-		&& 	(ledOrder != LED_ORDER__STRAIGHT_FORWARD)
+		&& 	(ledOrder != LED_ORDER__ZIG_ZAG)
 		)
 	{
-		ledOrder = LED_ORDER__STRAIGHT_FORWARD;
+		ledOrder = LED_ORDER__ZIG_ZAG;
 		uC__nvsUpdate_u8("ledOrder", nvsHandle_ledOrder, &ledOrder_NVS, ledOrder);
 	}
 #endif

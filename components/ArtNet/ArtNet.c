@@ -162,7 +162,7 @@ void ArtNet__fillArtPollReplyBuffer (uint8_t portOffset, uint8_t *buffer, uint8_
 	buffer[idx++] = 192;
 	buffer[idx++] = 168;
 	buffer[idx++] = 2;
-	buffer[idx++] = 109;
+	buffer[idx++] = 100;
 
 	/* 4: Port [2] */
 	buffer[idx++] = (uint8_t)ARTNET_PORT;
@@ -403,7 +403,7 @@ void ArtNet__fillArtPollReplyBuffer (uint8_t portOffset, uint8_t *buffer, uint8_
 	buffer[idx++] = 192;
 	buffer[idx++] = 168;
 	buffer[idx++] = 2;
-	buffer[idx++] = 109;
+	buffer[idx++] = 100;
 
 	/* 39 BindIndex [1] */
 	buffer[idx++] = 1;
