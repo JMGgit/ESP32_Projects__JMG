@@ -27,6 +27,7 @@ extern TaskHandle_t taskHandle_Clock__mainFunction;
 extern TaskHandle_t taskHandle_MSGEQ7__mainFunction;
 extern TaskHandle_t taskHandle_uC__mainFunction;
 extern TaskHandle_t taskHandle_FOTA__mainFunction;
+extern TaskHandle_t taskHandle_IRMP__mainFunction;
 
 
 typedef enum
@@ -39,6 +40,7 @@ typedef enum
 	FREERTOS_TASK_MSGEQ7,
 	FREERTOS_TASK_UC,
 	FREERTOS_TASK_FOTA,
+	FREERTOS_TASK_IRMP,
 	FREERTOS_TASK_NB
 } freeRTOStasksIds_n;
 

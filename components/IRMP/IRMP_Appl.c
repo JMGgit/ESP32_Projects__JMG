@@ -111,13 +111,13 @@ uint8_t IRMP__readData (uint16_t address, uint8_t *data, uint8_t dataLength, uin
 }
 
 
-#if 0 /* only for debug! */
 void IRMP__mainFunction (void *param)
 {
 	IRMP_DATA irmp_data;
 
 	while (1)
 	{
+#if 0 /* only for debug purpose*/
 		if (irmp_get_data(&irmp_data) != 0)
 		{
 			ESP_LOGI(LOG_TAG, "\nIRMP %10s(%2d): addr=0x%04x cmd=0x%04x, f=%d ",
@@ -128,11 +128,13 @@ void IRMP__mainFunction (void *param)
 					irmp_data.flags
 			);
 		}
+#else
+		(void)irmp_data;
+#endif
 
 		vTaskDelay(10 / portTICK_PERIOD_MS);
 	}
 }
-#endif
 
 
 #endif

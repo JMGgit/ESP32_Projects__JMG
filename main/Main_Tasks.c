@@ -20,6 +20,7 @@ TaskHandle_t taskHandle_Clock__mainFunction;
 TaskHandle_t taskHandle_MSGEQ7__mainFunction;
 TaskHandle_t taskHandle_uC__mainFunction;
 TaskHandle_t taskHandle_FOTA__mainFunction;
+TaskHandle_t taskHandle_IRMP__mainFunction;
 
 extern void LedTable__mainFunction (void *param);
 
@@ -35,6 +36,7 @@ freeRtosTaskConfig_t freeRTOStaskConfig[] =
 		{MSGEQ7__mainFunction,			"MSGEQ7__mainFunction",			4096,		NULL,			3,		&taskHandle_MSGEQ7__mainFunction,			tskNO_AFFINITY},
 		{uC__mainFunction,				"uC__mainFunction",				4096,		NULL,			1,		&taskHandle_uC__mainFunction,				tskNO_AFFINITY},
 		{FOTA__mainFunction,			"FOTA__mainFunction",			8192,		NULL,			1,		&taskHandle_FOTA__mainFunction,				tskNO_AFFINITY},
+		{IRMP__mainFunction, 			"IRMP__mainFunction",			4096,		NULL,			1,		&taskHandle_IRMP__mainFunction,				tskNO_AFFINITY}
 };
 
 
