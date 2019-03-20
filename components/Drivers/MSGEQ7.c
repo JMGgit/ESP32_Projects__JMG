@@ -22,8 +22,8 @@ void MSGEQ7__init (void)
 {
 	gpio_set_direction(MSGEQ7_RESET_GPIO, GPIO_MODE_OUTPUT);
 	gpio_set_direction(MSGEQ7_STROBE_GPIO, GPIO_MODE_OUTPUT);
-	adc1_config_width(ADC_WIDTH_12Bit);
-	adc1_config_channel_atten(MSGEQ7_ADC_CHANNEL, ADC_ATTEN_11db);
+	adc1_config_width(ADC_WIDTH_BIT_12);
+	adc1_config_channel_atten(MSGEQ7_ADC_CHANNEL, ADC_ATTEN_DB_11);
 
 	/* reset peak */
 	gpio_set_level(MSGEQ7_STROBE_GPIO, 1);

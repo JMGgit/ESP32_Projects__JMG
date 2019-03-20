@@ -10,8 +10,8 @@
 #include "Mode_ColorBlending.h"
 
 #define ADCVALUES_NB			7
-#define ADC_MIN_VALUE_IN		70
-#define ADC_MAX_VALUE_IN		4095
+#define ADC_MIN_VALUE_IN		100
+#define ADC_MAX_VALUE_IN		700
 #define ADC_MIN_VALUE_OUT		0
 #define ADC_MAX_VALUE_OUT		(LED_MATRIX_SIZE_LIN - 1)
 
@@ -47,12 +47,9 @@ void Equalizer__x10 (void)
 	{
 		for (itLin = 0; itLin < LED_MATRIX_SIZE_LIN; itLin++)
 		{
-			if (itCol < ADCVALUES_NB)
+			if (itLin < adcValues[itCol % ADCVALUES_NB])
 			{
-				if (itLin < adcValues[itCol % ADCVALUES_NB])
-				{
-					LEDMatrix__setRGBColor(LED_MATRIX_SIZE_LIN - itLin, itCol + 1, eqColor);
-				}
+				LEDMatrix__setRGBColor(LED_MATRIX_SIZE_LIN - itLin, itCol + 1, eqColor);
 			}
 		}
 	}
