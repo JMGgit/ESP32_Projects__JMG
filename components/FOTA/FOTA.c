@@ -6,7 +6,7 @@
  */
 
 
-#define LOG_LOCAL_LEVEL ESP_LOG_INFO
+#define LOG_LOCAL_LEVEL ESP_LOG_VERBOSE
 #define LOG_TAG "FOTA"
 
 #include "FOTA.h"
@@ -23,11 +23,11 @@
 #include "esp_ota_ops.h"
 
 
-#define OTA_WRITE_DATA_BUFSITE 1024
+#define OTA_WRITE_DATA_BUFSIZE 1024
 #define HTTP_BUFFER_BUFSIZE 1024
 
-static char otaWriteData[OTA_WRITE_DATA_BUFSITE + 1] = { 0 };
-static char httpBuffer[OTA_WRITE_DATA_BUFSITE + 1] = { 0 };
+static char otaWriteData[OTA_WRITE_DATA_BUFSIZE];
+static char httpBuffer[OTA_WRITE_DATA_BUFSIZE];
 static int binary_file_length = 0;
 
 static uint64_t currentSwVersion;
@@ -185,7 +185,7 @@ static uint8_t FOTA__readPastHttpHeader (char text[], int total_len, esp_ota_han
 		{
 			int i_write_len = total_len - (i + 2);
 
-			memset(otaWriteData, 0, OTA_WRITE_DATA_BUFSITE);
+			memset(otaWriteData, 0, OTA_WRITE_DATA_BUFSIZE);
 			memcpy(otaWriteData, &(text[i + 2]), i_write_len);
 
 			esp_err_t err = esp_ota_write(update_handle, (const void *) otaWriteData, i_write_len);
@@ -543,7 +543,7 @@ void FOTA__mainFunction(void *param)
 					while (waitForData)
 					{
 						memset(httpBuffer, 0, HTTP_BUFFER_BUFSIZE);
-						memset(otaWriteData, 0, OTA_WRITE_DATA_BUFSITE);
+						memset(otaWriteData, 0, OTA_WRITE_DATA_BUFSIZE);
 
 						recvBufLength = recv(socketId, httpBuffer, HTTP_BUFFER_BUFSIZE, 0);
 
